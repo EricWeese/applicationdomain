@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "dummy-project-id",
+    "staging": "applicationdomain-9e9fc"
+  },
+  "targets": {},
+  "etags": {}
+}
