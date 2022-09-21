@@ -12,7 +12,7 @@ function passwordCheck() {
     if (password.search(/[0-9]/) < 0) {
         errors.push("Your password must contain at least one digit."); 
     }
-    if (password.search(/[!@#$%^&*]/)) {
+    if (password.search(/[!@#$%^&*]/) < 0) {
         errors.push("Your password must contain a special character.")
     }
     if (errors.length > 0) {
