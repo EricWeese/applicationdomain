@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "dummy-project-id",
+    "default": "applicationdomain-9e9fc",
     "staging": "applicationdomain-9e9fc"
   },
   "targets": {},

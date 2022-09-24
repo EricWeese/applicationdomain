@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<style>
+
+		.grid-container {
+			display: grid;
+			grid-template-columns: 30% auto 30%;
+			gap: 10px 20px;
+			background-color: #2196F3;
+			padding: 10px;
+		}
+
+			.grid-container .grid-header {
+				grid-column: 1 / span 3;
+				padding: 10px 0px 10px 0px;
+			}
+
+			.grid-container > div {
+				background-color: rgba(255, 255, 255, 0.8);
+				border: 1px solid black;
+				text-align: center;
+				font-size: 30px;
+				padding: 40px 0px 40px 0px;
+			}
+
+				.grid-container > div > div {
+					font-size: 24px;
+					font-style: italic;
+				}
+
+		.grid-container2 {
+			display: grid;
+			grid-template-columns: 10% auto 20%;
+			gap: 10px;
+			background-color: #200000;
+			padding: 10px;
+		}
+
+			.grid-container2 > div {
+				background-color: rgba(0, 255, 255, 1);
+				border: 1px solid black;
+				text-align: center;
+				font-size: 30px;
+			}
+	</style>
+
+</head>
+
+<body>
+	<div style="color:black; font-size:12px; background-color:aqua; width:100%; height:50px">
+		<img src="../images/logo.png" style="width:50px; padding: 0px 20px 0px 5px" align="left" />
+		<img src="../images/ProfilePic.jfif" style="width:30px; padding:10px" align="right" />
+	</div>
+
+	<div style="height:30px">
+
+	</div>
+
+	<div class="grid-container">
+
+		<div class="grid-header">
+			Main Menu
+		</div>
+
+		<div>
+			Manage Roles
+			<div>
+				Activate or Deactivate Roles
+			</div>
+		</div>
+
+		<div>
+			Manage Users
+			<div>
+				Create, Edit, or Delete Users
+			</div>
+		</div>
+
+		<div>
+			3
+		</div>
+
+		<div>
+			4
+		</div>
+
+		<div>
+			5
+		</div>
+
+		<div>
+			6
+		</div>
+
+		<div>
+			7
+		</div>
+
+		<div>
+			8
+		</div>
+
+	</div>
+
+
+
+	<p>Direct child elements(s) of the grid container automatically becomes grid items.</p>
+
+
+
+</body>
+
+</html>
