@@ -4,32 +4,61 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
+
+    <style>
+		.table {
+			background-color: rgb(164, 201, 220);
+		}
+
+		.grid-container {
+			display: grid;
+			grid-template-columns: 10% auto 10%;
+			gap: 10px 40px;
+			background-color: rgb(44, 152, 210);
+			padding: 10px;
+			margin: 20px 20%;
+		}
+
+			.grid-container > table {
+				background-color: rgba(255, 255, 255, 0.8);
+			}
+    </style>
 </head>
 <body>
     <div style="color:black; font-size:12px; background-color:aqua; width:100%; height:50px">
-        <img src="../images/logo.png" style="width:50px; padding: 0px 20px 0px 5px" align="left" />
+        <a href="Menu.html">
+            <img src="../images/logo.png" style="width:50px; padding: 0px 20px 0px 5px" align="left" />
+        </a>
         <img src="../images/ProfilePic.jfif" style="width:30px; padding:10px" align="right" />
         <div style="font-size:12px; color:black; padding: 20px" align="right">
             USERNAME
         </div>
     </div>
 
-    <table>
-        <tr>
-            <th>Company</th>
-            <th>Contact</th>
-            <th>Country</th>
-        </tr>
-        <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>Maria Anders</td>
-            <td>Germany</td>
-        </tr>
-        <tr>
-            <td>Centro comercial Moctezuma</td>
-            <td>Francisco Chang</td>
-            <td>Mexico</td>
-        </tr>
-    </table>
+    <div class="grid-container">
+        <div>
+
+        </div>
+        <table>
+            <tr>
+                <th>Company</th>
+                <th>Contact</th>
+                <th>Country</th>
+            </tr>
+            <tr>
+                <td>Alfreds Futterkiste</td>
+                <td>Maria Anders</td>
+                <td>Germany</td>
+            </tr>
+            <tr>
+                <td>Centro comercial Moctezuma</td>
+                <td>Francisco Chang</td>
+                <td>Mexico</td>
+            </tr>
+        </table>
+        <div>
+
+        </div>
+    </div>
 </body>
 </html>
