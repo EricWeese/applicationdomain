@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<style>
+
+		.grid-container {
+			display: grid;
+			grid-template-columns: 30% auto 30%;
+			gap: 10px 40px;
+			background-color: rgb(44, 152, 210);
+			padding: 10px;
+			margin: 0px 10px;
+		}
+
+			.grid-container .grid-header {
+				grid-column: 1 / span 3;
+				padding: 10px 0px 10px 0px;
+			}
+
+			.grid-container > div {
+				background-color: rgba(255, 255, 255, 0.8);
+				border: 1px solid black;
+				text-align: center;
+				font-size: 30px;
+				padding: 40px 0px 40px 0px;
+			}
+
+			.grid-container > a {
+				background-color: rgba(255, 255, 255, 0.8);
+				border: 1px solid black;
+				text-align: center;
+				font-size: 30px;
+				padding: 40px 0px 40px 0px;
+				color: darkblue;
+				font-style:normal;
+				text-decoration:none;
+			}
+
+				.grid-container > a > div {
+					font-size: 24px;
+					font-style: italic;
+				}
+
+		.grid-container2 {
+			display: grid;
+			grid-template-columns: 10% auto 20%;
+			gap: 10px;
+			background-color: #200000;
+			padding: 10px;
+		}
+
+			.grid-container2 > div {
+				background-color: rgba(0, 255, 255, 1);
+				border: 1px solid black;
+				text-align: center;
+				font-size: 30px;
+			}
+	</style>
+
+</head>
+
+<body>
+	<div style="color:black; font-size:12px; background-color:aqua; width:100%; height:50px">
+		<img src="../images/logo.png" style="width:50px; padding: 0px 20px 0px 5px" align="left" />
+		<img src="../images/ProfilePic.jfif" style="width:30px; padding:10px" align="right" />
+		<div style="font-size:12px; color:black; padding: 20px" align="right">
+			USERNAME
+		</div>
+	</div>
+
+	<div style="height:30px">
+
+	</div>
+
+	<div class="grid-container">
+
+		<div class="grid-header">
+			Main Menu
+		</div>
+
+		<a href="">
+			Manage Roles
+			<div>
+				Activate or Deactivate Roles
+			</div>
+		</a>
+
+		<a href="manageUsers.html">
+			Manage Users
+			<div>
+				Create, Edit, or Delete Users
+			</div>
+		</a>
+
+		<a href="">
+			Message User
+			<div>
+				Send an Email to a User
+			</div>
+		</a>
+
+		<a href="">
+			View Ledgers
+			<div>
+				*WIP*
+			</div>
+		</a>
+
+		<a href="">
+			Add Journal
+			<div>
+				*WIP*
+			</div>
+		</a>
+
+		<a href="">
+			6
+			<div>
+				*WIP*
+			</div>
+		</a>
+
+		<a href="">
+			7
+			<div>
+				*WIP*
+			</div>
+		</a>
+
+		<a href="">
+			8
+			<div>
+				*WIP*
+			</div>
+		</a>
+
+	</div>
+
+</body>
+
+</html>
