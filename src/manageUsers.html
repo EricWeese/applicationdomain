@@ -22,8 +22,12 @@
 			.grid-container > table {
 				background-color: rgba(255, 255, 255, 0.8);
 			}
-		td {
-            
+		#corners1 {
+			border-radius: 15px;
+			background: lightblue;
+			padding: 3px;
+			width: 20px;
+			height: 20px;
 		}
     </style>
 </head>
@@ -56,8 +60,10 @@
             <tr>
                 <td>Centro comercial Moctezuma</td>
                 <td>Francisco Chang</td>
-                <td>
-                    <img src="update.png" />
+                <td style="display:flex; align-items:center">
+                    <p id="corners1" style="padding:3px">
+                        <img src="..\images\updatelogo.png" style="width:20px"/>
+                    </p>
                     Update
                     Deactivate
                     Suspend
