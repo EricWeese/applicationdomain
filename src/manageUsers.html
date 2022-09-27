@@ -22,6 +22,13 @@
 			.grid-container > table {
 				background-color: rgba(255, 255, 255, 0.8);
 			}
+		#corners1 {
+			border-radius: 15px;
+			background: lightblue;
+			padding: 3px;
+			width: 20px;
+			height: 20px;
+		}
     </style>
 </head>
 <body>
@@ -36,24 +43,35 @@
     </div>
 
     <div class="grid-container">
-        <div>
-
+        <div style="text-align:center">
+            All Users
+            Expired Passwords
         </div>
         <table>
             <tr>
-                <th>Company</th>
-                <th>Contact</th>
-                <th>Country</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Action</th>
+                <th>Expired Passwords</th>
             </tr>
             <tr>
-                <td>Alfreds Futterkiste</td>
-                <td>Maria Anders</td>
-                <td>Germany</td>
+                <td>Administrator</td>
+                <td>Admin</td>
+                <td>N/A</td>
+                <td>no</td>
             </tr>
             <tr>
-                <td>Centro comercial Moctezuma</td>
                 <td>Francisco Chang</td>
-                <td>Mexico</td>
+                <td>Manager</td>
+                <td style="display:flex; align-items:center">
+                    <p id="corners1" style="padding:3px">
+                        <img src="..\images\updatelogo.png" style="width:20px"/>
+                    </p>
+                    Update
+                    Deactivate
+                    Suspend
+                </td>
+                <td>no</td>
             </tr>
         </table>
         <div>

@@ -8,7 +8,8 @@ try {
     const docRef = await addDoc(collection(db, "users"), {
         first: "Ada",
         last: "Lovelace",
-        born: 1815
+        born: 1815,
+        address: "1212 road"
     });
     console.log("Document written with ID: ", docRef.id);
 } catch (e) {

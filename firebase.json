@@ -3,9 +3,6 @@
     "auth": {
       "port": 9099
     },
-    "hosting": {
-      "port": 5001
-    },
     "ui": {
       "enabled": true
     },
@@ -14,7 +11,9 @@
     },
     "firestore": {
       "port": 8080
-    }
+    },
+    "database": {
+    "rules": "database.rules.json"
   },
   "hosting": {
     "public": "public",
