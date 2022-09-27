@@ -40,16 +40,19 @@
 
 		.grid-container {
 			display: grid;
-			grid-template-columns: 30% auto 30%;
+			grid-template-columns: 25% auto 25%;
 			gap: 10px 40px;
-			background-color: blue;
+			background-color: rgb(44, 152, 210);
 			padding: 10px;
 			margin: 0px 10px;
+			border-radius: 30px;
+			padding: 30px 10px 30px 10px;
 		}
 
 			.grid-container .grid-header {
 				grid-column: 1 / span 3;
 				padding: 10px 0px 10px 0px;
+				align-self: center;
 			}
 
 			.grid-container > div {
@@ -58,6 +61,7 @@
 				text-align: center;
 				font-size: 30px;
 				padding: 40px 0px 40px 0px;
+				border-radius: 25px;
 			}
 
 			.grid-container > a {
@@ -67,20 +71,20 @@
 				font-size: 30px;
 				padding: 40px 0px 40px 0px;
 				color: darkblue;
-				font-style:normal;
-				text-decoration:none;
+				font-style: normal;
+				text-decoration: none;
+				border-radius: 75px;
 			}
 
 				.grid-container > a > div {
-					font-size: 24px;
+					font-size: 20px;
 					font-style: italic;
 				}
 
 		.grid-container2 {
 			display: grid;
-			grid-template-columns: 10% auto 20%;
+			grid-template-columns: 7% auto 10%;
 			gap: 10px;
-			background-color: #200000;
 			padding: 10px;
 		}
 
@@ -90,6 +94,10 @@
 				text-align: center;
 				font-size: 30px;
 			}
+
+				.grid-container2 > div > a {
+					text-decoration: none;
+				}
 	</style>
 
 	<div style="color:black; font-size:12px; background-color:aqua; width:100%; height:50px">
@@ -104,70 +112,90 @@
 
 	</div>
 
-	<div class="grid-container">
+	<div class="grid-container2">
+		<h1></h1>
+		<div class="grid-container">
+			<div class="grid-header">
+				Main Menu
+			</div>
 
-		<div class="grid-header">
-			Main Menu
+			<a href="">
+				Manage Roles
+				<div>
+					Activate or Deactivate Roles
+				</div>
+			</a>
+
+			<a href="manageUsers.html">
+				Manage Users
+				<div>
+					Create, Edit, or Delete Users
+				</div>
+			</a>
+
+			<a href="">
+				Message User
+				<div>
+					Send an Email to a User
+				</div>
+			</a>
+
+			<a href="">
+				View Ledgers
+				<div>
+					*WIP*
+				</div>
+			</a>
+
+			<a href="">
+				Add Journal
+				<div>
+					*WIP*
+				</div>
+			</a>
+
+			<a href="">
+				6
+				<div>
+					*WIP*
+				</div>
+			</a>
+
+			<a href="">
+				7
+				<div>
+					*WIP*
+				</div>
+			</a>
+
+			<a href="">
+				8
+				<div>
+					*WIP*
+				</div>
+			</a>
+
 		</div>
 
-		<a href="">
-			Manage Roles
-			<div>
-				Activate or Deactivate Roles
-			</div>
-		</a>
-
-		<a href="">
-			Manage Users
-			<div>
-				Create, Edit, or Delete Users
-			</div>
-		</a>
-
-		<a href="">
-			Message User
-			<div>
-				Send an Email to a User
-			</div>
-		</a>
-
-		<a href="">
-			View Ledgers
-			<div>
-				*WIP*
-			</div>
-		</a>
-
-		<a href="">
-			Add Journal
-			<div>
-				*WIP*
-			</div>
-		</a>
-
-		<a href="">
-			6
-			<div>
-				*WIP*
-			</div>
-		</a>
-
-		<a href="">
-			7
-			<div>
-				*WIP*
-			</div>
-		</a>
-
-		<a href="">
-			8
-			<div>
-				*WIP*
-			</div>
-		</a>
-
+		<div style="display:inline-block; text-align:center; border-radius:20px; height:50%">
+			<p style="font-style:oblique">Console</p>
+			<a href="">
+				Profile
+			</a>
+			<a href="">
+				Settings
+			</a>
+			<a href="">
+				Options
+			</a>
+			<a href="">
+				Others
+			</a>
+		</div>
 	</div>
-
+	<div style="text-indent:40%">
+		(Note: *WIP* means work in progress)
+	</div>
 </body>
 
 </html>

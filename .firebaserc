@@ -1,8 +1,5 @@
 {
   "projects": {
-    "default": "applicationdomain-9e9fc",
-    "staging": "applicationdomain-9e9fc"
-  },
-  "targets": {},
-  "etags": {}
+    "default": "applicationdomain-9e9fc"
+  }
 }
