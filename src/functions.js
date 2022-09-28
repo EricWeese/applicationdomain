@@ -1,18 +1,17 @@
-import { contains } from "@firebase/util";
+import { txtPassword, txtConPassowrd, txtUserName } from "src/constants.js";
 
 function passwordCheck() {
-    var password = document.getElementById('pswd').value
         errors = [];
-    if (password.length <= 8) {
+    if (txtPassword.length <= 8) {
         errors.push("Your password must be at least 8 characters"); 
     }
-    if (password.search(/[a-z]/i) < 0) {
+    if (txtPassword.search(/[a-z]/i) < 0) {
         errors.push("Your password must contain at least one letter.");
     }
-    if (password.search(/[0-9]/) < 0) {
+    if (txtPassword.search(/[0-9]/) < 0) {
         errors.push("Your password must contain at least one digit."); 
     }
-    if (password.search(/[!@#$%^&*]/) < 0) {
+    if (txtPassword.search(/[!@#$%^&*]/) < 0) {
         errors.push("Your password must contain a special character.")
     }
     if (errors.length > 0) {
@@ -23,9 +22,7 @@ function passwordCheck() {
 }
 
 function passwordMatch() {
-    var password1 = document.getElementById('pswd').value
-    var password2 = document.getElementById('pswd2').value
-    if(password1 != password2){
+    if(txtPassword != txtConPassowrd){
         alert("Passwords did not match");
     } else {
         alert("Pasword created successfully.");
@@ -34,10 +31,7 @@ function passwordMatch() {
 
 function loginAttempts() {
     var attempts = 3
-    var username = document.getElementById('username').value
-    var password = document.getElementById('pswd').value
-
-    if( username == 'John' && password == '123') {
+    if( txtUserName == 'John' && txtPassword == '123') {
         alert('success');
     } else {
         attempts--
