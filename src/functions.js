@@ -1,4 +1,5 @@
-import { txtPassword, txtConPassowrd, txtUserName } from "src/constants.js";
+import { txtPassword, txtConPassowrd, txtUserName, tblUserPop, tblrow, tbld } from "src/constants.js";
+import { getUsers } from "./dbScripts";
 
 function passwordCheck() {
         errors = [];
@@ -40,4 +41,31 @@ function loginAttempts() {
             alert("You are blocked");
         }
     }
+}
+
+// Going throw all the users in the db to select certain fields to populate table in webpage.
+function getUserData() {
+    getUsers.array.forEach(element => {
+        var userName = element.val().userName;
+        var role = element.val().role;
+        var action = element.val().action;
+        var expired = false;
+        populateTable(userName, role, action, expired);
+    });
+}
+
+// Populating the table with the data from the db.
+function populateTable(userName, role, action, expired) {
+    var tbody = tblUserPop;
+    var trow = tblrow;
+    var td1 = tbld;
+    var td2 = tbld;
+    var td3 = tbld;
+    var td4 = tbld;
+    td1.innerHTML = userName;
+    td2.innerHTML = role;
+    td3.innerHTML = action;
+    td4.innerHTML = expired;
+    trow.appendChild(td1); trow.appendChild(td2); trow.appendChild(td3); trow.appendChild(td4);
+    tbody.appendChild(trow);
 }

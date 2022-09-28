@@ -5,11 +5,11 @@ export const txtConPassowrd = document.querySelector('#txtConPassword')
 export const txtFirstName = document.querySelector('#txtFirstName')
 export const txtLastName = document.querySelector('txtLastName')
 export const txtDOB = document.querySelector('#txtDOB')
-export const txtAddress = document.querySelector('txtAddress')
-export const txtCity = document.querySelector('txtCity')
-export const txtState = document.querySelector('txtState')
-export const txtUserName = document.querySelector('txtUserName')
-export const txtRole = document.querySelector('txtRole')
+export const txtAddress = document.querySelector('#txtAddress')
+export const txtCity = document.querySelector('#txtCity')
+export const txtState = document.querySelector('#txtState')
+export const txtUserName = document.querySelector('#txtUserName')
+export const txtRole = document.querySelector('#txtRole')
 
 // Buttons
 export const btnLogin = document.querySelector('#btnLogin')
@@ -27,3 +27,12 @@ export const divLoginError = document.querySelector('#divLoginError')
 export const lblLoginErrorMessage = document.querySelector('#lblLoginErrorMessage')
 export const lblSignUpErrorMessage = document.querySelector('#lblSignUpErrorMessage')
 export const lblUpdatePasswordMessageError = document.querySelector('#lbllblUpdatePasswordMessageError')
+
+// Tables
+export const tblUserPop = document.getElementById('#tblUserPop')
+
+// Table Row
+export const tblrow = document.createElement('tr')
+
+// Table data
+export const tbld = document.createElement('td')
