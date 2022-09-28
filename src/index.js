@@ -8,6 +8,38 @@ git add .
 git commit -m [message]
 git push origin main
 */
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBQ9fnV3v6hv7rc3QQa4B1wGn55RXDOpS8",
+  authDomain: "applicationdomain-9e9fc.firebaseapp.com",
+  databaseURL: "https://applicationdomain-9e9fc-default-rtdb.firebaseio.com",
+  projectId: "applicationdomain-9e9fc",
+  storageBucket: "applicationdomain-9e9fc.appspot.com",
+  messagingSenderId: "51150827521",
+  appId: "1:51150827521:web:1758f5ef478c73f5a39000",
+  measurementId: "G-W92Z7MX5WP"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const database = getDatabase(app);
+
+submitRegister.addEventListener('click',(e) => {
+
+});
+
+/*
+
 import './styles.css';
 import {
   hideLoginError,
@@ -132,3 +164,4 @@ const auth = getAuth(firebaseApp);
 connectAuthEmulator(auth, "http://localhost:9099");
 
 monitorAuthState();
+*/
