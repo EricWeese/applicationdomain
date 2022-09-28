@@ -3,22 +3,18 @@
 
     <head>
         <title>EZbook</title>
-        <!--<link href="style2.css" type="text/css" rel="stylesheet" /> -->
-           <div id="header"><b>EZbook</b>
-            <br />
+        <link href="style2.css" type="text/css" rel="stylesheet" /> 
+        <div class="top">
+            <h1 id="name"><b>EZbook</b></h1>
             <figure>
-                <img src="images\Logo1.png" alt= "" title="Logo Pic" width="200" height="200" >
+                <img src="images\Logo1.png" alt= "" title="Logo Pic" width="100" height="100" >
                 <figcaption>
-                    <em>EZbook
-                    </em>
-                    <i>life made simple
-                    </i>
+                <div class="slogan"><i>life made simple<i></p></div>
                 </figcaption>
-            </figure>
-          </head>
+              </figure>
                 <table>
                     <tr>
-                        <th>Products & Features</th>
+                     <th>Products & Features</th>
                         <th></th>
                         <th>Plans & Pricing</th>
                         <th></th>
@@ -26,8 +22,10 @@
                         <th></th>
                         <th>Talk to Sales: 1-800-1ezbook</th>
                     </tr>
-                </table>	
+                  </table>
+                </head>	
                 </div> <!--End of header-->	
+                <br />
             <div id="login">
             <body>
               <form action="" method="post">
@@ -38,19 +36,18 @@
                 <input type="submit" value="Submit" />
             </form> 
           </div> <!--End Login-->
+          <div>
             <form action="">
                 <p>Forgot password?</p>
                 <input type="text" name="Email" placeholder="Enter email"/>
-                <input type="submit" name="Sumit" /> 
-                
+                <input type="submit" name="Sumit" />     
             </form>
+          </div> <br />
             <div class="form">  
                 <div class="tab-content">
                   <div id="signup">   
-                    <h1>New User</h1>
-                    
+                    <button>New User</button>
                     <form action="/" method="post">
-                    
                     <div class="top-row">
                       <div class="field-wrap">
                         <label>
@@ -60,9 +57,7 @@
                         <label>
                           Last Name<span class="req"></span>
                         </label>
-                        <input type="text"required autocomplete="off"/>
-                      <div class="field-wrap">
-                        <p>Home Address</p>
+                        <input type="text"required autocomplete="off"/><br />
                         <label>
                           Street</Address><span class="req"></span>
                         </label>
@@ -86,7 +81,16 @@
                         Email Address<span class="req"></span>
                       </label>
                       <input type="email"required autocomplete="off"/>
+                      <label>
+                        Telephone<span class="req"></span>
+                      </label>
+                      <input type="telephone"required autocomplete="off"/>
                     </div>
+                    <div><label>
+                      Date of Birth<span class="req"></span>
+                    </label>
+                    <input type="DOB"required autocomplete="off" placeholder="MM-DD-YYYY"/>
+                  </div>
                     <button type="submit" class="button button-block"/>Submit</button>
                     </form>
                   </div>

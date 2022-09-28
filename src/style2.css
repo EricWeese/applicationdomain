@@ -1,8 +1,41 @@
-head { 
-    height: 350;
-    width: 1000;
-    background-color:rgb(248, 215, 250);
-    border: 1px solid;
-    padding: 10px;
-
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: antiquewhite;
+    padding: 5px;
 }
+h1.name{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16pt;
+    
+}
+img{
+   position: fixed;
+   left: 1.5%;
+   top: 9%;
+    
+}
+.slogan{ 
+    position:fixed;
+    top: 170px;
+    left: 1.2%;
+    font-size: 11pt;
+    font-family: Georgia, 'Times New Roman', Times, serif  
+}
+tr{
+    position: fixed;
+    top: 125pt;
+    left: 15%;
+}
+.th{
+    word-spacing: 20px;
+}
+.top{
+    background-color: azure;
+    border-style: solid;
+    border-width: 1px 4px 12px 4px;
+    border-color: black;
+    height: 140pt; 
+}
+
+
+
