@@ -3,32 +3,6 @@ body{
     background-color: antiquewhite;
     padding: 5px;
 }
-h1.name{
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 16pt;
-    
-}
-img{
-   position: fixed;
-   left: 1.5%;
-   top: 9%;
-    
-}
-.slogan{ 
-    position:fixed;
-    top: 170px;
-    left: 1.2%;
-    font-size: 11pt;
-    font-family: Georgia, 'Times New Roman', Times, serif  
-}
-tr{
-    position: fixed;
-    top: 125pt;
-    left: 15%;
-}
-.th{
-    word-spacing: 20px;
-}
 .top{
     background-color: azure;
     border-style: solid;
@@ -38,15 +12,46 @@ tr{
 }
 
 .login{
+
     border-color:  black;
     border: solid;
     height: 300px;
     width: 300px;
     background-color: aqua;
-    margin: 12% auto;
+    margin: 1% auto;
 }
 .one{
     padding: 20px;
+}
+.username{
+    margin: 0% auto;
+}
+.name{
+    position: relative;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 100pt;
+    padding-left: 10px;
+    
+}
+img{
+   position: relative;
+   padding-left: -15%; 
+}
+tr{
+    position: fixed;
+    top: 125pt;
+    left: 15%;
+}
+.th{
+    word-spacing: 20px;
+}
+.signup{
+    border-color:  black;
+    border: solid;
+    height: 300px;
+    width: 600px;
+    background-color: aqua;
+    margin: 1% auto;
 }
 
 
