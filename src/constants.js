@@ -1,5 +1,5 @@
 // Text Fields
-export const txtEmail = document.querySelector('#txtEmail')
+export var txtEmail = document.querySelector('#txtEmail')
 export const txtPassword = document.querySelector('#txtPassword')
 export const txtConPassowrd = document.querySelector('#txtConPassword')
 export const txtFirstName = document.querySelector('#txtFirstName')
