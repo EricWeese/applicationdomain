@@ -17,7 +17,8 @@ import {
   showLoginError,
   btnLogin,
   btnSignup,
-  btnLogout
+  btnLogout,
+  txtPassword
 } from './ui'
 
 import { initializeApp } from 'firebase/app';
@@ -27,7 +28,8 @@ import {
   signOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  connectAuthEmulator
+  connectAuthEmulator,
+  confirmPasswordReset
 } from 'firebase/auth';
 
 const firebaseApp = initializeApp({
@@ -40,6 +42,20 @@ const firebaseApp = initializeApp({
   appId: "1:51150827521:web:1758f5ef478c73f5a39000",
   measurementId: "G-W92Z7MX5WP"
 });
+
+//const CryptoJS = require('crypto-js');
+// const encryptWithAES = (text) => {
+//   const passphrase = '123';
+//   return CryptoJS.AES.encrypt(text, passphrase).toString();
+// };
+
+// const decryptWithAES = (ciphertext) => {
+//   const passphrase = '123';
+//   const bytes = CryptoJS.AES.decrypt(ciphertext, passphrase);
+//   const originalText = bytes.toString(CryptoJS.enc.Utf8);
+//   return originalText;
+// };
+
 // Login using email/password
   const loginEmailPassword = async () => {
   const loginEmail = txtEmail.value
@@ -62,13 +78,26 @@ const firebaseApp = initializeApp({
 const createAccount = async () => {
   const email = txtEmail.value
   const password = txtPassword.value
-
   try {
     await createUserWithEmailAndPassword(auth, email, password)
   }
   catch(error) {
     console.log('There was an error: ${error}')
     showLoginError(error)
+  }
+}
+
+//Should reset password
+const pswdReset = async() => {
+  const conCode = txtConCode.value
+  const newPassword = txtPassword.value
+
+  try{
+    await confirmPasswordReset(conCode, newPassword)
+  }
+  catch(error){
+    console.log('There was an error: ${error}')
+    showResetError(error)
   }
 }
 
