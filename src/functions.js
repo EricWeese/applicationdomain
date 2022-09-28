@@ -35,7 +35,7 @@ function loginAttempts() {
     if( txtUserName == 'John' && txtPassword == '123') {
         alert('success');
     } else {
-        attempts--
+        attempts--;
         alert("You have "+attempts+" attempts left");
         if(attempts == 0){
             alert("You are blocked");

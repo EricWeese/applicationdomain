@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 npx webpack
 firebase serve --onlyhosting
@@ -34,6 +35,10 @@ const db = firebase.firestore();
 function register() {
 
 	email = document.getElementById('email').value;
+=======
+function register() {
+	email = document.getElementById('email').value
+>>>>>>> c67dfe8c8965ae215786c9ea0544ea141f91fc79
 	password = document.getElementById('password').value
 	confirmpassword = document.getElementById('confirmpassword').value
 	first_name = document.getElementById('first_name').value
@@ -55,6 +60,7 @@ function register() {
 	// Move on with Auth
 	auth.createUserWithEmailAndPassword(email, password)
 		.then(async function () {
+<<<<<<< HEAD
 			var user = auth.currentUser
 			var database_ref = database.ref()
 			var user_data = {
@@ -81,6 +87,8 @@ function register() {
 							console.error("Error adding document: ", e);
 						}
 			*/
+=======
+>>>>>>> c67dfe8c8965ae215786c9ea0544ea141f91fc79
 			alert('User Created!');
 			window.location = "./index.html";
 
@@ -141,9 +149,6 @@ function login() {
 		})
 }
 
-
-
-
 // Validate Functions
 function validate_email(email) {
 	expression = /^[^@]+@\w+(\.\w+)+\w$/
@@ -184,4 +189,20 @@ function passwordMatch(password, confirmpassword) {
 	} else {
 		return true;
 	}
+<<<<<<< HEAD
 }
+=======
+}
+
+function validate_field(field) {
+	if (field == null) {
+		return false
+	}
+
+	if (field.length <= 0) {
+		return false
+	} else {
+		return true
+	}
+}
+>>>>>>> c67dfe8c8965ae215786c9ea0544ea141f91fc79
