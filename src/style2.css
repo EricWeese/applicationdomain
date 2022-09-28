@@ -37,5 +37,18 @@ tr{
     height: 140pt; 
 }
 
+.login{
+    border-color:  black;
+    border: solid;
+    height: 300px;
+    width: 300px;
+    background-color: aqua;
+    margin: 12% auto;
+}
+.one{
+    padding: 20px;
+}
+
+
 
 
