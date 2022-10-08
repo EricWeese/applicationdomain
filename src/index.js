@@ -34,11 +34,8 @@ const db = firebase.firestore();
 
 function register() {
 
-	email = document.getElementById('email').value;
-=======
 function register() {
 	email = document.getElementById('email').value
->>>>>>> c67dfe8c8965ae215786c9ea0544ea141f91fc79
 	password = document.getElementById('password').value
 	confirmpassword = document.getElementById('confirmpassword').value
 	first_name = document.getElementById('first_name').value
