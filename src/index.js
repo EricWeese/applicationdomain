@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 /*
 npx webpack
@@ -15,6 +16,8 @@ import { db } from "./firebase/config.js"
 import { addDoc, collection } from "firebase/firestore"
 export { db, addDoc }
 
+=======
+>>>>>>> 0a75a161350b733da6a341ca3a6d3be15946ea65
 function register() {
 	email = document.getElementById('email').value
 	password = document.getElementById('password').value
@@ -38,6 +41,7 @@ function register() {
 	// Move on with Auth
 	auth.createUserWithEmailAndPassword(email, password)
 		.then(async function () {
+<<<<<<< HEAD
 
 			var user = auth.currentUser
 			var database_ref = database.ref()
@@ -65,6 +69,8 @@ function register() {
 				console.error("Error adding document: ", e);
 			}
 
+=======
+>>>>>>> 0a75a161350b733da6a341ca3a6d3be15946ea65
 			alert('User Created!');
 			window.location = "./index.html";
 
@@ -165,7 +171,10 @@ function passwordMatch(password, confirmpassword) {
 	} else {
 		return true;
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0a75a161350b733da6a341ca3a6d3be15946ea65
 }
 
 
@@ -181,4 +190,7 @@ function validate_field(field) {
 		return true
 	}
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0a75a161350b733da6a341ca3a6d3be15946ea65
