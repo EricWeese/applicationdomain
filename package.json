@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Getting started with Firebase Authentication on the web - Firebase Fundamentals",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack"

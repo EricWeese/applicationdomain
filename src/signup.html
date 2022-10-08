@@ -33,8 +33,7 @@
                     </div>
 
                     <div id="button_container">
-                        <button onclick="register()">Register</button>
-                        <button onclick="test()">Register</button>
+                        <button id="registerButton" onclick="register()">Register</button>
 
 
                     </div>
@@ -44,7 +43,29 @@
         </div>
     </div>
 </body>
-<<<<<<< HEAD
+
+
+
+<script>
+    async function register() {
+        try {
+            await addDoc(collection(db, "Users"), {
+
+                first: "Alan",
+                middle: "Mathison",
+                last: "Turing",
+                born: 1912
+            });
+
+            console.log("Document written with ID: ", docRef.id);
+        } catch (e) {
+            console.error("Error adding document: ", e);
+        }
+
+        alert('sadfdsgsdfgsdf Created!');
+    }
+</script>
+
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
 
@@ -53,13 +74,8 @@
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
 
 
-=======
-<!-- <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
 
-<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script> -->
->>>>>>> c67dfe8c8965ae215786c9ea0544ea141f91fc79
-<script src="index.js"></script>
+<script type="test/javascript" src="./index.js"></script>
 <script src="signup.js"></script>
 
 

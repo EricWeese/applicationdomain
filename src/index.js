@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /*
 npx webpack
 firebase serve --onlyhosting
@@ -11,28 +11,9 @@ git push origin main
 */
 
 
-
-//import { getFirestore } from "firebase/firestore";
-//import { auth } from "firebase/auth";
-var firebaseConfig = {
-	apiKey: "AIzaSyBQ9fnV3v6hv7rc3QQa4B1wGn55RXDOpS8",
-	authDomain: "applicationdomain-9e9fc.firebaseapp.com",
-	databaseURL: "https://applicationdomain-9e9fc-default-rtdb.firebaseio.com",
-	projectId: "applicationdomain-9e9fc",
-	storageBucket: "applicationdomain-9e9fc.appspot.com",
-	messagingSenderId: "51150827521",
-	appId: "1:51150827521:web:1758f5ef478c73f5a39000",
-	measurementId: "G-W92Z7MX5WP"
-};
-var loginAttempts = 3;
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth()
-const database = firebase.database()
-//const db = firebase.getFirestore();
-const db = firebase.firestore();
-
-
-function register() {
+import { db } from "./firebase/config.js"
+import { addDoc, collection } from "firebase/firestore"
+export { db, addDoc }
 
 function register() {
 	email = document.getElementById('email').value
@@ -45,19 +26,19 @@ function register() {
 		alert('Email is in wrong format')
 		return
 	}
-
-	if (validate_password(password) == false) {
+	console.log("sdfgsdfg");
+	/*if (validate_password(password) == false) {
 		return
 	}
 	if (passwordMatch(password, confirmpassword) == false) {
 		return
-	}
+	}*/
 
 
 	// Move on with Auth
 	auth.createUserWithEmailAndPassword(email, password)
 		.then(async function () {
-<<<<<<< HEAD
+
 			var user = auth.currentUser
 			var database_ref = database.ref()
 			var user_data = {
@@ -66,26 +47,24 @@ function register() {
 				last_login: Date.now()
 			}
 			//database.addDoc(user_data)
-			database_ref.push(email);
-			database_ref.child('users/' + user.uid).set(user_data)
+			//database_ref.push(email);
+			//database_ref.child('users/' + user.uid).set(user_data)
 
-			/*
-						try {
-							await addDoc(collection(db, "Users"), {
-			
-								first: "Alan",
-								middle: "Mathison",
-								last: "Turing",
-								born: 1912
-							});
-			
-							console.log("Document written with ID: ", docRef.id);
-						} catch (e) {
-							console.error("Error adding document: ", e);
-						}
-			*/
-=======
->>>>>>> c67dfe8c8965ae215786c9ea0544ea141f91fc79
+
+			try {
+				await addDoc(collection(db, "Users"), {
+
+					first: "Alan",
+					middle: "Mathison",
+					last: "Turing",
+					born: 1912
+				});
+
+				console.log("Document written with ID: ", docRef.id);
+			} catch (e) {
+				console.error("Error adding document: ", e);
+			}
+
 			alert('User Created!');
 			window.location = "./index.html";
 
@@ -186,10 +165,10 @@ function passwordMatch(password, confirmpassword) {
 	} else {
 		return true;
 	}
-<<<<<<< HEAD
+
 }
-=======
-}
+
+
 
 function validate_field(field) {
 	if (field == null) {
@@ -202,4 +181,4 @@ function validate_field(field) {
 		return true
 	}
 }
->>>>>>> c67dfe8c8965ae215786c9ea0544ea141f91fc79
+
