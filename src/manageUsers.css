@@ -68,10 +68,9 @@ table.blueTable tfoot .links a {
 }
 
 #titleTable {
-    align-items: center;
-    padding-left: 850px;
     padding-top: 5px;
     font-family: Montserrat;
+    /*padding: 5px 0px 5px 650px;*/
     letter-spacing: 1px;
     font-weight: 100;
     font-size: 30px;
