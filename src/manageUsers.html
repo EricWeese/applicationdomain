@@ -3,145 +3,167 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" type="text/css" href="manageUsers.css">
-    <title></title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="manageUsers.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<title>Manage Users</title>
 
-    <style>
-        .table {
-            background-color: rgb(164, 201, 220);
-        }
+	<style>
+		.table {
+			background-color: rgb(164, 201, 220);
+		}
 
-        .grid-container {
-            display: grid;
-            grid-template-columns: 10% auto 10%;
-            gap: 10px 40px;
-            background-color: rgb(44, 152, 210);
-            padding: 10px;
-            margin: 20px 20%;
-        }
+		.grid-container {
+			display: grid;
+			grid-template-columns: 10% auto 10%;
+			gap: 10px 40px;
+			background-color: rgb(44, 152, 210);
+			padding: 10px;
+			margin: 20px 20%;
+		}
 
-        .grid-container>table {
-            background-color: rgba(255, 255, 255, 0.8);
-        }
+			.grid-container > table {
+				background-color: rgba(255, 255, 255, 0.8);
+			}
 
-        #corners1 {
-            border-radius: 15px;
-            background: lightblue;
-            padding: 3px;
-            width: 20px;
-            height: 20px;
-        }
-    </style>
+		#corners1 {
+			border-radius: 15px;
+			background: lightblue;
+			padding: 3px;
+			width: 20px;
+			height: 20px;
+		}
+	</style>
 </head>
 
 <body>
-    <div style="color:black; font-size:12px; background-color:aqua; width:100%; height:50px">
-        <a href="Menu.html">
-            <img src="../images/logo.png" style="width:50px; padding: 0px 20px 0px 5px" align="left" />
-        </a>
-        <div id="titleTable">
-            All Users
-        </div>
-        <img src="../images/ProfilePic.jfif" style="width:30px; padding:10px" align="right" />
-        <div style="font-size:12px; color:black; padding: 20px" align="right">
-            CGeorge0922
-        </div>
-    </div>
+	<div style="color:black; font-size:12px; background-color:aqua; width:100%; height:50px; display:flex; align-items: center; justify-content:space-between">
+		<a href="Menu.html">
+			<img src="../images/logo.png" style="block-size:50px;  padding: 0px 20px 0px 5px" align="left" />
+		</a>
+		<div id="titleTable">
+			All Users
+		</div>
+		<div style="font-size:12px; color:black; padding: 20px; display:inherit">
+			<div style="padding:20px">
+				CGeorge0922
+			</div>
+			<img src="../images/ProfilePic.jfif" style="block-size: 30px; align-self:center" />
+		</div>
+		
+	</div>
 
-    <div class="grid-container">
-        <div id="titleTable">
+	<div class="grid-container">
+		<div>
+
+		</div>
+	</div>
 
 
-        </div>
-        <!--
-        <table>
-            <thead>
-                <th>Username</th>
-                <th>Role</th>
-                <th>Action</th>
-                <th>Expired Passwords</th>
-            </thead>
-            <tbody id="tblUserPop"></tbody>
-            <tr>
-                <td style="display:flex; align-items:center">
-                    <p id="corners1" style="padding:3px">
-                        <img src="..\images\updatelogo.png" style="width:20px" />
-                    </p>
-                    Update
-                    Deactivate
-                    Suspend
-                </td>
-            </tr>
-        </table>
-        -->
 
-        <table class="blueTable">
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Date Created</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <td colspan="4">
-                        <div class="links"><a href="#">&laquo;</a> <a class="active" href="#">1</a> <a href="#">2</a> <a
-                                href="#">3</a> <a href="#">4</a> <a href="#">&raquo;</a></div>
-                    </td>
-                </tr>
-            </tfoot>
-            <tbody>
-                <tr>
-                    <td>CGeorge0922</td>
-                    <td>test@gmail.com</td>
-                    <td><select name="Role" id="role">
-                            <option value="admin" selected>Admin</option>
-                            <option value="manager">Manager</option>
-                            <option value="user">Regular</option>
-                        </select>
-                    </td>
-                    <td>9/23/22</td>
-                </tr>
-                <tr>
-                    <td>YHat0922</td>
-                    <td>manager@gmail.com</td>
-                    <td><select name="Role" id="role">
-                            <option value="admin">Admin</option>
-                            <option value="manager" selected>Manager</option>
-                            <option value="user">Regular</option>
-                        </select></td>
-                    <td>9/26/22</td>
-                </tr>
-                <tr>
-                    <td>ALincoln0922</td>
-                    <td>regular@gmail.com</td>
-                    <td><select name="Role" id="role">
-                            <option value="admin">Admin</option>
-                            <option value="manager">Manager</option>
-                            <option value="user" selected>Regular</option>
-                        </select></td>
-                    <td>9/28/22</td>
-                </tr>
-                <tr>
-                    <td>EWeese0922</td>
-                    <td>ericweese99@gmail.com</td>
-                    <td><select name="Role" id="role">
-                            <option value="admin">Admin</option>
-                            <option value="manager">Manager</option>
-                            <option value="user" selected>Regular</option>
-                        </select></td>
-                    <td>9/28/22</td>
-                </tr>
 
-            </tbody>
-            </tr>
-        </table>
-        <div>
-        </div>
-    </div>
+	<div class="grid-container">
+		<div id="titleTable">
+
+
+		</div>
+
+		<!--
+		<table>
+			<thead>
+				<th>Username</th>
+				<th>Role</th>
+				<th>Action</th>
+				<th>Expired Passwords</th>
+			</thead>
+			<tbody id="tblUserPop"></tbody>
+			<tr>
+				<td style="display:flex; align-items:center">
+					<p id="corners1" style="padding:3px">
+						<img src="..\images\updatelogo.png" style="width:20px" />
+					</p>
+					Update
+					Deactivate
+					Suspend
+				</td>
+			</tr>
+		</table>
+		-->
+
+		<table class="blueTable">
+			<thead>
+				<tr>
+					<th>Username</th>
+					<th>Email</th>
+					<th>Role</th>
+					<th>Date Created</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td colspan="4">
+						<div class="links">
+							<a href="#">&laquo;</a> <a class="active" href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">&raquo;</a>
+						</div>
+					</td>
+				</tr>
+			</tfoot>
+			<tbody>
+				<tr>
+					<td>CGeorge0922</td>
+					<td>test@gmail.com</td>
+					<td>
+						<select name="Role" id="role">
+							<option value="admin" selected>Admin</option>
+							<option value="manager">Manager</option>
+							<option value="user">Regular</option>
+						</select>
+					</td>
+					<td>9/23/22</td>
+				</tr>
+				<tr>
+					<td>YHat0922</td>
+					<td>manager@gmail.com</td>
+					<td>
+						<select name="Role" id="role">
+							<option value="admin">Admin</option>
+							<option value="manager" selected>Manager</option>
+							<option value="user">Regular</option>
+						</select>
+					</td>
+					<td>9/26/22</td>
+				</tr>
+				<tr>
+					<td>ALincoln0922</td>
+					<td>regular@gmail.com</td>
+					<td>
+						<select name="Role" id="role">
+							<option value="admin">Admin</option>
+							<option value="manager">Manager</option>
+							<option value="user" selected>Regular</option>
+						</select>
+					</td>
+					<td>9/28/22</td>
+				</tr>
+				<tr>
+					<td>EWeese0922</td>
+					<td>ericweese99@gmail.com</td>
+					<td>
+						<select name="Role" id="role">
+							<option value="admin">Admin</option>
+							<option value="manager">Manager</option>
+							<option value="user" selected>Regular</option>
+						</select>
+					</td>
+					<td>9/28/22</td>
+				</tr>
+
+			</tbody>
+			</tr>
+		</table>
+		<div>
+		</div>
+	</div>
 </body>
 
 </html>
