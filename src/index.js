@@ -1,23 +1,3 @@
-<<<<<<< HEAD
-
-/*
-npx webpack
-firebase serve --onlyhosting
-firebase emulators:start --only auth
-
-git:
-git add .
-git commit -m [message]
-git push origin main
-*/
-
-
-import { db } from "./firebase/config.js"
-import { addDoc, collection } from "firebase/firestore"
-export { db, addDoc }
-
-=======
->>>>>>> 0a75a161350b733da6a341ca3a6d3be15946ea65
 function register() {
 	email = document.getElementById('email').value
 	password = document.getElementById('password').value
@@ -41,36 +21,6 @@ function register() {
 	// Move on with Auth
 	auth.createUserWithEmailAndPassword(email, password)
 		.then(async function () {
-<<<<<<< HEAD
-
-			var user = auth.currentUser
-			var database_ref = database.ref()
-			var user_data = {
-				email: email,
-				first_name: first_name,
-				last_login: Date.now()
-			}
-			//database.addDoc(user_data)
-			//database_ref.push(email);
-			//database_ref.child('users/' + user.uid).set(user_data)
-
-
-			try {
-				await addDoc(collection(db, "Users"), {
-
-					first: "Alan",
-					middle: "Mathison",
-					last: "Turing",
-					born: 1912
-				});
-
-				console.log("Document written with ID: ", docRef.id);
-			} catch (e) {
-				console.error("Error adding document: ", e);
-			}
-
-=======
->>>>>>> 0a75a161350b733da6a341ca3a6d3be15946ea65
 			alert('User Created!');
 			window.location = "./index.html";
 
@@ -164,6 +114,7 @@ function validate_password(password) {
 	}
 	return true;
 }
+
 function passwordMatch(password, confirmpassword) {
 	if (password != confirmpassword) {
 		alert("Passwords did not match");
@@ -171,13 +122,7 @@ function passwordMatch(password, confirmpassword) {
 	} else {
 		return true;
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> 0a75a161350b733da6a341ca3a6d3be15946ea65
 }
-
-
 
 function validate_field(field) {
 	if (field == null) {
@@ -190,7 +135,3 @@ function validate_field(field) {
 		return true
 	}
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 0a75a161350b733da6a341ca3a6d3be15946ea65
