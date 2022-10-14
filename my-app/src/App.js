@@ -1,9 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
-import Signup from './pages/signup/Signup'
+import Login from './pages/login/Login'
 function App() {
   return (
-    <Signup />
+    <Login />
   );
 }
 

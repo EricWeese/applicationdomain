@@ -1,45 +1,44 @@
 import { useState } from "react";
-
 import './Login.css'
 
 export default function Login() {
-    const [username, getUserName] = useState('')
-    const [password, getPassword] = useState('')
+    const [username, setUserName] = useState('')
+    const [password, setPassword] = useState('')
 
-    const handleSubmit = async (e) => {
-        auth.signInWithEmailAndPassword(username, password)
-		.then(function () {
-			// Declare user variable
-			var user = auth.currentUser
+    // const handleSubmit = async (e) => {
+    //     auth.signInWithEmailAndPassword(username, password)
+	// 	.then(function () {
+	// 		// Declare user variable
+	// 		var user = auth.currentUser
 
-			// Add this user to Firebase Database
-			var database_ref = database.ref()
+	// 		// Add this user to Firebase Database
+	// 		var database_ref = database.ref()
 
-			// Create User data
-			var user_data = {
-				last_login: Date.now()
-			}
+	// 		// Create User data
+	// 		var user_data = {
+	// 			last_login: Date.now()
+	// 		}
 
-			// Push to Firebase Database
-			database_ref.child('users/' + user.uid).update(user_data)
+	// 		// Push to Firebase Database
+	// 		database_ref.child('users/' + user.uid).update(user_data)
 
-			// Done
-			alert('User Logged In!!')
-			window.location = "./UserSplash.html";
+	// 		// Done
+	// 		alert('User Logged In!!')
+	// 		window.location = "./UserSplash.html";
 
-		})
-		.catch(function (error) {
+	// 	})
+	// 	.catch(function (error) {
 
-			loginAttempts--;
+	// 		loginAttempts--;
 
 
-			// Firebase will use this to alert of its errors
-			var error_code = error.code
-			var error_message = error.message
+	// 		// Firebase will use this to alert of its errors
+	// 		var error_code = error.code
+	// 		var error_message = error.message
 
-			alert(error_message)
-		})
-    }
+	// 		alert(error_message)
+	// 	})
+    // }
 
     return (
     <body>
@@ -54,20 +53,20 @@ export default function Login() {
                         type="email"
                         id="email" 
                         placeholder="Email"
-                        onChange={(e) => getUserName(e.target.value)}
-                        value={email}
+                        onChange={(e) => setUserName(e.target.value)}
+                        value={username}
                         />
                         <input 
                         type="password" 
                         id="password" 
                         placeholder="Password"
-                        onChange={(e) => getPassword(e.target.value)}
+                        onChange={(e) => setPassword(e.target.value)}
                         value={password}
                         />
                         <input type="password" id="confirmpassword" placeholder="Confirm Password"/>
-                        <button onClick={handleSubmit}>Login</button>
-                        <link></link>
-                        <button>Forgot Passord</button>
+                        <button id="button_container">Login</button>
+                        <a href="../signup/Signup">SignUp</a>
+                        <a href="../reset/ForgotPassword">Forgot Password</a>
                     </div>
                 </div>
             </div>

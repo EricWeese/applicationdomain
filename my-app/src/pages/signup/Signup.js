@@ -16,13 +16,13 @@ export default function Signup() {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        if (validate_email(email) == false) {
+        if (validate_email(email) === false) {
             alert("Email is in wrong format")
         }
-        if(validate_password(password) == false){
+        if(validate_password(password) === false){
             return
         }
-        if(password_match(password, conPwd) == false){
+        if(password_match(password, conPwd) === false){
             return
         }
         await addDoc(collection(db, 'users'), {

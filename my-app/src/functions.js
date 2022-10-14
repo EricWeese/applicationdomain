@@ -1,6 +1,6 @@
 // Validate Functions
-export function validate_email(email) {
-	expression = /^[^@]+@\w+(\.\w+)+\w$/
+function validate_email(email) {
+	const expression = /^[^@]+@\w+(\.\w+)+\w$/
 	if (expression.test(email) == true) {
 		// Email is good
 		return true
@@ -10,8 +10,8 @@ export function validate_email(email) {
 	}
 }
 
-export function validate_password(password) {
-	errors = [];
+function validate_password(password) {
+	const errors = [];
 	// Firebase only accepts lengths greater than 6
 	if (password.length <= 7) {
 		errors.push("Your password must be at least 8 characters");
@@ -32,7 +32,7 @@ export function validate_password(password) {
 	return true;
 }
 
-export function password_match(password, confirmpassword) {
+function password_match(password, confirmpassword) {
 	if (password != confirmpassword) {
 		alert("Passwords did not match");
 		return false
@@ -41,7 +41,7 @@ export function password_match(password, confirmpassword) {
 	}
 }
 
-export function validate_field(field) {
+function validate_field(field) {
 	if (field == null) {
 		return false
 	}

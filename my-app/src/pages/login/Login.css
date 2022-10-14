@@ -1,14 +1,14 @@
-.login body {
+html,
+body {
     width: 100%;
     height: 100%;
     background: rgba(0, 255, 255, 1);
-
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.login * {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -16,12 +16,12 @@
     outline: none;
 }
 
-.login #content_container {
+.signup .content_container {
     width: 30%;
     height: 70%;
 }
 
-.login #form_container {
+#form_container {
     width: 100%;
     height: 100%;
 
@@ -32,7 +32,7 @@
     overflow: hidden;
 }
 
-.login #form_header_container {
+#form_header_container {
     width: 100%;
     height: 5%;
 
@@ -50,7 +50,7 @@
     background: rgb(182, 253, 253);
 }
 
-.login #form_header {
+.form_header {
     display: inline-block;
     font-family: Montserrat;
     font-size: 25px;
@@ -61,7 +61,7 @@
     background: transparent;
 }
 
-.login #form_content_container {
+#form_content_container {
     width: 100%;
     height: 90%;
 
@@ -74,7 +74,7 @@
     padding-top: 30px;
 }
 
-.login #form_content_inner_container {
+#form_content_inner_container {
     width: 75%;
     height: 100%;
 
@@ -82,7 +82,7 @@
 
 }
 
-.login input {
+input {
     width: 100%;
     height: 40px;
 
@@ -100,7 +100,7 @@
     border-image: -webkit-linear-gradient(25deg, #FFBE0B, #FB5607, #FF006E, #8338EC, #3A86FF) 1;
 }
 
-.login #button_container {
+#button_container {
     width: 100%;
     height: 10%;
     align-self: center;
@@ -111,7 +111,7 @@
     margin-top: 5px;
 }
 
-.login #button_container button {
+#button_container button {
     width: 100%;
 
     height: 100%;
@@ -138,7 +138,7 @@
     align-items: center;
 }
 
-.login #switch_account {
+#switch_account {
     padding-left: 140px;
     padding-bottom: 10px;
     font-family: Montserrat;
