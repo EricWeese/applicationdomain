@@ -1,7 +1,7 @@
 import { addDoc, collection } from "firebase/firestore";
 import { db } from '../../firebase/config'
 import { useState } from "react";
-
+import { password_match, validate_email, validate_password} from '../../functions'
 import './Signup.css'
 
 export default function Signup() {
@@ -11,11 +11,20 @@ export default function Signup() {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [DOB, setDOB] = useState('')
+    const [conPwd, setConPwd] = useState('')
 
     const handleSubmit = async (e) => {
-
         e.preventDefault()
 
+        if (validate_email(email) == false) {
+            alert("Email is in wrong format")
+        }
+        if(validate_password(password) == false){
+            return
+        }
+        if(password_match(password, conPwd) == false){
+            return
+        }
         await addDoc(collection(db, 'users'), {
             firstName: firstName,
             lastName: lastName,
@@ -71,7 +80,13 @@ export default function Signup() {
                                 onChange={(e) => setPassword(e.target.value)}
                                 value={password}
                             />
-                            <input type="password" id="confirmpassword" placeholder="Confirm Password" />
+                            <input 
+                                type="password" 
+                                id="confirmpassword" 
+                                placeholder="Confirm Password" 
+                                onChange={(e) => setConPwd(e.target.value)}
+                                value={conPwd}
+                            />
                             <div id="button_container">
                                 <button onClick={handleSubmit}>Register</button>
                             </div>
