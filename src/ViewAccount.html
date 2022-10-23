@@ -1,0 +1,90 @@
+<html>
+<style>
+    table{
+        font-family: arial, san-serf;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    td, th{
+        border: 1px solid #cccc;
+        padding: 8px;
+    }
+
+    th {
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    tr:nth-child(even){
+        background-color: aquamarine;
+    }
+
+    tr:hover{
+        background-color: black ;
+        color: white;
+    }
+</style>
+<script>
+
+    let sortDirection = false;
+    let accountData = [
+         { name: 'put table data here', userId: 002121},
+         { name: 'put table data here', userId: 002122},
+         { name: 'put table data here', userId: 002123},
+         { name: 'put table data here', userId: 002124},
+         { name: 'put table data here', userId: 002125},
+         { name: 'put table data here', userId: 002126},
+         { name: 'put table data here', userId: 002127},
+         { name: 'put table data here', userId: 002129}
+    ];
+
+    window.onload = () => {
+        loadTableData(accountData);
+    };
+
+    loadTableData(accountData);
+
+    function loadTableData(accountData){
+        const tableBody = document.getElementById('tableData');
+        let dataHtml = '';
+
+        for(let account of accountData){
+            dataHtml += `<tr></><td>${account.name}</td><td>${account.userId}</td>
+            </tr>`
+
+        }
+
+        console.log(dataHtml)
+        tableBody.innerHTML = dataHtml;
+    }
+
+    function sortColumn(columnName){
+        const dataType = typeof accountData[0][columnName];
+        sortDirection = !sortDirection;
+
+        switch(dataType){
+            case 'number':
+            sortNumberColumn(sortDirection, columnName);
+            break;
+        }
+        loadTableData(accountData);
+    }
+
+    function sortNumberColumn(sort, columnName){
+        accountData = accountData.sort((p1, p2) =>{
+            return sort? p1[columnName] - p2[columnName] : p2[columnName] - p1[columnName]
+        })
+    }
+</script>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th onclick="sortColumn('userid')">User ID</th>
+            </tr>
+        </thead>
+        <tbody id = "tableData"></tbody>
+    </table>
+</body>
+</html>
