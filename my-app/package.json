@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.10",
     "@mui/x-data-grid": "^5.17.8",
     "@testing-library/jest-dom": "^5.16.5",
@@ -14,6 +15,8 @@
     "firebase": "^9.12.1",
     "react": "^18.2.0",
     "react-bootstrap-validation": "^0.1.11",
+    "react-date-picker": "^9.0.0",
+    "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"

@@ -2,101 +2,112 @@ import { addDoc, collection } from "firebase/firestore";
 import { db, auth } from '../../firebase/config'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-//import '../signup/Signup.css'
+import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { Link } from "react-router-dom";
 
 export default function Login() {
-
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [DOB, setDOB] = useState('')
-    const navitage = useNavigate()
+    const [email, getEmail] = useState('')
+    const [password, getPassword] = useState('')
+    const navigate = useNavigate()
     const handleSubmit = async (e) => {
+        console.log(email)
+        console.log(password)
+        signInWithEmailAndPassword(auth, email, password)
+            .then(function () {
+                var user = auth.currentUser
+                /*var database_ref = db.ref()
+                var user_data = {
+                    last_login: Date.now()
 
-        e.preventDefault()
-        try {
-            createUserWithEmailAndPassword(auth, email, password)
-                .then(async function () {
-                    alert('User Created!');
-                    navitage("Login")
+                }
+                // Push to Firebase Database
+                database_ref.child('users/' + user.uid).update(user_data)
+*/
+                // Done
+                alert('User Logged In!!')
+                navigate('/Accounts');
 
-                })
-                .catch(function (error) {
-                    // Firebase will use this to alert of its errors
-                    var error_code = error.code
-                    var error_message = error.message
+            })
+            .catch(function (error) {
 
-                    alert(error_message)
-                })
-        }
-        catch (error) {
-            console.log(error)
-        }
-        await addDoc(collection(db, 'users'), {
-            firstName: firstName,
-            lastName: lastName,
-            DOB: DOB,
-            email: email,
-            password: password
-        })
+
+
+
+                // Firebase will use this to alert of its errors
+                var error_code = error.code
+                var error_message = error.message
+
+                alert(error_message)
+            })
     }
 
-    return (
-        <body>
-            <div className="content_container">
-                <div id="form_container">
-                    <div id="form_header_container">
-                        <h2 id="form_header">Login</h2>
-                    </div>
 
-                    <div id="form_content_container">
-                        <div id="form_content_inner_container">
-                            <input
-                                required
-                                type="firstName"
-                                id="first_name"
-                                placeholder="First name"
-                                onChange={(e) => setFirstName(e.target.value)}
-                                value={firstName}
-                            />
-                            <input type="lastName"
-                                id="last_name"
-                                placeholder="Last name"
-                                onChange={(e) => setLastName(e.target.value)}
-                                value={lastName}
-                            />
-                            <input
-                                type="date"
-                                id="birthday"
-                                placeholder="Date of Birth"
-                                title="Date of Birth"
-                                onChange={(e) => setDOB(e.target.value)}
-                                value={DOB}
-                            />
-                            <input
-                                type="email"
-                                id="email"
-                                placeholder="Email"
-                                onChange={(e) => setEmail(e.target.value)}
-                                value={email}
-                            />
-                            <input
-                                type="password"
-                                id="password"
-                                placeholder="Password"
-                                onChange={(e) => setPassword(e.target.value)}
-                                value={password}
-                            />
-                            <input type="password" id="confirmpassword" placeholder="Confirm Password" />
-                            <div id="button_container">
-                                <button onClick={handleSubmit}>Register</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </body>
+
+    return (
+
+        <div>
+            <Container>
+                <Row className="vh-100 d-flex justify-content-center align-items-center">
+                    <Col md={8} lg={6} xs={12}>
+                        <div className="border border-3 border-primary"></div>
+                        <Card className="shadow">
+                            <Card.Body>
+                                <div className="mb-3 mt-md-4">
+                                    <h2 className="fw-bold mb-2 text-uppercase ">EZ Books</h2>
+                                    <p className=" mb-5">Please enter your login and password!</p>
+                                    <div className="mb-3">
+                                        <Form>
+                                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                                <Form.Label className="text-center">
+                                                    Email address
+                                                </Form.Label>
+                                                <Form.Control onChange={(e) => getEmail(e.target.value)} value={email} type="email" placeholder="Enter email" />
+                                            </Form.Group>
+
+                                            <Form.Group
+                                                className="mb-3"
+                                                controlId="formBasicPassword"
+                                            >
+                                                <Form.Label>Password</Form.Label>
+                                                <Form.Control onChange={(e) => getPassword(e.target.value)} value={password}
+                                                    type="password" placeholder="Password" />
+                                            </Form.Group>
+                                            <Form.Group
+                                                className="mb-3"
+                                                controlId="formBasicCheckbox"
+                                            >
+                                                <p className="small">
+                                                    <Link to="/Signup" className="text-primary" >
+                                                        Forgot password?
+                                                    </Link>
+                                                </p>
+                                            </Form.Group>
+                                            <div className="d-grid">
+                                                <Button onClick={handleSubmit} variant="primary">
+                                                    Login
+                                                </Button>
+                                            </div>
+                                        </Form>
+                                        <div className="mt-3">
+                                            <p className="mb-0  text-center">
+                                                Don't have an account?{" "}
+                                                <Link to="/" className="text-primary fw-bold">
+                                                    Sign Up
+                                                </Link>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+            </Container>
+        </div>
+
     )
+
+
+
 }

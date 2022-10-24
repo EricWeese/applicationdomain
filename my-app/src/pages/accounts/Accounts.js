@@ -8,6 +8,23 @@ import { useNavigate } from "react-router-dom";
 import { Modal } from 'react-bootstrap';
 import AddAccount from './AddAccount';
 import { useState } from "react";
+import { addDoc, collection } from "firebase/firestore";
+import { db, auth } from '../../firebase/config'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+
+
+const currencyFormatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+});
+
+const usdPrice = {
+    type: 'number',
+    width: 130,
+    valueFormatter: ({ value }) => currencyFormatter.format(value),
+    cellClassName: 'font-tabular-nums',
+};
 
 
 const columns = [
@@ -28,10 +45,12 @@ const columns = [
     },
     {
         field: 'balance',
+        ...usdPrice,
         headerName: 'Balance',
         type: 'number',
         width: 110,
         editable: true,
+        //valueFormatter: ({ value }) => value.toLocalString(undefined, { maximumFractionDigits: 2 }),
     },
     {
         field: 'dateCreated',
@@ -63,19 +82,26 @@ const rows = [
     { id: 4000, accountName: 'Fees Earned', category: 'Revenues', balance: 7311.00, dateCreated: '10/24/2022', statement: 'Income Statment' },
     { id: 5000, accountName: 'Wages', category: 'Expenses', balance: 8758.00, dateCreated: '10/24/2022', statement: 'Income Statment' },
     { id: 5010, accountName: 'Rent', category: 'Expenses', balance: 5599.00, dateCreated: '10/24/2022', statement: 'Income Statment' },
-    { id: 5020, accountName: 'Utilieis', category: 'Expenses', balance: 6915.00, dateCreated: '10/24/2022', statement: 'Income Statment' },
+    { id: 5020, accountName: 'Utilities', category: 'Expenses', balance: 6915.00, dateCreated: '10/24/2022', statement: 'Income Statment' },
     { id: 5030, accountName: 'Lab Supplies', category: 'Expenses', balance: 8927.00, dateCreated: '10/24/2022', statement: 'Income Statment' },
     { id: 5040, accountName: 'Misc.', category: 'Expenses', balance: 9554.00, dateCreated: '10/24/2022', statement: 'Income Statment' },
 
 ];
+
 
 export default function Accounts() {
     const [show, setShow] = useState(false)
     const handleShow = () => setShow(true)
     const handleClose = () => setShow(false)
 
+
+    const renderTooltip = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+            Click this to add a new account
+        </Tooltip>
+    );
     return (
-        <>
+        <><>
             <Box sx={{ height: 600, width: '100%' }}>
                 <DataGrid
                     rows={rows}
@@ -84,12 +110,18 @@ export default function Accounts() {
                     rowsPerPageOptions={[8]}
                     checkboxSelection
                     disableSelectionOnClick
-                    experimentalFeatures={{ newEditingApi: true }}
-                />
+                    experimentalFeatures={{ newEditingApi: true }} />
             </Box>
-            <Button onClick={handleShow} variant="outline-primary">Add New Account</Button>
 
-            <Modal show={show} onHide={handleClose}>
+            <OverlayTrigger
+                placement="right"
+                delay={{ show: 250, hide: 400 }}
+                overlay={renderTooltip}
+            >
+
+                <Button onClick={handleShow} variant="outline-primary">Add New Account</Button>
+            </OverlayTrigger>
+        </><Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>
                         Add New Account
@@ -102,8 +134,9 @@ export default function Accounts() {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
+
                 </Modal.Footer>
-            </Modal>
-        </>
+            </Modal></>
+
     );
 }

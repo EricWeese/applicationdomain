@@ -3,15 +3,19 @@ import { db, auth } from '../../firebase/config'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import DatePicker from "react-date-picker";
 import './Signup.css'
 
 export default function Signup() {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [conPassword, setConPassword] = useState('')
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
-    const [DOB, setDOB] = useState('')
+    const [DOB, setDOB] = useState(new Date())
     const navigate = useNavigate()
     const handleSubmit = async (e) => {
 
@@ -46,6 +50,96 @@ export default function Signup() {
     }
 
     return (
+        <div>
+            <Container>
+                <Row className="vh-100 d-flex justify-content-center align-items-center">
+                    <Col md={8} lg={6} xs={12}>
+                        <div className="border border-3 border-primary"></div>
+                        <Card className="shadow">
+                            <Card.Body>
+                                <div className="mb-3 mt-md-4">
+                                    <h2 className="fw-bold mb-2 text-uppercase ">EZ Books</h2>
+                                    <p className=" mb-5">Please enter your login and password!</p>
+                                    <div className="mb-3">
+                                        <Form>
+                                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                                <Form.Label className="text-center">
+                                                    First Name
+                                                </Form.Label>
+                                                <Form.Control onChange={(e) => setFirstName(e.target.value)} value={firstName} type="firstName" placeholder="Enter First Name" />
+                                            </Form.Group>
+                                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                                <Form.Label className="text-center">
+                                                    Last Name
+                                                </Form.Label>
+                                                <Form.Control onChange={(e) => setLastName(e.target.value)} value={lastName} type="lastName" placeholder="Enter Last Name" />
+                                            </Form.Group>
+                                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                                <Form.Label className="text-center">
+                                                    Date of Birth
+                                                </Form.Label>
+                                                <br></br>
+                                                <DatePicker onChange={setDOB} value={DOB} />
+                                            </Form.Group>
+
+                                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                                <Form.Label className="text-center">
+                                                    Email address
+                                                </Form.Label>
+                                                <Form.Control onChange={(e) => setEmail(e.target.value)} value={email} type="email" placeholder="Enter email" />
+                                            </Form.Group>
+
+                                            <Form.Group
+                                                className="mb-3"
+                                                controlId="formBasicPassword"
+                                            >
+                                                <Form.Label>Password</Form.Label>
+                                                <Form.Control onChange={(e) => setPassword(e.target.value)} value={password}
+                                                    type="password" placeholder="Enter Password" />
+                                            </Form.Group>
+                                            <Form.Group
+                                                className="mb-3"
+                                                controlId="formBasicPassword"
+                                            >
+                                                <Form.Label>Password</Form.Label>
+                                                <Form.Control onChange={(e) => setConPassword(e.target.value)} value={conPassword}
+                                                    type="password" placeholder="Confirm Password" />
+                                            </Form.Group>
+
+                                            <Form.Group
+                                                className="mb-3"
+                                                controlId="formBasicCheckbox"
+                                            >
+                                                <p className="small">
+                                                    <Link to="/Signup" className="text-primary" >
+                                                        Forgot password?
+                                                    </Link>
+                                                </p>
+                                            </Form.Group>
+                                            <div className="d-grid">
+                                                <Button onClick={handleSubmit} variant="primary">
+                                                    Sign Up
+                                                </Button>
+                                            </div>
+                                        </Form>
+                                        <div className="mt-3">
+                                            <p className="mb-0  text-center">
+                                                Already have an account?{" "}
+                                                <Link to="/Login" className="text-primary fw-bold">
+                                                    Login
+                                                </Link>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+            </Container>
+        </div>
+    )
+    /*return (
         <body>
             <div className="content_container">
                 <div id="form_container">
@@ -100,5 +194,5 @@ export default function Signup() {
                 </div>
             </div>
         </body>
-    )
+    )*/
 }
