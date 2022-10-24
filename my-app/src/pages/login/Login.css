@@ -1,0 +1,76 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 255, 255, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+}
+
+.content_container {
+    width: 70%;
+    height: 30%;
+
+    background-color: rgb(182, 253, 253);
+    box-shadow: 0 0 50px -20px #000;
+    border-radius: 2%;
+
+    overflow: hidden;
+    float: left;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding-top: 30px;
+}
+
+
+input {
+    width: 100%;
+    height: 40px;
+
+    padding-left: 10px;
+    margin-bottom: 20px;
+
+    background: white;
+    font-family: Montserrat;
+    font-weight: 500;
+    font-size: 12px;
+
+    border-bottom: 2px solid transparent;
+    border-top-left-radius: 2%;
+    border-top-right-radius: 2%;
+    border-image: -webkit-linear-gradient(25deg, #FFBE0B, #FB5607, #FF006E, #8338EC, #3A86FF) 1;
+}
+
+/* .button_container {
+    width: 100%;
+    height: 10%;
+    align-self: center;
+    background-image: linear-gradient(80deg, #FFBE0B, #FB5607 50%, #FF006E 50%, #8338EC);
+    color: aqua;
+
+    align-items: center;
+    margin-top: 5px;
+} */
+
+
+#switch_account {
+    padding-left: 140px;
+    padding-bottom: 10px;
+    font-family: Montserrat;
+    font-family: Montserrat;
+    letter-spacing: 1px;
+    font-weight: 100;
+    font-size: 14px;
+}
