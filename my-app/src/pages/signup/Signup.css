@@ -1,4 +1,4 @@
-html,
+/*html,
 body {
     width: 100%;
     height: 100%;
@@ -104,7 +104,7 @@ input {
     width: 100%;
     height: 10%;
     align-self: center;
-    /*background-image: linear-gradient(80deg, #FFBE0B, #FB5607 50%, #FF006E 50%, #8338EC);*/
+    background-image: linear-gradient(80deg, #FFBE0B, #FB5607 50%, #FF006E 50%, #8338EC);
     color: aqua;
 
     align-items: center;
@@ -146,4 +146,4 @@ input {
     letter-spacing: 1px;
     font-weight: 100;
     font-size: 14px;
-}
+}*/
