@@ -15,24 +15,12 @@ export default function Login() {
         console.log(password)
         signInWithEmailAndPassword(auth, email, password)
             .then(function () {
-                var user = auth.currentUser
-                /*var database_ref = db.ref()
-                var user_data = {
-                    last_login: Date.now()
-
-                }
-                // Push to Firebase Database
-                database_ref.child('users/' + user.uid).update(user_data)
-*/
                 // Done
                 alert('User Logged In!!')
                 navigate('/Accounts');
 
             })
             .catch(function (error) {
-
-
-
 
                 // Firebase will use this to alert of its errors
                 var error_code = error.code
@@ -41,8 +29,6 @@ export default function Login() {
                 alert(error_message)
             })
     }
-
-
 
     return (
 
