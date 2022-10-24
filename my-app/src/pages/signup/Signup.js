@@ -15,12 +15,14 @@ export default function Signup() {
     const navigate = useNavigate()
     const handleSubmit = async (e) => {
 
+
         e.preventDefault()
         try {
             createUserWithEmailAndPassword(auth, email, password)
                 .then(async function () {
                     alert('User Created!');
                     navigate('/Login');
+
 
                 })
                 .catch(function (error) {

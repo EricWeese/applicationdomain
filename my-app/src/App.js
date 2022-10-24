@@ -9,16 +9,7 @@ function App() {
   //const RequireAuth = ({ children }) => {
   // return currentUser ? children : <Navigate to="/login" />;
   //};
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Signup />}>
-          <Route path="/Login" element={<Login />} />
 
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
 }
 //<Route index element={<RequireAuth><Home /></RequireAuth>} />s
 export default App;
