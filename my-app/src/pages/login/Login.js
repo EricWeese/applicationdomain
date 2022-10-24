@@ -1,8 +1,9 @@
-import { useState } from "react"
-import Title from '../../components/Title'
-import LoginButton from "../../components/LoginButton"
-import SignupButton from "../../components/SignupButton"
-import './Login.css'
+import { addDoc, collection } from "firebase/firestore";
+import { db, auth } from '../../firebase/config'
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+//import '../signup/Signup.css'
 
 export default function Login() {
 
@@ -43,28 +44,59 @@ export default function Login() {
     }
 
     return (
-        <div className="">
-            <Title title="Login"/>
-                    <input 
-                    type="email"
-                    id="email" 
-                    placeholder="Email"
-                    onChange={(e) => setUserName(e.target.value)}
-                    value={username}
-                    />
-                    <input 
-                    type="password" 
-                    id="password" 
-                    placeholder="Password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    value={password}
-                    />
-                    <input type="password" id="confirmpassword" placeholder="Confirm Password"/>
-                    <div className="button_container">
-                        <LoginButton title="Login"/>
-                        <SignupButton title="SignUp"/>
+        <body>
+            <div className="content_container">
+                <div id="form_container">
+                    <div id="form_header_container">
+                        <h2 id="form_header">Login</h2>
                     </div>
-                    <a href="../reset/ForgotPassword">Forgot Password</a>
-        </div>
+
+                    <div id="form_content_container">
+                        <div id="form_content_inner_container">
+                            <input
+                                required
+                                type="firstName"
+                                id="first_name"
+                                placeholder="First name"
+                                onChange={(e) => setFirstName(e.target.value)}
+                                value={firstName}
+                            />
+                            <input type="lastName"
+                                id="last_name"
+                                placeholder="Last name"
+                                onChange={(e) => setLastName(e.target.value)}
+                                value={lastName}
+                            />
+                            <input
+                                type="date"
+                                id="birthday"
+                                placeholder="Date of Birth"
+                                title="Date of Birth"
+                                onChange={(e) => setDOB(e.target.value)}
+                                value={DOB}
+                            />
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="Email"
+                                onChange={(e) => setEmail(e.target.value)}
+                                value={email}
+                            />
+                            <input
+                                type="password"
+                                id="password"
+                                placeholder="Password"
+                                onChange={(e) => setPassword(e.target.value)}
+                                value={password}
+                            />
+                            <input type="password" id="confirmpassword" placeholder="Confirm Password" />
+                            <div id="button_container">
+                                <button onClick={handleSubmit}>Register</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </body>
     )
 }
