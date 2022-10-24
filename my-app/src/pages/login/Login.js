@@ -3,16 +3,16 @@ import { db, auth } from '../../firebase/config'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import './Signup.css'
+//import '../signup/Signup.css'
 
-export default function Signup() {
+export default function Login() {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [DOB, setDOB] = useState('')
-    const navigate = useNavigate()
+    const navitage = useNavigate()
     const handleSubmit = async (e) => {
 
         e.preventDefault()
@@ -20,7 +20,7 @@ export default function Signup() {
             createUserWithEmailAndPassword(auth, email, password)
                 .then(async function () {
                     alert('User Created!');
-                    navigate('/Login');
+                    navitage("Login")
 
                 })
                 .catch(function (error) {
@@ -48,7 +48,7 @@ export default function Signup() {
             <div className="content_container">
                 <div id="form_container">
                     <div id="form_header_container">
-                        <h2 id="form_header">Signup</h2>
+                        <h2 id="form_header">Login</h2>
                     </div>
 
                     <div id="form_content_container">
