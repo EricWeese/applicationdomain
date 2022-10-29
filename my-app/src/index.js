@@ -11,6 +11,7 @@ import Insurance from './pages/accounts/Insurance'
 import LabComputers from './pages/accounts/Lab Computers'
 import LabEquipment from './pages/accounts/Lab Equipment'
 import RealEstate from './pages/accounts/Real Estate'
+import Journals from './pages/journals/Journal'
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -35,6 +36,7 @@ root.render(
       <Route path="/Lab Computers" element={<LabComputers />} />
       <Route path="/Lab Equipment" element={<LabEquipment />} />
       <Route path="/Real Estate" element={<RealEstate />} />
+      <Route path="/Journal" element={<Journals />} />
 
 
     </Routes>
