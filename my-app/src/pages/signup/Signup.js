@@ -39,7 +39,6 @@ export default function Signup() {
                 })
                 .catch(function (error) {
                     // Firebase will use this to alert of its errors
-                    var error_code = error.code
                     var error_message = error.message
 
                     alert(error_message)
@@ -55,7 +54,7 @@ export default function Signup() {
             DOB: DOB,
             email: email,
             password: password,
-            userName: firstName.charAt(0)+lastName+(DOB.getMonth()+1)+DOB.getFullYear.slice(-2),
+            userName: firstName.charAt(0)+lastName+(DOB.getMonth()+1)+DOB.getFullYear(),
             isActive: true,
             expiredPassword: false,
         })
@@ -116,17 +115,6 @@ export default function Signup() {
                                                 <Form.Label>Password</Form.Label>
                                                 <Form.Control onChange={(e) => setConPassword(e.target.value)} value={conPassword}
                                                     type="password" placeholder="Confirm Password" />
-                                            </Form.Group>
-
-                                            <Form.Group
-                                                className="mb-3"
-                                                controlId="formBasicCheckbox"
-                                            >
-                                                <p className="small">
-                                                    <Link to="/Signup" className="text-primary" >
-                                                        Forgot password?
-                                                    </Link>
-                                                </p>
                                             </Form.Group>
                                             <div className="d-grid">
                                                 <Button onClick={handleSubmit} variant="primary">

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Signup from './pages/signup/Signup'
 import Login from './pages/login/Login'
+import ForgotPassword from './pages/forgotPassword/forgotPassword'
 import Cash from './pages/accounts/Cash'
 import Accounts from './pages/accounts/Accounts'
 import AccountsNew from './pages/accounts/AccountsNew'
@@ -27,6 +28,7 @@ root.render(
     <Routes>
       <Route path="/" element={<Signup />} />
       <Route path="/Login" element={<Login />} />
+      <Route path="/ForgotPassword" element={<ForgotPassword />} />
       <Route path="/Accounts" element={<Accounts />} />
       <Route path="/Cash" element={<Cash />} />
       <Route path="/Accounts Receivable" element={<AccountsReceivable />} />
