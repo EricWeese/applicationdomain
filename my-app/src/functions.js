@@ -1,16 +1,20 @@
 // Validate Functions
-function validate_email(email) {
+export function validate_email(email) {
+	const errors = [];
 	const expression = /^[^@]+@\w+(\.\w+)+\w$/
-	if (expression.test(email) == true) {
+	if (expression.test(email) === true) {
 		// Email is good
 		return true
-	} else {
-		// Email is not good
-		return false
+	} if (expression.test(email) === false){
+		errors.push("Email is incorrect.")
+	} 
+	if (errors.length > 0) {
+		alert(errors.join("\n"));
+		return false;
 	}
 }
 
-function validate_password(password) {
+export function validate_password(password) {
 	const errors = [];
 	// Firebase only accepts lengths greater than 6
 	if (password.length <= 7) {
@@ -32,8 +36,8 @@ function validate_password(password) {
 	return true;
 }
 
-function password_match(password, confirmpassword) {
-	if (password != confirmpassword) {
+export function password_match(password, confirmpassword) {
+	if (password !== confirmpassword) {
 		alert("Passwords did not match");
 		return false
 	} else {
@@ -41,7 +45,7 @@ function password_match(password, confirmpassword) {
 	}
 }
 
-function validate_field(field) {
+export function validate_field(field) {
 	if (field == null) {
 		return false
 	}

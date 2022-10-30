@@ -7,6 +7,7 @@ import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import DatePicker from "react-date-picker";
 import './Signup.css'
+import { validate_email, validate_password, password_match } from "../../functions"
 
 export default function Signup() {
 
@@ -18,15 +19,22 @@ export default function Signup() {
     const [DOB, setDOB] = useState(new Date())
     const navigate = useNavigate()
     const handleSubmit = async (e) => {
-
-
         e.preventDefault()
-        try {
+
+            if(validate_email(email) === false){
+
+            }
+            else if(validate_password(password) === false){
+
+            }
+            else if (password_match(password, conPassword) === false){
+                
+            }else if(validate_email(email) === true && validate_password(password) === true && password_match(password, conPassword) === true){
+            try {
             createUserWithEmailAndPassword(auth, email, password)
                 .then(async function () {
                     alert('User Created!');
                     navigate('/Login');
-
 
                 })
                 .catch(function (error) {
@@ -40,12 +48,16 @@ export default function Signup() {
         catch (error) {
             console.log(error)
         }
+    }
         await addDoc(collection(db, 'users'), {
             firstName: firstName,
             lastName: lastName,
             DOB: DOB,
             email: email,
-            password: password
+            password: password,
+            userName: firstName.charAt(0)+lastName+(DOB.getMonth()+1)+DOB.getFullYear.slice(-2),
+            isActive: true,
+            expiredPassword: false,
         })
     }
 
