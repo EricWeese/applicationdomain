@@ -1,4 +1,4 @@
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db, auth } from '../../firebase/config'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -57,6 +57,7 @@ export default function Signup() {
             userName: firstName.charAt(0)+lastName+(DOB.getMonth()+1)+DOB.getFullYear(),
             isActive: true,
             expiredPassword: false,
+            createdAt: serverTimestamp(),
         })
     }
 

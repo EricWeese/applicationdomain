@@ -6,6 +6,7 @@ import ForgotPassword from './pages/forgotPassword/forgotPassword'
 import Cash from './pages/accounts/Cash'
 import Accounts from './pages/accounts/Accounts'
 import AccountsNew from './pages/accounts/AccountsNew'
+import Users from './pages/users/users'
 import AccountsReceivable from './pages/accounts/Accounts Receivable'
 import AccountsPayable from './pages/accounts/Accounts Payable'
 import Insurance from './pages/accounts/Insurance'
@@ -30,6 +31,7 @@ root.render(
       <Route path="/Login" element={<Login />} />
       <Route path="/ForgotPassword" element={<ForgotPassword />} />
       <Route path="/Accounts" element={<Accounts />} />
+      <Route path="/Users" element={<Users />} />
       <Route path="/Cash" element={<Cash />} />
       <Route path="/Accounts Receivable" element={<AccountsReceivable />} />
       <Route path="/Accounts Payable" element={<AccountsPayable />} />
@@ -37,7 +39,6 @@ root.render(
       <Route path="/Lab Computers" element={<LabComputers />} />
       <Route path="/Lab Equipment" element={<LabEquipment />} />
       <Route path="/Real Estate" element={<RealEstate />} />
-
 
     </Routes>
   </BrowserRouter>
