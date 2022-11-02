@@ -21,40 +21,40 @@ export default function Signup() {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-            if(validate_email(email) === false){
+        if (validate_email(email) === false) {
 
-            }
-            else if(validate_password(password) === false){
+        }
+        else if (validate_password(password) === false) {
 
-            }
-            else if (password_match(password, conPassword) === false){
-                
-            }else if(validate_email(email) === true && validate_password(password) === true && password_match(password, conPassword) === true){
+        }
+        else if (password_match(password, conPassword) === false) {
+
+        } else if (validate_email(email) === true && validate_password(password) === true && password_match(password, conPassword) === true) {
             try {
-            createUserWithEmailAndPassword(auth, email, password)
-                .then(async function () {
-                    alert('User Created!');
-                    navigate('/Login');
+                createUserWithEmailAndPassword(auth, email, password)
+                    .then(async function () {
+                        alert('User Created!');
+                        navigate('/Login');
 
-                })
-                .catch(function (error) {
-                    // Firebase will use this to alert of its errors
-                    var error_message = error.message
+                    })
+                    .catch(function (error) {
+                        // Firebase will use this to alert of its errors
+                        var error_message = error.message
 
-                    alert(error_message)
-                })
+                        alert(error_message)
+                    })
+            }
+            catch (error) {
+                console.log(error)
+            }
         }
-        catch (error) {
-            console.log(error)
-        }
-    }
         await addDoc(collection(db, 'users'), {
             firstName: firstName,
             lastName: lastName,
             DOB: DOB,
             email: email,
             password: password,
-            userName: firstName.charAt(0)+lastName+(DOB.getMonth()+1)+DOB.getFullYear(),
+            userName: firstName.charAt(0) + lastName + (DOB.getMonth() + 1) + DOB.getFullYear(),
             isActive: true,
             expiredPassword: false,
             createdAt: serverTimestamp(),

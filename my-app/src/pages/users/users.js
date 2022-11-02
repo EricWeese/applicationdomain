@@ -56,11 +56,12 @@ const columns = [
 ];
 
 const info = [];
-const rows = async (e) => {await getDocs(collection(db, "users"), where("isActive" === true));
+const rows = async (e) => {
+    await getDocs(collection(db, "users"), where("isActive" === true));
     rows.forEach((doc) => {
         info.push(doc.data)
-    // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, " => ", doc.data());
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
     });
 }
 
@@ -84,14 +85,15 @@ export default function Accounts() {
 
     return (
         <div>
-        <Box sx={{ width: '100%' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="Navigation Bar">
-          <Link to="/Home" className="text-primary fw-bold"> Home </Link>
-          <Link to="/Accounts" className="text-primary fw-bold"> Accounts </Link>
-          <Link to="/Users" className="text-primary fw-bold"> Users </Link>
-        </Tabs>
-        </Box>
-        
+            <Box sx={{ width: '100%' }}>
+                <Tabs value={value} onChange={handleChange} aria-label="Navigation Bar">
+                    <Link to="/Home" className="text-primary fw-bold"> Home </Link>
+                    <Link to="/Users" className="text-primary fw-bold"> Users </Link>
+                    <Link to="/Accounts" className="text-primary fw-bold"> Accounts </Link>
+                    <Link to="/JournalEntries" className="text-primary fw-bold"> Journal Entries </Link>
+                </Tabs>
+            </Box>
+
             <Box sx={{ height: 600, width: '100%' }}>
                 <DataGrid
                     rows={info}
@@ -111,7 +113,7 @@ export default function Accounts() {
 
                 <Button onClick={handleShow} variant="outline-primary">Update User</Button>
             </OverlayTrigger>
-        <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>
                         Update Exisiting User

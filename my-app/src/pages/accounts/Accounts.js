@@ -1,19 +1,17 @@
 import * as React from 'react';
-import { BrowserRouter, Route, Routes, Navigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import Button from 'react-bootstrap/Button';
-// import { useNavigate } from "react-router-dom";
-import { Modal } from 'react-bootstrap';
+import { Modal, NavLink } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 import AddAccount from './AddAccount';
 import { useState } from "react";
 import Tabs from '@mui/material/Tabs';
-// import Tab from '@mui/material/Tab';
-// import { addDoc, collection } from "firebase/firestore";
-// import { db, auth } from '../../firebase/config'
+import { addDoc, collection, getDocs, getFirestore } from "firebase/firestore";
+import { db } from '../../firebase/config'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -90,7 +88,37 @@ const rows = [
 ];
 
 
+
+
 export default function Accounts() {
+    const navigate = useNavigate();
+    const [updatedRows, setRows] = useState([]);
+    const accountsRef = collection(db, "accounts");
+    const num = 0;
+    const setData = async () => {
+
+        await addDoc(collection(db, 'accounts'), {
+            id: rows[num].id,
+            accountName: rows[num].accountName,
+            category: rows[num].category,
+            balance: rows[num].balance,
+            dateCreated: rows[num].dateCreated,
+            statement: rows[num].statement,
+        })
+    }
+    setData();
+    const getData = async () => {
+        try {
+            const data = await getDocs(accountsRef);
+            setRows(data.docs.map((doc) => ({ ...doc.data() })))
+            console.log(updatedRows[2]);
+            //updatedRows.forEach
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    getData();
+
     const [show, setShow] = useState(false)
     const handleShow = () => setShow(true)
     const handleClose = () => setShow(false)
@@ -105,17 +133,21 @@ export default function Accounts() {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    const changePage = () => {
+        navigate('/JournalEntries');
+    }
 
     return (
         <div>
-        <Box sx={{ width: '100%' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="Navigation Bar">
-          <Link to="/Home" className="text-primary fw-bold"> Home </Link>
-          <Link to="/Accounts" className="text-primary fw-bold"> Accounts </Link>
-          <Link to="/Users" className="text-primary fw-bold"> Users </Link>
-        </Tabs>
-        </Box>
-        
+            <Box sx={{ width: '100%' }}>
+                <Tabs value={value} onChange={handleChange} aria-label="Navigation Bar">
+                    <Link to="/Home" className="text-primary fw-bold"> Home </Link>
+                    <Link to="/Users" className="text-primary fw-bold"> Users </Link>
+                    <Link to="/Accounts" className="text-primary fw-bold"> Accounts </Link>
+                    <Link to="/JournalEntries" className="text-primary fw-bold"> Journal Entries </Link>
+                </Tabs>
+            </Box>
+
             <Box sx={{ height: 600, width: '100%' }}>
                 <DataGrid
                     rows={rows}
@@ -132,10 +164,12 @@ export default function Accounts() {
                 delay={{ show: 250, hide: 400 }}
                 overlay={renderTooltip}
             >
-
                 <Button onClick={handleShow} variant="outline-primary">Add New Account</Button>
             </OverlayTrigger>
-        <Modal show={show} onHide={handleClose}>
+
+            <Button onClick={changePage} variant="outline-primary">View Journal Entries</Button>
+
+            <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>
                         Add New Account
@@ -148,9 +182,10 @@ export default function Accounts() {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-
                 </Modal.Footer>
             </Modal>
         </div>
     );
 }
+
+
