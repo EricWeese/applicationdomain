@@ -1,15 +1,16 @@
 import * as React from 'react';
-import Login from '../login/Login.js'
 import { BrowserRouter, Route, Routes, Navigate, Link } from "react-router-dom";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import Button from 'react-bootstrap/Button';
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { Modal } from 'react-bootstrap';
 import AddAccount from './AddAccount';
 import { useState } from "react";
-import { addDoc, collection } from "firebase/firestore";
-import { db, auth } from '../../firebase/config'
+import Tabs from '@mui/material/Tabs';
+// import Tab from '@mui/material/Tab';
+// import { addDoc, collection } from "firebase/firestore";
+// import { db, auth } from '../../firebase/config'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
@@ -93,15 +94,28 @@ export default function Accounts() {
     const [show, setShow] = useState(false)
     const handleShow = () => setShow(true)
     const handleClose = () => setShow(false)
-
+    const [value, setValue] = React.useState(0);
 
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             Click this to add a new account
         </Tooltip>
     );
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
     return (
-        <><>
+        <div>
+        <Box sx={{ width: '100%' }}>
+        <Tabs value={value} onChange={handleChange} aria-label="Navigation Bar">
+          <Link to="/Home" className="text-primary fw-bold"> Home </Link>
+          <Link to="/Accounts" className="text-primary fw-bold"> Accounts </Link>
+          <Link to="/Users" className="text-primary fw-bold"> Users </Link>
+        </Tabs>
+        </Box>
+        
             <Box sx={{ height: 600, width: '100%' }}>
                 <DataGrid
                     rows={rows}
@@ -121,7 +135,7 @@ export default function Accounts() {
 
                 <Button onClick={handleShow} variant="outline-primary">Add New Account</Button>
             </OverlayTrigger>
-        </><Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>
                         Add New Account
@@ -136,7 +150,7 @@ export default function Accounts() {
                     </Button>
 
                 </Modal.Footer>
-            </Modal></>
-
+            </Modal>
+        </div>
     );
 }

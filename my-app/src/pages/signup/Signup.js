@@ -1,4 +1,4 @@
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db, auth } from '../../firebase/config'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import DatePicker from "react-date-picker";
 import './Signup.css'
+import { validate_email, validate_password, password_match } from "../../functions"
 
 export default function Signup() {
 
@@ -18,20 +19,26 @@ export default function Signup() {
     const [DOB, setDOB] = useState(new Date())
     const navigate = useNavigate()
     const handleSubmit = async (e) => {
-
-
         e.preventDefault()
-        try {
+
+            if(validate_email(email) === false){
+
+            }
+            else if(validate_password(password) === false){
+
+            }
+            else if (password_match(password, conPassword) === false){
+                
+            }else if(validate_email(email) === true && validate_password(password) === true && password_match(password, conPassword) === true){
+            try {
             createUserWithEmailAndPassword(auth, email, password)
                 .then(async function () {
                     alert('User Created!');
                     navigate('/Login');
 
-
                 })
                 .catch(function (error) {
                     // Firebase will use this to alert of its errors
-                    var error_code = error.code
                     var error_message = error.message
 
                     alert(error_message)
@@ -40,12 +47,17 @@ export default function Signup() {
         catch (error) {
             console.log(error)
         }
+    }
         await addDoc(collection(db, 'users'), {
             firstName: firstName,
             lastName: lastName,
             DOB: DOB,
             email: email,
-            password: password
+            password: password,
+            userName: firstName.charAt(0)+lastName+(DOB.getMonth()+1)+DOB.getFullYear(),
+            isActive: true,
+            expiredPassword: false,
+            createdAt: serverTimestamp(),
         })
     }
 
@@ -104,17 +116,6 @@ export default function Signup() {
                                                 <Form.Label>Password</Form.Label>
                                                 <Form.Control onChange={(e) => setConPassword(e.target.value)} value={conPassword}
                                                     type="password" placeholder="Confirm Password" />
-                                            </Form.Group>
-
-                                            <Form.Group
-                                                className="mb-3"
-                                                controlId="formBasicCheckbox"
-                                            >
-                                                <p className="small">
-                                                    <Link to="/Signup" className="text-primary" >
-                                                        Forgot password?
-                                                    </Link>
-                                                </p>
                                             </Form.Group>
                                             <div className="d-grid">
                                                 <Button onClick={handleSubmit} variant="primary">
