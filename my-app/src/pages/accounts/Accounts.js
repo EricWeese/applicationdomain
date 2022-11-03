@@ -6,8 +6,8 @@ import Button from 'react-bootstrap/Button';
 import { Modal, NavLink } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import AddAccount from './AddAccount';
+import NavBar from '../../components/navbar/Navbar';
 import { useState } from "react";
-import Tabs from '@mui/material/Tabs';
 import { addDoc, collection, getDocs, getFirestore } from "firebase/firestore";
 import { db } from '../../firebase/config'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -122,32 +122,19 @@ export default function Accounts() {
     const [show, setShow] = useState(false)
     const handleShow = () => setShow(true)
     const handleClose = () => setShow(false)
-    const [value, setValue] = React.useState(0);
 
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             Click this to add a new account
         </Tooltip>
     );
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
     const changePage = () => {
         navigate('/JournalEntries');
     }
 
     return (
         <div>
-            <Box sx={{ width: '100%' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="Navigation Bar">
-                    <Link to="/Home" className="text-primary fw-bold"> Home </Link>
-                    <Link to="/Users" className="text-primary fw-bold"> Users </Link>
-                    <Link to="/Accounts" className="text-primary fw-bold"> Accounts </Link>
-                    <Link to="/JournalEntries" className="text-primary fw-bold"> Journal Entries </Link>
-                </Tabs>
-            </Box>
-
+            <NavBar />
             <Box sx={{ height: 600, width: '100%' }}>
                 <DataGrid
                     rows={rows}

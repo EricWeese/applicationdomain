@@ -1,51 +1,41 @@
-import React, { useState } from "react";
-import {
-    Navbar,
-    Nav,
-    NavDropdown,
-    Form,
-    FormControl,
-    Button
-} from "react-bootstrap";
+// import React from "react";
+import { getAuth, signOut } from "firebase/auth";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
-import ModalLogin from "./ModalLogin";
+export default function NavBar() {
 
-const Navigation = () => {
-    const [modalShow, setModalShow] = useState(false);
+    const logout = (e) =>{
+        const auth = getAuth();
+        signOut(auth).then(() => {
+        // Sign-out successful.
+        }).catch((e) => {
+        // An error happened.
+        });
+    }
 
     return (
-        <Navbar bg="primary" variant="dark" expand="md">
-            <Navbar.Brand href="#home">Movies-App</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
-                    <Nav.Link
-                        variant="transparent"
-                        style={{ width: "50px" }}
-                        onClick={() => setModalShow(true)}
-                    >
-                        Login
-                    </Nav.Link>
-                    <ModalLogin show={modalShow} onHide={() => setModalShow(false)} />
-                    <Nav.Link href="#link">Link</Nav.Link>
-                    <NavDropdown title="Sample Dropdown" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">
-                            Another action
-                        </NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.4">
-                            Separated link
-                        </NavDropdown.Item>
-                    </NavDropdown>
-                </Nav>
-                <Form inline>
-                    <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                    <Button variant="outline-light">Search</Button>
-                </Form>
-            </Navbar.Collapse>
-        </Navbar>
-    );
-};
-export default Navigation;
+        <div>
+      <Navbar bg="primary" variant="dark" >
+        <Container>
+          <Navbar.Brand href="/Home">Home</Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link href="/Accounts">Accounts</Nav.Link>
+            <Nav.Link href="/Users">Users</Nav.Link>
+            <Nav.Link href="/JournalEntries">Journal Entries</Nav.Link>
+          </Nav>
+        </Container>
+        <Navbar.Text>
+            Signed in as: <a href="#login">Ez Books</a>
+        </Navbar.Text>
+        <Form className="d-flex">
+            <Button variant="outline-success" onClick={logout}>Logout</Button>
+        </Form>
+      </Navbar>
+      <br />
+      </div>
+    )
+}
