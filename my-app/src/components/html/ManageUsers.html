@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="manageUsers.css">
+    <title>Manage Users</title>
+
+    <style>
+        .table {
+            background-color: rgb(164, 201, 220);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 10% auto 10%;
+            gap: 10px 40px;
+            background-color: rgba(0, 255, 255, 1);
+            padding: 40px;
+            margin: 40px 10%;
+            border: 1px solid black;
+            border-radius: 20px;
+        }
+
+            .grid-container > table {
+                background-color: rgba(255, 255, 255, 0.8);
+            }
+
+        #corners1 {
+            border-radius: 15px;
+            background: lightblue;
+            padding: 3px;
+            width: 20px;
+            height: 20px;
+        }
+
+        #headerText {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid black;
+            text-align: center;
+            font-size: 30px;
+            padding: 8px;
+            border-radius: 25px;
+        }
+
+        table.blueTable {
+            border: 1px solid #1C6EA4;
+            background-color: #EEEEEE;
+            width: 100%;
+            text-align: left;
+            border-collapse: collapse;
+        }
+
+            table.blueTable td,
+            table.blueTable th {
+                border: 1px solid #AAAAAA;
+                padding: 3px 3px;
+            }
+
+            table.blueTable tbody td {
+                font-size: 13px;
+            }
+
+            table.blueTable tr:nth-child(even) {
+                background: #D0E4F5;
+            }
+
+            table.blueTable thead {
+                background: #1C6EA4;
+                background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+                background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+                background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+                border-bottom: 2px solid #444444;
+            }
+
+                table.blueTable thead th {
+                    font-size: 15px;
+                    font-weight: bold;
+                    color: #FFFFFF;
+                    border-left: 2px solid #D0E4F5;
+                }
+
+                    table.blueTable thead th:first-child {
+                        border-left: none;
+                    }
+
+            table.blueTable tfoot {
+                font-size: 14px;
+                font-weight: bold;
+                color: #FFFFFF;
+                background: #D0E4F5;
+                background: -moz-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+                background: -webkit-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+                background: linear-gradient(to bottom, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+                border-top: 2px solid #444444;
+            }
+
+                table.blueTable tfoot td {
+                    font-size: 14px;
+                }
+
+                table.blueTable tfoot .links {
+                    text-align: right;
+                }
+
+                    table.blueTable tfoot .links a {
+                        display: inline-block;
+                        background: #1C6EA4;
+                        color: #FFFFFF;
+                        padding: 2px 8px;
+                        border-radius: 5px;
+                    }
+
+        #titleTable {
+            padding-top: 5px;
+            font-family: Montserrat;
+            /*padding: 5px 0px 5px 650px;*/
+            letter-spacing: 1px;
+            font-weight: 100;
+            font-size: 30px;
+            color: black;
+        }
+
+        #switch_account {
+            align: right;
+            font-family: Montserrat;
+            letter-spacing: 1px;
+            font-weight: 100;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="color:black; font-size:12px; background-color:aqua; width:100%; height:50px; display:flex; align-items: center; justify-content:space-between">
+        <a href="Menu.html">
+            <img src="../images/logo.png" style="block-size:50px;  padding: 0px 20px 0px 5px" align="left" />
+        </a>
+        <div id="headerText">
+            All Users
+        </div>
+        <div style="font-size:12px; color:black; padding: 20px; display:inherit">
+            <div style="padding:20px">
+                CGeorge0922
+            </div>
+            <img src="../images/ProfilePic.jfif" style="block-size: 30px; align-self:center" />
+        </div>
+
+    </div>
+
+    <div class="grid-container">
+        <div id="titleTable">
+
+
+        </div>
+
+        <table class="blueTable">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Date Created</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td colspan="4">
+                        <div class="links">
+                            <a href="#">&laquo;</a> <a class="active" href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">&raquo;</a>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+            <tbody>
+                <tr>
+                    <td>CGeorge0922</td>
+                    <td>test@gmail.com</td>
+                    <td>
+                        <select name="Role" id="role">
+                            <option value="admin" selected>Admin</option>
+                            <option value="manager">Manager</option>
+                            <option value="user">Regular</option>
+                        </select>
+                    </td>
+                    <td>9/23/22</td>
+                </tr>
+                <tr>
+                    <td>YHat0922</td>
+                    <td>manager@gmail.com</td>
+                    <td>
+                        <select name="Role" id="role">
+                            <option value="admin">Admin</option>
+                            <option value="manager" selected>Manager</option>
+                            <option value="user">Regular</option>
+                        </select>
+                    </td>
+                    <td>9/26/22</td>
+                </tr>
+                <tr>
+                    <td>ALincoln0922</td>
+                    <td>regular@gmail.com</td>
+                    <td>
+                        <select name="Role" id="role">
+                            <option value="admin">Admin</option>
+                            <option value="manager">Manager</option>
+                            <option value="user" selected>Regular</option>
+                        </select>
+                    </td>
+                    <td>9/28/22</td>
+                </tr>
+                <tr>
+                    <td>EWeese0922</td>
+                    <td>ericweese99@gmail.com</td>
+                    <td>
+                        <select name="Role" id="role">
+                            <option value="admin">Admin</option>
+                            <option value="manager">Manager</option>
+                            <option value="user" selected>Regular</option>
+                        </select>
+                    </td>
+                    <td>9/28/22</td>
+                </tr>
+
+            </tbody>
+            </tr>
+        </table>
+        <div>
+        </div>
+    </div>
+</body>
+
+</html>

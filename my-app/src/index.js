@@ -15,6 +15,7 @@ import Journals from './pages/journals/Journal'
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 export default function AppMain() {
 

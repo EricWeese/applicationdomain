@@ -119,14 +119,15 @@
 	height: 50px;
 	display: flex;
 	align-items: center;
-	justify-content: space-between
+	justify-content: space-between;
+	margin: 5px 5px 0px 5px;
 }
 
 #headerText {
 	background-color: rgba(255, 255, 255, 0.8);
 	border: 1px solid black;
 	text-align: center;
-	font-size: 30px;
+	font-size: 24px;
 	padding: 8px;
 	border-radius: 25px;
 }
