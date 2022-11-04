@@ -1,8 +1,9 @@
 import './Journal.css'
+import NavBar from '../../components/NavBar/NavBar'
 
 export default function JournalPage() {
-    
     return (
+        <div>
             <div id="journalHead">
                 <div>
                     <img src={require("../../img/Logo.png") } />
@@ -15,6 +16,8 @@ export default function JournalPage() {
                         <img src={require("../../img/ProfilePic.jfif")} />
                     </div>
                 </div>
+            </div>
+            <NavBar />
             </div>
     )
 }
