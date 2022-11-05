@@ -2,6 +2,7 @@ import { Form, Button } from "react-bootstrap"
 import { useState } from "react";
 import { collection, getDocs, addDoc, deleteDoc, doc, Firestore, setDoc } from "firebase/firestore";
 import { db } from '../../firebase/config'
+import { newRows } from "./Accounts";
 
 export default function AddAccount() {
     const [accountName, setAccountName] = useState('');
@@ -10,6 +11,7 @@ export default function AddAccount() {
     const [id, setId] = useState('');
     const ids = Array(1000, 1010, 1020, 1030, 1040, 1050, 2000, 2010, 3000, 3010, 4000, 5000, 5010, 5020, 5030, 5040);
     const handleSubmit = (e) => {
+        console.log(newRows);
         e.preventDefault();
         console.log(accountName);
         console.log(category);

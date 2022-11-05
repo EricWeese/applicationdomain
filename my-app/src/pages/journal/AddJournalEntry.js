@@ -7,6 +7,12 @@ export default function AddJournalEntry() {
     const [creditAccount, setCreditAccount] = useState('');
     const [creditAmount, setCreditAmount] = useState('');
     const handleSubmit = (e) => {
+        if (debitAmount == creditAmount) {
+            console.log("they equal")
+        }
+        else {
+            console.log("nope")
+        }
         e.preventDefault();
         console.log(debitAccount);
         console.log(debitAmount);
