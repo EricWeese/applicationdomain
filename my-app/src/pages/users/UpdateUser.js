@@ -11,18 +11,16 @@ export default function Signup() {
     const [email, setEmail] = useState('')
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
-    const [active, setActive] = useState(true)
+    const [active, setActive] = useState('')
     const [DOB, setDOB] = useState(new Date())
     const [role, setRole] = useState('')
-
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(userId[0].id)
         if (validate_email(email) === false) {
 
         } else if (validate_email(email) === true) {
             const userName = firstName.charAt(0) + lastName + (DOB.getMonth() + 1) + DOB.getFullYear().toString().slice(-2)
-            await updateDoc(doc(db, 'users' ), {
+            await updateDoc(doc(db, 'users', userId[0].id ), {
                 firstName: firstName,
                 lastName: lastName,
                 DOB: DOB.toDateString(),
@@ -63,7 +61,7 @@ export default function Signup() {
                     Select Role
                 </Form.Label>
                 <Form.Select className="text-center" onChange={(e) => setRole(e.target.value)} value={role}>
-                <option value="Admin">Admin</option>
+                    <option value="Admin">Admin</option>
                     <option value="Manager">Manager</option>
                     <option value="Accountant">Accountant</option>
                 </Form.Select>
@@ -73,8 +71,8 @@ export default function Signup() {
                     Activate Or Deactivate
                 </Form.Label>
                 <Form.Select className="text-center" onChange={(e) => setActive(e.target.value)} value={active}>
-                    <option value="true">Activate</option>
-                    <option value="false">Deactivate</option>
+                    <option value={true}>Activate</option>
+                    <option value={false}>Deactivate</option>
                 </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">

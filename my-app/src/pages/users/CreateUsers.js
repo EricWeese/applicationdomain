@@ -1,7 +1,6 @@
 import { setDoc, doc } from "firebase/firestore";
 import { db, auth } from '../../firebase/config'
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Button, Form } from "react-bootstrap";
 import DatePicker from "react-date-picker";
@@ -17,7 +16,6 @@ export default function Signup() {
     const [DOB, setDOB] = useState(new Date())
     const [role, setRole] = useState('')
 
-    const navigate = useNavigate()
     const handleSubmit = async (e) => {
         e.preventDefault()
 
@@ -33,8 +31,7 @@ export default function Signup() {
             try {
                 createUserWithEmailAndPassword(auth, email, password)
                     .then(async function () {
-                        alert('User Created!');
-                        navigate('/Login');
+                        alert('User Created!')
 
                     })
                     .catch(function (error) {
