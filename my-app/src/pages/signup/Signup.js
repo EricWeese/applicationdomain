@@ -1,4 +1,4 @@
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 import { db, auth } from '../../firebase/config'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,6 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import DatePicker from "react-date-picker";
-import './Signup.css'
 import { validate_email, validate_password, password_match } from "../../functions"
 
 export default function Signup() {
@@ -48,16 +47,20 @@ export default function Signup() {
                 console.log(error)
             }
         }
-        await addDoc(collection(db, 'users'), {
+        const dateCreated = new Date();
+        const userName = firstName.charAt(0) + lastName + (DOB.getMonth() + 1) + DOB.getFullYear().toString().slice(-2)
+        await setDoc(doc(db, 'users', userName), {
+            id: userName,
             firstName: firstName,
             lastName: lastName,
-            DOB: DOB,
+            DOB: DOB.toDateString(),
             email: email,
             password: password,
-            userName: firstName.charAt(0) + lastName + (DOB.getMonth() + 1) + DOB.getFullYear(),
+            userName: userName,
             isActive: true,
             expiredPassword: false,
-            createdAt: serverTimestamp(),
+            createdAt: dateCreated.toDateString(),
+            role: "User"
         })
     }
 

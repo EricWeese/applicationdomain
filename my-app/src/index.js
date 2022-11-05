@@ -5,17 +5,15 @@ import Login from './pages/login/Login'
 import ForgotPassword from './pages/forgotPassword/forgotPassword'
 import Cash from './pages/accounts/Cash'
 import Accounts from './pages/accounts/Accounts'
-import AccountsNew from './pages/accounts/AccountsNew'
 import AccountsReceivable from './pages/accounts/Accounts Receivable'
 import AccountsPayable from './pages/accounts/Accounts Payable'
 import Insurance from './pages/accounts/Insurance'
 import LabComputers from './pages/accounts/Lab Computers'
 import LabEquipment from './pages/accounts/Lab Equipment'
 import RealEstate from './pages/accounts/Real Estate'
-import Users from './pages/users/users'
+import Users from './pages/users/Users'
 import JournalEntries from './pages/journal/JournalEntries'
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import App from './App';
+import { BrowserRouter, Route, Routes} from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 import "bootstrap/dist/css/bootstrap.min.css";
 export default function AppMain() {
