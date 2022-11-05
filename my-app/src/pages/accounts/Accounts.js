@@ -7,11 +7,13 @@ import { Modal } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import AddAccount from './AddAccount';
 import NavBar from '../../components/navbar/Navbar';
-import { useState } from "react";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { useState, useEffect } from "react";
+import { collection, getDocs, addDoc, deleteDoc, doc, Firestore, setDoc } from "firebase/firestore";
 import { db } from '../../firebase/config'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import { getRowIdFromRowModel } from '@mui/x-data-grid/hooks/features/rows/gridRowsUtils';
+import { slice } from 'cheerio/lib/api/traversing';
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -94,10 +96,9 @@ export default function Accounts() {
     const navigate = useNavigate();
     const [updatedRows, setRows] = useState([]);
     const accountsRef = collection(db, "accounts");
-    const num = 0;
-    /*const setData = async () => {
-
-        await addDoc(collection(db, 'accounts'), {
+    const num = 10;
+    const setData = async () => {
+        await setDoc(doc(db, "accounts", rows[num].accountName), {
             id: rows[num].id,
             accountName: rows[num].accountName,
             category: rows[num].category,
@@ -106,18 +107,37 @@ export default function Accounts() {
             statement: rows[num].statement,
         })
     }
-    setData();*/
+    setData();
     const getData = async () => {
         try {
             const data = await getDocs(accountsRef);
             setRows(data.docs.map((doc) => ({ ...doc.data() })))
-            console.log(updatedRows[2]);
-            //updatedRows.forEach
         } catch (e) {
             console.log(e);
         }
     }
 
+    useEffect(() => {
+        getData();
+    }, [])
+
+    const deleteAccount = async () => {
+        try {
+            await deleteDoc(doc(db, "accounts", selectedRows[0].accountName));
+            alert("Account Deleted");
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    const onRowsSelectionHandler = (ids) => {
+        try {
+            setSelectedRows(ids.map((id) => updatedRows.find((row) => row.id === id)));
+        } catch (e) {
+            console.log(e);
+        }
+
+    };
+    const [selectedRows, setSelectedRows] = useState([])
     const [show, setShow] = useState(false)
     const handleShow = () => setShow(true)
     const handleClose = () => setShow(false)
@@ -141,9 +161,12 @@ export default function Accounts() {
                     columns={columns}
                     pageSize={8}
                     rowsPerPageOptions={[8]}
-                    checkboxSelection
                     disableSelectionOnClick
-                    experimentalFeatures={{ newEditingApi: true }} />
+                    checkboxSelection
+                    disableMultipleSelection={true}
+                    experimentalFeatures={{ newEditingApi: true }}
+                    onSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
+                />
             </Box>
 
             <OverlayTrigger
@@ -153,6 +176,7 @@ export default function Accounts() {
             >
                 <Button onClick={handleShow} variant="outline-primary">Add New Account</Button>
             </OverlayTrigger>
+            <Button onClick={deleteAccount} variant="outline-primary">Delete Account</Button>
             <Button onClick={changePage} variant="outline-primary">View Journal Entries</Button>
 
             <Modal show={show} onHide={handleClose}>
@@ -162,7 +186,7 @@ export default function Accounts() {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddAccount />
+                    <AddAccount onSubmit={handleClose} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
