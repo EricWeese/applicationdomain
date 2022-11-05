@@ -1,77 +1,43 @@
-import * as React from 'react';
-import { Link } from "react-router-dom";
-import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-// import { useNavigate } from "react-router-dom";
 import { Modal } from 'react-bootstrap';
-// import AddAccount from './AddAccount';
 import NavBar from '../../components/navbar/Navbar';
-import { useState } from "react";
-import Tabs from '@mui/material/Tabs';
-// import Tab from '@mui/material/Tab';
-import { collection, getDocs, where } from "firebase/firestore";
+import Table from '../../components/table/Table';
+import { collection, getDocs } from "firebase/firestore";
 import { db } from '../../firebase/config'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
 const columns = [
-    { field: 'id', headerName: 'Account Number', width: 120 },
-    {
-        field: 'firstName',
-        headerName: 'First Name',
-        width: 150,
-        editable: true,
-    },
-    {
-        field: 'lastName',
-        headerName: 'Last Name',
-        width: 110,
-        editable: true,
-    },
-    {
-        field: 'dateOfBirth',
-        headerName: 'Date Of Birth',
-        width: 110,
-        editable: true,
-    },
-    {
-        field: 'role',
-        headerName: 'Role',
-        width: 110,
-        editable: true,
-    },
-    {
-        field: 'dateCreated',
-        headerName: 'Date Created',
-        sortable: true,
-        width: 160,
-    },
-    {
-        field: 'expiredPassword',
-        headerName: 'Expired Password',
-        sortable: true,
-        width: 160,
-    },
-
+    { value: 'id', heading: 'Account Number', width: 120 },
+    { value: 'firstName', heading: 'First Name' },
+    { value: 'lastName', heading: 'Last Name' },
+    { value: 'dateOfBirth', heading: 'Date Of Birth' },
+    { value: 'role', heading: 'Role' },
+    { value: 'dateCreated', heading: 'Date Created' },
+    { value: 'expiredPassword', heading: 'Expired Password' },
 ];
-
-const info = [];
-const rows = async (e) => {
-    await getDocs(collection(db, "users"), where("isActive" === true));
-    rows.forEach((doc) => {
-        info.push(doc.data)
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
-    });
-}
-
 
 export default function Accounts() {
 
     const [show, setShow] = useState(false)
     const handleShow = () => setShow(true)
     const handleClose = () => setShow(false)
+    const [userTable, setUserTable] = useState([])
+
+    const fetchUsers = async (e) => {
+        const data = await getDocs(collection(db, "users"));
+        
+        data.forEach(item => {
+            setUserTable([...userTable, item.data])
+            // doc.data() is never undefined for query doc snapshots
+            console.log(item.id, " => ", item.data());
+        });
+    }
+
+    useEffect(() => {
+        fetchUsers()
+    }, [])
 
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
@@ -83,24 +49,12 @@ export default function Accounts() {
     return (
         <div>
             <NavBar/>
-
-            <Box sx={{ height: 600, width: '100%' }}>
-                <DataGrid
-                    rows={info}
-                    columns={columns}
-                    pageSize={8}
-                    rowsPerPageOptions={[8]}
-                    checkboxSelection
-                    disableSelectionOnClick
-                    experimentalFeatures={{ newEditingApi: true }} />
-            </Box>
-
+            <Table data={userTable} column={columns}/>
             <OverlayTrigger
                 placement="right"
                 delay={{ show: 250, hide: 400 }}
                 overlay={renderTooltip}
             >
-
                 <Button onClick={handleShow} variant="outline-primary">Update User</Button>
             </OverlayTrigger>
             <Modal show={show} onHide={handleClose}>
@@ -109,9 +63,6 @@ export default function Accounts() {
                         Update Exisiting User
                     </Modal.Title>
                 </Modal.Header>
-                {/* <Modal.Body>
-                    <AddAccount />
-                </Modal.Body> */}
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close

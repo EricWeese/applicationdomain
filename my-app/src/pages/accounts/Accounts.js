@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import Button from 'react-bootstrap/Button';
-import { Modal, NavLink } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import AddAccount from './AddAccount';
 import NavBar from '../../components/navbar/Navbar';
 import { useState } from "react";
-import { addDoc, collection, getDocs, getFirestore } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from '../../firebase/config'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
