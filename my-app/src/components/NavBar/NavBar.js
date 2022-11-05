@@ -31,6 +31,7 @@ export default function NavBar() {
                 <Navbar.Text>
                     Signed in as: <a href="/AccountInfo">Ez Books</a>
                 </Navbar.Text>
+
                 <Form className="d-flex">
                     <Button bg="primary" onClick={logout}>Logout</Button>
                 </Form>

@@ -1,144 +1,24 @@
-.manageusers table.blueTable {
-	border: 1px solid #1C6EA4;
-	background-color: #EEEEEE;
-	width: 100%;
-	text-align: left;
-	border-collapse: collapse;
-	margin-top: 50px;
-}
-
-	.manageusers table.blueTable td,
-	table.blueTable th {
-		border: 1px solid #AAAAAA;
-		padding: 3px 3px;
-	}
-
-	.manageusers table.blueTable tbody td {
-		font-size: 13px;
-	}
-
-	.manageusers table.blueTable tr:nth-child(even) {
-		background: #D0E4F5;
-	}
-
-	.manageusers table.blueTable thead {
-		background: #1C6EA4;
-		background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-		background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-		background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-		border-bottom: 2px solid #444444;
-	}
-
-		.manageusers table.blueTable thead th {
-			font-size: 15px;
-			font-weight: bold;
-			color: #FFFFFF;
-			border-left: 2px solid #D0E4F5;
-		}
-
-			.manageusers table.blueTable thead th:first-child {
-				border-left: none;
-			}
-
-	.manageusers table.blueTable tfoot {
-		font-size: 14px;
-		font-weight: bold;
-		color: #FFFFFF;
-		background: #D0E4F5;
-		background: -moz-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
-		background: -webkit-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
-		background: linear-gradient(to bottom, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
-		border-top: 2px solid #444444;
-	}
-
-		.manageusers table.blueTable tfoot td {
-			font-size: 14px;
-		}
-
-		.manageusers table.blueTable tfoot .links {
-			text-align: right;
-		}
-
-			.manageusers table.blueTable tfoot .links a {
-				display: inline-block;
-				background: #1C6EA4;
-				color: #FFFFFF;
-				padding: 2px 8px;
-				border-radius: 5px;
-			}
-
-.manageusers #titleTable {
-	align-items: center;
-	padding-left: 850px;
-	padding-top: 5px;
-	font-family: Montserrat;
-	letter-spacing: 1px;
-	font-weight: 100;
-	font-size: 30px;
-	color: black;
-}
-
-.manageusers #switch_account {
-	box-align: right;
-	font-family: Montserrat;
-	letter-spacing: 1px;
-	font-weight: 100;
-	font-size: 14px;
-}
-
-.manageusers .table {
-	background-color: rgb(164, 201, 220);
-}
-
-.manageusers .grid-container {
-	display: grid;
-	grid-template-columns: 10% auto 10%;
-	gap: 10px 40px;
-	background-color: rgb(44, 152, 210);
-	padding: 10px;
-	margin: 20px 20%;
-}
-
-	.manageusers .grid-container > table {
-		background-color: rgba(255, 255, 255, 0.8);
-	}
-
-.manageusers #corners1 {
-	border-radius: 15px;
-	background: lightblue;
-	padding: 3px;
-	width: 20px;
-	height: 20px;
-}
-
-#journalHead {
-	color: black;
-	font-size: 12px;
-	background-color: aqua;
-	width: 100%;
-	height: 50px;
+#pageForm {
 	display: flex;
+	justify-content: center;
 	align-items: center;
-	justify-content: space-between;
-	margin: 5px 5px 0px 5px;
+	height: 40%;
+	width: 100%;
+}
+
+#contentBox {
+	background-color: #FFFFFF;
+	width: 85%;
+	height: 60%;
+	font-family: 'Baskerville Old Face';
+	padding: 10px;
 }
 
 #headerText {
-	background-color: rgba(255, 255, 255, 0.8);
-	border: 1px solid black;
-	text-align: center;
-	font-size: 24px;
-	padding: 8px;
-	border-radius: 25px;
+	align-self: center;
+	padding: 5px;
 }
 
-#pad {
-	padding: 20px;
-}
-
-#nameDisplay {
-	font-size: 12px;
-	color: black;
-	padding: 20px;
-	display: inherit
+#flexedDisplay {
+	display: flex;
 }
