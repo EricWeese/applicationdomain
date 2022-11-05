@@ -12,6 +12,7 @@ import LabComputers from './pages/accounts/Lab Computers'
 import LabEquipment from './pages/accounts/Lab Equipment'
 import RealEstate from './pages/accounts/Real Estate'
 import Journals from './pages/journals/Journal'
+import JournalForm from './pages/journals/JournalForm'
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -25,23 +26,24 @@ export default function AppMain() {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Signup />} />
-      <Route path="/Login" element={<Login />} />
-      <Route path="/Accounts" element={<Accounts />} />
-      <Route path="/Cash" element={<Cash />} />
-      <Route path="/Accounts Receivable" element={<AccountsReceivable />} />
-      <Route path="/Accounts Payable" element={<AccountsPayable />} />
-      <Route path="/Insurance" element={<Insurance />} />
-      <Route path="/Lab Computers" element={<LabComputers />} />
-      <Route path="/Lab Equipment" element={<LabEquipment />} />
-      <Route path="/Real Estate" element={<RealEstate />} />
-      <Route path="/Journal" element={<Journals />} />
+    <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Signup />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/Accounts" element={<Accounts />} />
+            <Route path="/Cash" element={<Cash />} />
+            <Route path="/Accounts Receivable" element={<AccountsReceivable />} />
+            <Route path="/Accounts Payable" element={<AccountsPayable />} />
+            <Route path="/Insurance" element={<Insurance />} />
+            <Route path="/Lab Computers" element={<LabComputers />} />
+            <Route path="/Lab Equipment" element={<LabEquipment />} />
+            <Route path="/Real Estate" element={<RealEstate />} />
+            <Route path="/Journal" element={<Journals />} />
+            <Route path="/JournalForm" element={<JournalForm/>} />
 
 
-    </Routes>
-  </BrowserRouter>
+        </Routes>
+    </BrowserRouter>
 
 );
 

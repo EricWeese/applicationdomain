@@ -2,16 +2,24 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 40%;
+	height: 80%;
 	width: 100%;
 }
 
 #contentBox {
 	background-color: #FFFFFF;
 	width: 85%;
-	height: 60%;
+	height: 75%;
 	font-family: 'Baskerville Old Face';
 	padding: 10px;
+}
+
+#contentBoxThin {
+	background-color: #FFFFFF;
+	width: 55%;
+	height: 75%;
+	font-family: 'Baskerville Old Face';
+	padding: 10px 30px 10px 30px;
 }
 
 #headerText {
