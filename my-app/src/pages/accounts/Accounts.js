@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import AddAccount from './AddAccount';
 import NavBar from '../../components/navbar/Navbar';
 import { useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 import { db } from '../../firebase/config'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -95,18 +95,18 @@ export default function Accounts() {
     const [updatedRows, setRows] = useState([]);
     const accountsRef = collection(db, "accounts");
     const num = 0;
-    // const setData = async () => {
+    /*const setData = async () => {
 
-    //     await addDoc(collection(db, 'accounts'), {
-    //         id: rows[num].id,
-    //         accountName: rows[num].accountName,
-    //         category: rows[num].category,
-    //         balance: rows[num].balance,
-    //         dateCreated: rows[num].dateCreated,
-    //         statement: rows[num].statement,
-    //     })
-    // }
-    // setData();
+        await addDoc(collection(db, 'accounts'), {
+            id: rows[num].id,
+            accountName: rows[num].accountName,
+            category: rows[num].category,
+            balance: rows[num].balance,
+            dateCreated: rows[num].dateCreated,
+            statement: rows[num].statement,
+        })
+    }
+    setData();*/
     const getData = async () => {
         try {
             const data = await getDocs(accountsRef);
@@ -134,9 +134,10 @@ export default function Accounts() {
     return (
         <div>
             <NavBar />
+            <Button onClick={getData}>Refresh</Button>
             <Box sx={{ height: 600, width: '100%' }}>
                 <DataGrid
-                    rows={rows}
+                    rows={updatedRows}
                     columns={columns}
                     pageSize={8}
                     rowsPerPageOptions={[8]}
@@ -152,7 +153,6 @@ export default function Accounts() {
             >
                 <Button onClick={handleShow} variant="outline-primary">Add New Account</Button>
             </OverlayTrigger>
-            <Button onClick={getData}>Get Datas</Button>
             <Button onClick={changePage} variant="outline-primary">View Journal Entries</Button>
 
             <Modal show={show} onHide={handleClose}>
