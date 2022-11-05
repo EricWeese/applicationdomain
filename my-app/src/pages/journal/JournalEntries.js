@@ -67,8 +67,8 @@ export default function JournalEntries() {
 
     const rows = [
 
-        { id: 1, date: '11/2/2022', accountName: 'Cash', debit: 4000.00, credit: '' },
-        { id: 2, date: '', accountName: 'Lab Equipment', debit: '', credit: 4000.00 },
+        { id: 1, date: '11/2/2022', accountName: 'Cash', debit: 0, credit: 4000.00 },
+        { id: 2, date: '', accountName: 'Lab Equipment', debit: 4000, credit: 0 },
 
 
     ];
@@ -86,7 +86,7 @@ export default function JournalEntries() {
 
     return (
         <div>
-            <NavBar/>
+            <NavBar />
             <Box sx={{ height: 600, width: '100%' }}>
                 <DataGrid
                     rows={rows}

@@ -90,7 +90,7 @@ const rows = [
 ];
 
 
-
+export var newRows = [];
 
 export default function Accounts() {
     const navigate = useNavigate();
@@ -129,14 +129,15 @@ export default function Accounts() {
             console.log(e);
         }
     }
+
     const onRowsSelectionHandler = (ids) => {
         try {
             setSelectedRows(ids.map((id) => updatedRows.find((row) => row.id === id)));
         } catch (e) {
             console.log(e);
         }
-
     };
+    //newRows = selectedRows
     const [selectedRows, setSelectedRows] = useState([])
     const [show, setShow] = useState(false)
     const handleShow = () => setShow(true)
@@ -150,7 +151,6 @@ export default function Accounts() {
     const changePage = () => {
         navigate('/JournalEntries');
     }
-
     return (
         <div>
             <NavBar />
@@ -180,20 +180,24 @@ export default function Accounts() {
             <Button onClick={changePage} variant="outline-primary">View Journal Entries</Button>
 
             <Modal show={show} onHide={handleClose}>
+
                 <Modal.Header closeButton>
                     <Modal.Title>
                         Add New Account
                     </Modal.Title>
                 </Modal.Header>
+
                 <Modal.Body>
-                    <AddAccount onSubmit={handleClose} />
+                    <AddAccount />
                 </Modal.Body>
+
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
                 </Modal.Footer>
             </Modal>
+
         </div>
     );
 }
