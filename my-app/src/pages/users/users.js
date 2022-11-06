@@ -15,19 +15,19 @@ import CreateUser from './CreateUsers'
 //Array of columns for the table
 const columns = [
     { field: 'Id', hide: true },
-    { field: 'userName', headerName: 'User Name', flex: 1},
+    { field: 'userName', headerName: 'User Name', flex: 1 },
     { field: 'firstName', headerName: 'First Name', flex: 1 },
     { field: 'lastName', headerName: 'Last Name', flex: 1 },
     { field: 'DOB', headerName: 'Date Of Birth', flex: 1 },
     { field: 'role', headerName: 'Role', flex: 1 },
     { field: 'createdAt', headerName: 'Date Created', flex: 1 },
     { field: 'expiredPassword', headerName: 'Expired Password', flex: 1 },
-    { field: 'isActive', headerName: 'isActive', flex: 1}
+    { field: 'isActive', headerName: 'isActive', flex: 1 }
 ];
 
 export var userId = [];
 
-export default function Users() {    
+export default function Users() {
     //Variables
     const [show, setShow] = useState(false)
     const [showTwo, setShowTwo] = useState(false)
@@ -70,7 +70,7 @@ export default function Users() {
 
     return (
         <div>
-            <NavBar/>
+            <NavBar />
             <Box sx={{ display: 'flex', height: 600, width: '100%' }}>
                 <DataGrid
                     rows={userTable}
@@ -80,9 +80,9 @@ export default function Users() {
                     rowsPerPageOptions={[8]}
                     checkboxSelection
                     disableSelectionOnClick
-                    experimentalFeatures={{ newEditingApi: true }} 
-                    onSelectionModelChange = {(ids) => onRowsSelectionHandler(ids)}
-                    />
+                    experimentalFeatures={{ newEditingApi: true }}
+                    onSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
+                />
             </Box>
             <OverlayTrigger
                 placement="right"
@@ -91,8 +91,8 @@ export default function Users() {
             >
                 <Button onClick={handleShow} variant="outline-primary">Add User</Button>
             </OverlayTrigger>
-                <Button onClick={handleShowTwo} variant="outline-primary">Update User</Button>
-                {/* <Button onClick={handleShow} variant="outline-primary">Send Email To User</Button> */}
+            <Button onClick={handleShowTwo} variant="outline-primary">Update User</Button>
+            {/* <Button onClick={handleShow} variant="outline-primary">Send Email To User</Button> */}
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>
