@@ -1,13 +1,14 @@
 import * as React from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import Button from 'react-bootstrap/Button';
-import { Modal } from 'react-bootstrap';
+import { Modal, NavLink } from 'react-bootstrap';
 import NavBar from '../../components/navbar/Navbar';
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Tabs from '@mui/material/Tabs';
 import { addDoc, collection, getDocs, getFirestore } from "firebase/firestore";
-import { deleteDoc, doc, Firestore, setDoc } from "firebase/firestore";
 import { db } from '../../firebase/config'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -15,7 +16,7 @@ import AddJournalEntry from './AddJournalEntry';
 
 
 export default function JournalEntries() {
-    const journalEntriesRef = collection(db, "journalEntries");
+    const journalEntriesRef = collection(db, "pendingJournalEntries");
     const [updatedRows, setRows] = useState([]);
     const navigate = useNavigate()
 
@@ -82,28 +83,17 @@ export default function JournalEntries() {
     const submitData = () => {
 
     }
-    const setData = async () => {
-        const dateCreated = new Date();
-        //Debit Entry
-        await setDoc(doc(db, "journalEntries", "debit" + rows[1].debit), {
-            id: rows[1].numTransactions + ".Debit",
-            dateCreated: dateCreated.toDateString(),
-            accountName: rows[1].accountName,
-            debit: rows[1].debit,
-            credit: 0.0,
-            notes: rows[1].notes
-        })
-        //Credit Entry
-        await setDoc(doc(db, "journalEntries", "credit" + rows[0].credit), {
-            id: rows[0].numTransactions + ".Credit",
-            dateCreated: dateCreated.toDateString(),
-            accountName: rows[0].accountName,
-            debit: 0.0,
-            credit: rows[0].credit,
-            notes: rows[0].notes
+    /*const setData = async () => {
+        await setDoc(doc(db, "", rows[num].accountName), {
+            id: rows[num].id,
+            accountName: rows[num].accountName,
+            category: rows[num].category,
+            balance: rows[num].balance,
+            dateCreated: rows[num].dateCreated,
+            statement: rows[num].statement,
         })
     }
-    //setData();
+    setData();*/
     const getData = async () => {
         try {
             const data = await getDocs(journalEntriesRef);
@@ -123,8 +113,8 @@ export default function JournalEntries() {
     const [show, setShow] = useState(false)
     const handleShow = () => setShow(true)
     const handleClose = () => setShow(false)
-    const viewPending = () => {
-        navigate('/PendingJournalEntries')
+    const viewJournalEntries = () => {
+        navigate('/JournalEntries')
     }
     return (
         <div>
@@ -148,7 +138,8 @@ export default function JournalEntries() {
             >
                 <Button onClick={handleShow} variant="outline-primary">Add New Journal Entry</Button>
             </OverlayTrigger>
-            <Button onClick={viewPending} variant="outline-primary">View Pending Journal Entries</Button>
+            <Button onClick={viewJournalEntries} variant="outline-primary">View All Journal Entries</Button>
+
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>

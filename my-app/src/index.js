@@ -13,7 +13,8 @@ import LabEquipment from './pages/accounts/Lab Equipment'
 import RealEstate from './pages/accounts/Real Estate'
 import Users from './pages/users/Users'
 import JournalEntries from './pages/journal/JournalEntries'
-import { BrowserRouter, Route, Routes} from "react-router-dom";
+import PendingJournalEntries from './pages/journal/PendingJournalEntries'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 import "bootstrap/dist/css/bootstrap.min.css";
 export default function AppMain() {
@@ -39,6 +40,7 @@ root.render(
       <Route path="/Lab Equipment" element={<LabEquipment />} />
       <Route path="/Real Estate" element={<RealEstate />} />
       <Route path="/JournalEntries" element={<JournalEntries />} />
+      <Route path="/PendingJournalEntries" element={<PendingJournalEntries />} />
 
     </Routes>
   </BrowserRouter>
