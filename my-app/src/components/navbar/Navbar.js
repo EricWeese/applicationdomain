@@ -1,14 +1,16 @@
 // import React from "react";
 import { getAuth, signOut } from "firebase/auth";
 import Container from 'react-bootstrap/Container';
+import { Link, useNavigate } from "react-router-dom";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 export default function NavBar() {
-
+  const navigate = useNavigate();
   const logout = (e) => {
+    navigate('/Login');
     const auth = getAuth();
     signOut(auth).then(() => {
       // Sign-out successful.
@@ -29,7 +31,7 @@ export default function NavBar() {
           </Nav>
         </Container>
         <Navbar.Text>
-          Signed in as: <a href="/AccountInfo">Ez Books</a>
+          Signed in as: <a href="/AccountInfo">eweese1122</a>
         </Navbar.Text>
         <Form className="d-flex">
           <Button bg="primary" onClick={logout}>Logout</Button>
