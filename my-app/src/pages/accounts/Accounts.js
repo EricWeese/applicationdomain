@@ -97,7 +97,7 @@ export default function Accounts() {
     const [updatedRows, setRows] = useState([]);
     const accountsRef = collection(db, "accounts");
     const num = 10;
-    const setData = async () => {
+    /*const setData = async () => {
         await setDoc(doc(db, "accounts", rows[num].accountName), {
             id: rows[num].id,
             accountName: rows[num].accountName,
@@ -107,7 +107,7 @@ export default function Accounts() {
             statement: rows[num].statement,
         })
     }
-    setData();
+    setData();*/
     const getData = async () => {
         try {
             const data = await getDocs(accountsRef);
