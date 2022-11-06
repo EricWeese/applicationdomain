@@ -12,8 +12,6 @@ import { collection, getDocs, addDoc, deleteDoc, doc, Firestore, setDoc } from "
 import { db } from '../../firebase/config'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import { getRowIdFromRowModel } from '@mui/x-data-grid/hooks/features/rows/gridRowsUtils';
-import { slice } from 'cheerio/lib/api/traversing';
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',

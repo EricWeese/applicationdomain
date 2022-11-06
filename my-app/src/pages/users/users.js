@@ -22,6 +22,7 @@ const columns = [
     { field: 'role', headerName: 'Role', flex: 1 },
     { field: 'createdAt', headerName: 'Date Created', flex: 1 },
     { field: 'expiredPassword', headerName: 'Expired Password', flex: 1 },
+    { field: 'isActive', headerName: 'isActive', flex: 1}
 ];
 
 export var userId = [];
@@ -38,7 +39,7 @@ export default function Users() {
     const [selectedRows, setSelectedRows] = useState([])
     //Fetches all the users from the database
     const fetchUsers = async (e) => {
-        const data = await getDocs(collection(db, "users"));
+        const data = await getDocs(collection(db, "users"))
         setUserTable(data.docs.map((doc) => ({ ...doc.data() })))
     }
 
