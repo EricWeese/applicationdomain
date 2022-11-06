@@ -15,7 +15,7 @@ export default function Login() {
             .then(function () {
                 // Done
                 alert('Email Sent! It will take up to 5 minutes for you to recieve it.')
-                navigate('/ResetPassword');
+                navigate('/Login');
 
             })
             .catch(function (error) {
@@ -47,13 +47,13 @@ export default function Login() {
                                                 <Form.Control onChange={(e) => getEmail(e.target.value)} value={email} type="email" placeholder="Enter email" />
                                             </Form.Group>
                                             <div className="mt-3">
-                                            <p className="mb-0  text-center">
-                                                Don't have an account?{" "}
-                                                <Link to="/" className="text-primary fw-bold">
-                                                    Sign Up
-                                                </Link>
-                                            </p>
-                                        </div>
+                                                <p className="mb-0  text-center">
+                                                    Don't have an account?{" "}
+                                                    <Link to="/" className="text-primary fw-bold">
+                                                        Sign Up
+                                                    </Link>
+                                                </p>
+                                            </div>
                                             <div className="d-grid">
                                                 <Button onClick={handleSubmit} variant="primary">
                                                     Submit
