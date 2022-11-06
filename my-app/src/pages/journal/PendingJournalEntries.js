@@ -8,7 +8,7 @@ import NavBar from '../../components/navbar/Navbar';
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Tabs from '@mui/material/Tabs';
-import { addDoc, collection, getDocs, getFirestore } from "firebase/firestore";
+import { addDoc, collection, getDocs, deleteDoc, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from '../../firebase/config'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -19,6 +19,7 @@ export default function JournalEntries() {
     const journalEntriesRef = collection(db, "pendingJournalEntries");
     const [updatedRows, setRows] = useState([]);
     const navigate = useNavigate()
+    const [selectedRows, setSelectedRows] = useState([])
 
     const currencyFormatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -105,6 +106,80 @@ export default function JournalEntries() {
     useEffect(() => {
         getData();
     }, [])
+    const onRowsSelectionHandler = (ids) => {
+        try {
+            setSelectedRows(ids.map((id) => updatedRows.find((row) => row.id === id)));
+        } catch (e) {
+            console.log(e);
+        }
+    };
+    console.log(selectedRows);
+    const acceptEntry = () => {
+        copyData();
+        updateAccounts();
+        deleteEntry();
+        alert("Accepted Journal Entries")
+    }
+    const rejectEntry = () => {
+        deleteEntry();
+        alert("Entries Rejected");
+    }
+    const copyData = async () => {
+        const dateCreated = new Date();
+        const creditRef = doc(db, "pendingJournalEntries", "credit" + selectedRows[0].credit);
+        const creditSnap = await getDoc(creditRef);
+        const debitRef = doc(db, "pendingJournalEntries", "debit" + selectedRows[1].debit);
+        const debitSnap = await getDoc(debitRef);
+        console.log(creditSnap.data());
+        console.log(debitSnap.data());
+
+        await setDoc(doc(db, "journalEntries", "credit" + selectedRows[0].credit), {
+            id: selectedRows[0].credit + "Credit",
+            dateCreated: dateCreated.toDateString(),
+            accountName: selectedRows[0].accountName,
+            debit: 0.0,
+            credit: selectedRows[0].credit,
+            notes: selectedRows[0].notes
+        })
+        await setDoc(doc(db, "journalEntries", "debit" + selectedRows[1].debit), {
+            id: selectedRows[1].debit + "Debit",
+            dateCreated: dateCreated.toDateString(),
+            accountName: selectedRows[1].accountName,
+            debit: selectedRows[1].debit,
+            credit: 0.0,
+            notes: selectedRows[1].notes
+        })
+    }
+    const updateAccounts = async () => {
+        //Get current values
+        const account1Ref = doc(db, "accounts", selectedRows[0].accountName);
+        const account1Snap = (await getDoc(account1Ref)).data();
+        const account1Balance = parseInt(account1Snap.balance);
+
+        const account2Ref = doc(db, "accounts", selectedRows[1].accountName);
+        const account2Snap = (await getDoc(account2Ref)).data();
+        const account2Balance = parseInt(account2Snap.balance);
+
+
+        await updateDoc(doc(db, 'accounts', selectedRows[0].accountName), {
+            balance: account1Balance + parseInt(selectedRows[0].credit) + parseInt(selectedRows[0].debit)
+        })
+        await updateDoc(doc(db, 'accounts', selectedRows[1].accountName), {
+            balance: account2Balance + parseInt(selectedRows[1].credit) + parseInt(selectedRows[1].debit)
+        })
+    }
+    const deleteEntry = async () => {
+        try {
+            await deleteDoc(doc(db, "pendingJournalEntries", "debit" + selectedRows[1].debit));
+        } catch (e) {
+            console.log(e);
+        }
+        try {
+            await deleteDoc(doc(db, "pendingJournalEntries", "credit" + selectedRows[0].credit));
+        } catch (e) {
+            console.log(e);
+        }
+    }
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             Click this to add a journal entry
@@ -128,18 +203,14 @@ export default function JournalEntries() {
                     rowsPerPageOptions={[8]}
                     checkboxSelection
                     disableSelectionOnClick
-                    experimentalFeatures={{ newEditingApi: true }} />
+                    experimentalFeatures={{ newEditingApi: true }}
+                    onSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
+                />
             </Box>
 
-            <OverlayTrigger
-                placement="right"
-                delay={{ show: 250, hide: 400 }}
-                overlay={renderTooltip}
-            >
-                <Button onClick={handleShow} variant="outline-primary">Add New Journal Entry</Button>
-            </OverlayTrigger>
             <Button onClick={viewJournalEntries} variant="outline-primary">View All Journal Entries</Button>
-
+            <Button onClick={acceptEntry} variant="outline-primary">Accept Journal Entry</Button>
+            <Button onClick={rejectEntry} variant="outline-primary">Reject Journal Entry</Button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>

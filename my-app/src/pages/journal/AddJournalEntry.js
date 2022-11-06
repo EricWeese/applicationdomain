@@ -28,7 +28,7 @@ export default function AddJournalEntry() {
         const dateCreated = new Date();
         //Debit Entry
         await setDoc(doc(db, "pendingJournalEntries", "debit" + debitAmount), {
-            id: numTransactions + ".Debit",
+            id: debitAmount + "Debit",
             dateCreated: dateCreated.toDateString(),
             accountName: debitAccount,
             debit: debitAmount,
@@ -37,7 +37,7 @@ export default function AddJournalEntry() {
         })
         //Credit Entry
         await setDoc(doc(db, "pendingJournalEntries", "credit" + creditAmount), {
-            id: numTransactions + ".Credit",
+            id: creditAmount + "Credit",
             dateCreated: dateCreated.toDateString(),
             accountName: creditAccount,
             debit: 0.0,
@@ -60,11 +60,11 @@ export default function AddJournalEntry() {
                 <option value="Real Estate">Real Estate</option>
                 <option value="Accounts Payable">Accounts Payable</option>
                 <option value="Unearned Rent">Unearned Rent</option>
-                <option value="Equity">Equity</option>
-                <option value="Withdrawals">Withdrawals</option>
+                <option value="Doris Green, Equity">Doris Green, Equity</option>
+                <option value="Doris Green, Withdrawals">Doris Green, Withdrawals</option>
                 <option value="Fees Earned">Fees Earned</option>
-                <option value="ReveWagesnues">Wages</option>
-                <option value="ReveRentnues">Rent</option>
+                <option value="Wages">Wages</option>
+                <option value="Rent">Rent</option>
                 <option value="Utilities">Utilities</option>
                 <option value="Lab Supplies">Lab Supplies</option>
                 <option value="Misc.">Misc.</option>

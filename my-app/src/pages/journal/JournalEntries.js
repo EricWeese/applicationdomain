@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import { Modal } from 'react-bootstrap';
 import NavBar from '../../components/navbar/Navbar';
 import { useState, useEffect } from "react";
-import { addDoc, collection, getDocs, getFirestore } from "firebase/firestore";
+import { addDoc, collection, getDocs, getFirestore, getDoc, updateDoc } from "firebase/firestore";
 import { deleteDoc, doc, Firestore, setDoc } from "firebase/firestore";
 import { db } from '../../firebase/config'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -18,6 +18,7 @@ export default function JournalEntries() {
     const journalEntriesRef = collection(db, "journalEntries");
     const [updatedRows, setRows] = useState([]);
     const navigate = useNavigate()
+    const [selectedRows, setSelectedRows] = useState([])
 
     const currencyFormatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -36,7 +37,7 @@ export default function JournalEntries() {
             width: 120
         },
         {
-            field: 'date',
+            field: 'dateCreated',
             headerName: 'Date',
             width: 250
         },
@@ -115,6 +116,30 @@ export default function JournalEntries() {
     useEffect(() => {
         getData();
     }, [])
+    const deleteEntries = async () => {
+        try {
+            const account1Ref = doc(db, "accounts", selectedRows[0].accountName);
+            const account1Snap = (await getDoc(account1Ref)).data();
+            const account1Balance = parseInt(account1Snap.balance);
+
+            const account2Ref = doc(db, "accounts", selectedRows[1].accountName);
+            const account2Snap = (await getDoc(account2Ref)).data();
+            const account2Balance = parseInt(account2Snap.balance);
+
+
+            await updateDoc(doc(db, 'accounts', selectedRows[0].accountName), {
+                balance: account1Balance - parseInt(selectedRows[0].credit) - parseInt(selectedRows[0].debit)
+            })
+            await updateDoc(doc(db, 'accounts', selectedRows[1].accountName), {
+                balance: account2Balance - parseInt(selectedRows[1].credit) - parseInt(selectedRows[1].debit)
+            })
+            await deleteDoc(doc(db, "journalEntries", "credit" + selectedRows[0].credit));
+            await deleteDoc(doc(db, "journalEntries", "debit" + selectedRows[1].debit));
+            alert("Entries Deleted");
+        } catch (e) {
+            console.log(e);
+        }
+    }
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             Click this to add a journal entry
@@ -126,6 +151,13 @@ export default function JournalEntries() {
     const viewPending = () => {
         navigate('/PendingJournalEntries')
     }
+    const onRowsSelectionHandler = (ids) => {
+        try {
+            setSelectedRows(ids.map((id) => updatedRows.find((row) => row.id === id)));
+        } catch (e) {
+            console.log(e);
+        }
+    };
     return (
         <div>
             <NavBar />
@@ -138,7 +170,9 @@ export default function JournalEntries() {
                     rowsPerPageOptions={[8]}
                     checkboxSelection
                     disableSelectionOnClick
-                    experimentalFeatures={{ newEditingApi: true }} />
+                    experimentalFeatures={{ newEditingApi: true }}
+                    onSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
+                />
             </Box>
 
             <OverlayTrigger
@@ -148,6 +182,7 @@ export default function JournalEntries() {
             >
                 <Button onClick={handleShow} variant="outline-primary">Add New Journal Entry</Button>
             </OverlayTrigger>
+            <Button onClick={deleteEntries} variant="outline-primary">Delete Journal Entries</Button>
             <Button onClick={viewPending} variant="outline-primary">View Pending Journal Entries</Button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
