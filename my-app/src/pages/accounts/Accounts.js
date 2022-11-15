@@ -149,6 +149,12 @@ export default function Accounts() {
     const changePage = () => {
         navigate('/JournalEntries');
     }
+    const [sortModel, setSortModel] = React.useState([
+        {
+            field: 'id',
+            sort: 'asc',
+        },
+    ]);
     return (
         <div>
             <NavBar />
@@ -163,6 +169,8 @@ export default function Accounts() {
                     checkboxSelection
                     disableMultipleSelection={true}
                     experimentalFeatures={{ newEditingApi: true }}
+                    sortModel={sortModel}
+                    onSortModelChange={(model) => setSortModel(model)}
                     onSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
                 />
             </Box>

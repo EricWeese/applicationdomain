@@ -158,6 +158,12 @@ export default function JournalEntries() {
             console.log(e);
         }
     };
+    const [sortModel, setSortModel] = React.useState([
+        {
+            field: 'id',
+            sort: 'asc',
+        },
+    ]);
     return (
         <div>
             <NavBar />
@@ -171,6 +177,8 @@ export default function JournalEntries() {
                     checkboxSelection
                     disableSelectionOnClick
                     experimentalFeatures={{ newEditingApi: true }}
+                    sortModel={sortModel}
+                    onSortModelChange={(model) => setSortModel(model)}
                     onSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
                 />
             </Box>
