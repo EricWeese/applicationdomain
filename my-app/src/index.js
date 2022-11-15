@@ -47,7 +47,17 @@ root.render(
 
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+/*
+To-do:
+when rejecting journal entries be able to give comment
+email different accounts
+log of events
+attach files to entry
+user page: add email column
+fix journal entry index
+auto sort
+add time to date column
+journal entries color coded
+
+*/
 reportWebVitals();
