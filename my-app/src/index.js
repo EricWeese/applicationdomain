@@ -5,6 +5,8 @@ import Login from './pages/login/Login'
 import ForgotPassword from './pages/forgotPassword/forgotPassword'
 import Cash from './pages/accounts/Cash'
 import Accounts from './pages/accounts/Accounts'
+import AccountsAccountant from './pages/accounts/Accounts_Accountant'
+import AccountsManager from './pages/accounts/Accounts_Manager'
 import AccountsReceivable from './pages/accounts/Accounts Receivable'
 import AccountsPayable from './pages/accounts/Accounts Payable'
 import Insurance from './pages/accounts/Insurance'
@@ -13,6 +15,8 @@ import LabEquipment from './pages/accounts/Lab Equipment'
 import RealEstate from './pages/accounts/Real Estate'
 import Users from './pages/users/Users'
 import JournalEntries from './pages/journal/JournalEntries'
+import JournalEntriesAccountants from './pages/journal/JournalEntries_Accountant'
+import JournalEntriesManagers from './pages/journal/JournalEntries_Manager'
 import PendingJournalEntries from './pages/journal/PendingJournalEntries'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
@@ -31,6 +35,8 @@ root.render(
       <Route path="/Login" element={<Login />} />
       <Route path="/ForgotPassword" element={<ForgotPassword />} />
       <Route path="/Accounts" element={<Accounts />} />
+      <Route path="/AccountsAccountant" element={<AccountsAccountant />} />
+      <Route path="/AccountsManager" element={<AccountsManager />} />
       <Route path="/Users" element={<Users />} />
       <Route path="/Cash" element={<Cash />} />
       <Route path="/Accounts Receivable" element={<AccountsReceivable />} />
@@ -40,6 +46,8 @@ root.render(
       <Route path="/Lab Equipment" element={<LabEquipment />} />
       <Route path="/Real Estate" element={<RealEstate />} />
       <Route path="/JournalEntries" element={<JournalEntries />} />
+      <Route path="/JournalEntriesAccountant" element={<JournalEntriesAccountants />} />
+      <Route path="/JournalEntriesManager" element={<JournalEntriesManagers />} />
       <Route path="/PendingJournalEntries" element={<PendingJournalEntries />} />
 
     </Routes>

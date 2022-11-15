@@ -1,6 +1,6 @@
-import { addDoc, collection } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db, auth } from '../../firebase/config'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -9,15 +9,34 @@ import { Link } from "react-router-dom";
 export default function Login() {
     const [email, getEmail] = useState('')
     const [password, getPassword] = useState('')
+    const [userData, setUserData] = useState([])
     const navigate = useNavigate()
+
+    const fetchUsers = async (e) => {
+        const q = query(collection(db, "users"), where("email", "==", email))
+        const data = await getDocs(q);
+        setUserData(data.docs.map((doc) => ({ ...doc.data() })))
+    }
+
+    useEffect(() => {
+        fetchUsers()
+    }, [])
+
+//  9CYo!L&#g!iY
     const handleSubmit = async (e) => {
         console.log(email)
-        console.log(password)
+        console.log(password)     
         signInWithEmailAndPassword(auth, email, password)
             .then(function () {
                 // Done
                 alert('User Logged In!!')
-                navigate('/Accounts');
+                if(userData.role === "Admin"){
+                    navigate('/Accounts');
+                } else if (userData.role === "Manager") {
+                    navigate('/AccountsManager')
+                } else {
+                    navigate('/AccountsAccountant')
+                }
 
             })
             .catch(function (error) {
