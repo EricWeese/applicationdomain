@@ -158,6 +158,8 @@ export default function Accounts() {
     return (
         <div>
             <NavBar />
+
+            <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Accounts</h1>
             <Button onClick={getData}>Refresh</Button>
             <Box sx={{ height: 600, width: '100%' }}>
                 <DataGrid
@@ -204,7 +206,7 @@ export default function Accounts() {
                 </Modal.Footer>
             </Modal>
 
-        </div>
+        </div >
     );
 }
 
