@@ -18,6 +18,8 @@ import JournalEntries from './pages/journal/JournalEntries'
 import JournalEntriesAccountants from './pages/journal/JournalEntries_Accountant'
 import JournalEntriesManagers from './pages/journal/JournalEntries_Manager'
 import PendingJournalEntries from './pages/journal/PendingJournalEntries'
+import PendingJournalEntriesAccountant from './pages/journal/PendingJournalEntriesAccountant'
+import PendingJournalEntriesManager from './pages/journal/PendingJournalEntriesManager'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -49,7 +51,9 @@ root.render(
       <Route path="/JournalEntriesAccountant" element={<JournalEntriesAccountants />} />
       <Route path="/JournalEntriesManager" element={<JournalEntriesManagers />} />
       <Route path="/PendingJournalEntries" element={<PendingJournalEntries />} />
-
+      <Route path="/PendingJournalEntriesAccountant" element={<PendingJournalEntriesAccountant />} />
+      <Route path="/PendingJournalEntriesManager" element={<PendingJournalEntriesManager />} />
+      
     </Routes>
   </BrowserRouter>
 

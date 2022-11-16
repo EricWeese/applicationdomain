@@ -113,7 +113,7 @@ export default function Accounts() {
         </Tooltip>
     );
     const changePage = () => {
-        navigate('/JournalEntries');
+        navigate('/JournalEntriesAccounts');
     }
     const [sortModel, setSortModel] = React.useState([
         {
