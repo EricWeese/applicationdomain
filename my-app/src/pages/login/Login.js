@@ -11,28 +11,39 @@ export default function Login() {
     const [password, getPassword] = useState('')
     const [userData, setUserData] = useState([])
     const navigate = useNavigate()
+    const userRef = collection(db, "users");
 
-    const fetchUsers = async (e) => {
-        const q = query(collection(db, "users"), where("email", "==", email))
-        const data = await getDocs(q);
-        setUserData(data.docs.map((doc) => ({ ...doc.data() })))
+    const fetchUsers = async () => {
+        try {
+            //const q = query(userRef, where("email", "==", email))
+            //const data = await getDocs(q);
+            const data = await getDocs(userRef);
+            setUserData(data.docs.map((doc) => ({ ...doc.data() })))
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     useEffect(() => {
         fetchUsers()
     }, [])
 
-//  9CYo!L&#g!iY
-    const handleSubmit = async (e) => {
-        console.log(email)
-        console.log(password)     
+    //  9CYo!L&#g!iY
+    const handleSubmit = async () => {
+        fetchUsers()
         signInWithEmailAndPassword(auth, email, password)
             .then(function () {
+                var userRole = "";
                 // Done
                 alert('User Logged In!!')
-                if(userData.role === "Admin"){
+                for (var i = 0; i < userData.length; i++) {
+                    if (userData[i].email == email) {
+                        userRole = userData[i].role;
+                    }
+                }
+                if (userRole === "Admin") {
                     navigate('/Accounts');
-                } else if (userData.role === "Manager") {
+                } else if (userRole === "Manager") {
                     navigate('/AccountsManager')
                 } else {
                     navigate('/AccountsAccountant')
