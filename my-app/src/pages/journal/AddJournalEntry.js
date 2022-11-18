@@ -1,5 +1,5 @@
 import { Form, Button } from "react-bootstrap"
-import { collection, getDocs, addDoc, deleteDoc, doc, Firestore, setDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, deleteDoc, doc, Firestore, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { useState } from "react";
 import { db } from '../../firebase/config'
 
@@ -23,28 +23,59 @@ export default function AddJournalEntry() {
         console.log(creditAccount);
         console.log(creditAmount);
     }
+    const getCurrDate = () => {
+        console.log("asdf")
+        var today = new Date();
+        var date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
+        if (today.getHours() > 12) {
+            if (today.getMinutes < 10) {
+                var time = "0" + (parseInt(today.getHours()) - 12) + ":" + "0" + today.getMinutes();
+            }
+            else {
+                var time = "0" + (parseInt(today.getHours()) - 12) + ":" + today.getMinutes();
+            }
+
+        } else {
+            if (today.getMinutes < 10) {
+                var time = today.getHours() + ":" + "0" + today.getMinutes();
+            }
+            else {
+                var time = today.getHours() + ":" + today.getMinutes();
+            }
+        }
+        var dateTime = date + ' ' + time;
+        return dateTime;
+    }
 
     const setData = async () => {
-        const dateCreated = new Date();
+
+        var dateTime = getCurrDate();
+        const counterRef = doc(db, "counters", "pendingJournalEntries");
+        const counterSnap = (await getDoc(counterRef)).data();
+        const counterNew = counterSnap.counter + 1;
+        //Increment counter
+        await updateDoc(counterRef, {
+            counter: counterNew
+        })
         //Debit Entry
-        await setDoc(doc(db, "pendingJournalEntries", "debit" + debitAmount), {
-            id: debitAmount + "Debit",
-            dateCreated: dateCreated.toDateString(),
+        await setDoc(doc(db, "pendingJournalEntries", counterNew + " - Debit"), {
+            id: counterNew + " - Debit",
+            date: dateTime,
             accountName: debitAccount,
             debit: debitAmount,
             credit: 0.0,
             notes: notes
         })
         //Credit Entry
-        await setDoc(doc(db, "pendingJournalEntries", "credit" + creditAmount), {
-            id: creditAmount + "Credit",
-            dateCreated: dateCreated.toDateString(),
+        await setDoc(doc(db, "pendingJournalEntries", counterNew + " - Credit"), {
+            id: counterNew + " - Credit",
+            date: dateTime,
             accountName: creditAccount,
             debit: 0.0,
             credit: creditAmount,
             notes: notes
         })
-        alert("Account created")
+        alert("Journal entry under review")
     }
     return (
         <Form onSubmit={handleSubmit}>
@@ -91,11 +122,11 @@ export default function AddJournalEntry() {
                 <option value="Real Estate">Real Estate</option>
                 <option value="Accounts Payable">Accounts Payable</option>
                 <option value="Unearned Rent">Unearned Rent</option>
-                <option value="Equity">Equity</option>
-                <option value="Withdrawals">Withdrawals</option>
+                <option value="Doris Green, Equity">Doris Green, Equity</option>
+                <option value="Doris Green, Withdrawals">Doris Green, Withdrawals</option>
                 <option value="Fees Earned">Fees Earned</option>
-                <option value="ReveWagesnues">Wages</option>
-                <option value="ReveRentnues">Rent</option>
+                <option value="Wages">Wages</option>
+                <option value="Rent">Rent</option>
                 <option value="Utilities">Utilities</option>
                 <option value="Lab Supplies">Lab Supplies</option>
                 <option value="Misc.">Misc.</option>

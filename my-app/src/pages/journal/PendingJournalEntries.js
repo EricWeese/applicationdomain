@@ -113,37 +113,66 @@ export default function JournalEntries() {
             console.log(e);
         }
     };
-    console.log(selectedRows);
     const acceptEntry = () => {
         copyData();
         updateAccounts();
         deleteEntry();
-        alert("Accepted Journal Entries")
+        alert("Accepted Journal Entries");
+        getData();
     }
     const rejectEntry = () => {
         deleteEntry();
         alert("Entries Rejected");
     }
+    const getCurrDate = () => {
+        console.log("asdf")
+        var today = new Date();
+        var date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
+        if (today.getHours() > 12) {
+            if (today.getMinutes < 10) {
+                var time = "0" + (parseInt(today.getHours()) - 12) + ":" + "0" + today.getMinutes();
+            }
+            else {
+                var time = "0" + (parseInt(today.getHours()) - 12) + ":" + today.getMinutes();
+            }
+
+        } else {
+            if (today.getMinutes < 10) {
+                var time = today.getHours() + ":" + "0" + today.getMinutes();
+            }
+            else {
+                var time = today.getHours() + ":" + today.getMinutes();
+            }
+        }
+        var dateTime = date + ' ' + time;
+        return dateTime;
+    }
     const copyData = async () => {
-        const dateCreated = new Date();
+        var dateTime = getCurrDate();
         const creditRef = doc(db, "pendingJournalEntries", "credit" + selectedRows[0].credit);
         const creditSnap = await getDoc(creditRef);
         const debitRef = doc(db, "pendingJournalEntries", "debit" + selectedRows[1].debit);
         const debitSnap = await getDoc(debitRef);
-        console.log(creditSnap.data());
-        console.log(debitSnap.data());
 
-        await setDoc(doc(db, "journalEntries", "credit" + selectedRows[0].credit), {
-            id: selectedRows[0].credit + "Credit",
-            dateCreated: dateCreated.toDateString(),
+        const journalCounterRef = doc(db, "counters", "journalEntries");
+        const journalCounterSnap = (await getDoc(journalCounterRef)).data();
+        const journalCounterNew = journalCounterSnap.counter + 1;
+        //Increment counter
+        await updateDoc(journalCounterRef, {
+            counter: journalCounterNew
+        })
+
+        await setDoc(doc(db, "journalEntries", journalCounterNew + " - Credit"), {
+            id: journalCounterNew + " - Credit",
+            date: dateTime,
             accountName: selectedRows[0].accountName,
             debit: 0.0,
             credit: selectedRows[0].credit,
             notes: selectedRows[0].notes
         })
-        await setDoc(doc(db, "journalEntries", "debit" + selectedRows[1].debit), {
-            id: selectedRows[1].debit + "Debit",
-            dateCreated: dateCreated.toDateString(),
+        await setDoc(doc(db, "journalEntries", journalCounterNew + " - Debit"), {
+            id: journalCounterNew + " - Debit",
+            date: dateTime,
             accountName: selectedRows[1].accountName,
             debit: selectedRows[1].debit,
             credit: 0.0,
@@ -169,16 +198,18 @@ export default function JournalEntries() {
         })
     }
     const deleteEntry = async () => {
+
         try {
-            await deleteDoc(doc(db, "pendingJournalEntries", "debit" + selectedRows[1].debit));
+            await deleteDoc(doc(db, "pendingJournalEntries", selectedRows[1].id));
         } catch (e) {
             console.log(e);
         }
         try {
-            await deleteDoc(doc(db, "pendingJournalEntries", "credit" + selectedRows[0].credit));
+            await deleteDoc(doc(db, "pendingJournalEntries", selectedRows[0].id));
         } catch (e) {
             console.log(e);
         }
+        getData();
     }
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
@@ -191,9 +222,16 @@ export default function JournalEntries() {
     const viewJournalEntries = () => {
         navigate('/JournalEntries')
     }
+    const [sortModel, setSortModel] = React.useState([
+        {
+            field: 'id',
+            sort: 'desc',
+        },
+    ]);
     return (
         <div>
             <NavBar />
+            <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Pending Journal Entries</h1>
             <Button onClick={getData}>Refresh</Button>
             <Box sx={{ height: 600, width: '100%' }}>
                 <DataGrid
@@ -204,6 +242,8 @@ export default function JournalEntries() {
                     checkboxSelection
                     disableSelectionOnClick
                     experimentalFeatures={{ newEditingApi: true }}
+                    sortModel={sortModel}
+                    onSortModelChange={(model) => setSortModel(model)}
                     onSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
                 />
             </Box>

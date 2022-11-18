@@ -37,7 +37,7 @@ export default function JournalEntries() {
             width: 120
         },
         {
-            field: 'dateCreated',
+            field: 'date',
             headerName: 'Date',
             width: 250
         },
@@ -84,11 +84,14 @@ export default function JournalEntries() {
 
     }
     const setData = async () => {
-        const dateCreated = new Date();
+        var today = new Date();
+        var date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
+        var time = today.getHours() + ":" + today.getMinutes();
+        var dateTime = date + ' ' + time;
         //Debit Entry
         await setDoc(doc(db, "journalEntries", "debit" + rows[1].debit), {
             id: rows[1].numTransactions + ".Debit",
-            dateCreated: dateCreated.toDateString(),
+            date: dateTime,
             accountName: rows[1].accountName,
             debit: rows[1].debit,
             credit: 0.0,
@@ -97,7 +100,7 @@ export default function JournalEntries() {
         //Credit Entry
         await setDoc(doc(db, "journalEntries", "credit" + rows[0].credit), {
             id: rows[0].numTransactions + ".Credit",
-            dateCreated: dateCreated.toDateString(),
+            date: dateTime,
             accountName: rows[0].accountName,
             debit: 0.0,
             credit: rows[0].credit,
@@ -126,16 +129,16 @@ export default function JournalEntries() {
             const account2Snap = (await getDoc(account2Ref)).data();
             const account2Balance = parseInt(account2Snap.balance);
 
-
             await updateDoc(doc(db, 'accounts', selectedRows[0].accountName), {
                 balance: account1Balance - parseInt(selectedRows[0].credit) - parseInt(selectedRows[0].debit)
             })
             await updateDoc(doc(db, 'accounts', selectedRows[1].accountName), {
                 balance: account2Balance - parseInt(selectedRows[1].credit) - parseInt(selectedRows[1].debit)
             })
-            await deleteDoc(doc(db, "journalEntries", "credit" + selectedRows[0].credit));
-            await deleteDoc(doc(db, "journalEntries", "debit" + selectedRows[1].debit));
+            await deleteDoc(doc(db, "journalEntries", selectedRows[0].id));
+            await deleteDoc(doc(db, "journalEntries", selectedRows[1].id));
             alert("Entries Deleted");
+            getData();
         } catch (e) {
             console.log(e);
         }
@@ -161,12 +164,13 @@ export default function JournalEntries() {
     const [sortModel, setSortModel] = React.useState([
         {
             field: 'id',
-            sort: 'asc',
+            sort: 'desc',
         },
     ]);
     return (
         <div>
             <NavBar />
+            <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Journal Entries</h1>
             <Button onClick={getData}>Refresh</Button>
             <Box sx={{ height: 600, width: '100%' }}>
                 <DataGrid
