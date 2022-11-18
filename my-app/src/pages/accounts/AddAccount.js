@@ -1,7 +1,8 @@
 import { Form, Button } from "react-bootstrap"
 import { useState } from "react";
 import { collection, getDocs, addDoc, deleteDoc, doc, Firestore, setDoc } from "firebase/firestore";
-import { db } from '../../firebase/config'
+import { ref, uploadBytesResumable } from "firebase/storage"
+import { db, storage } from '../../firebase/config'
 import { newRows } from "./Accounts";
 
 export default function AddAccount() {
@@ -9,6 +10,7 @@ export default function AddAccount() {
     const [category, setCategory] = useState('');
     const [statement, setStatementName] = useState('');
     const [id, setId] = useState('');
+    const [file, setFile] = useState('');
     const ids = Array(1000, 1010, 1020, 1030, 1040, 1050, 2000, 2010, 3000, 3010, 4000, 5000, 5010, 5020, 5030, 5040);
     const handleSubmit = (e) => {
         console.log(newRows);
@@ -18,6 +20,15 @@ export default function AddAccount() {
         console.log(statement);
         setData();
     }
+    const upload = ()=>{
+        if(file == null)
+          return;
+        var storageRef = ref(storage, `/files/${file.name}`)
+        const uploadTask = uploadBytesResumable(storageRef, file)
+        uploadTask.resume()
+        .on("state_changed" , alert("success") , alert);
+      }
+
     const setData = async () => {
         console.log(id);
         if (ids.includes(id)) {
@@ -74,10 +85,17 @@ export default function AddAccount() {
                 <option value="Income Sheet">Income Sheet</option>
             </Form.Select>
 
-
             <Button variant="success" type="submit" block>
                 Add New Account
             </Button>
+            <Form.Control
+                type="file"
+                placeholder="Upload File"
+                required
+                value={file}
+                onChange={(e) => setFile(e.target.value[0])}
+            />
+            <Button variant="primary" onClick={upload} block> Upload </Button>
         </Form>
     )
 }
