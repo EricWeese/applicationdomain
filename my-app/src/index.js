@@ -53,7 +53,7 @@ root.render(
       <Route path="/PendingJournalEntries" element={<PendingJournalEntries />} />
       <Route path="/PendingJournalEntriesAccountant" element={<PendingJournalEntriesAccountant />} />
       <Route path="/PendingJournalEntriesManager" element={<PendingJournalEntriesManager />} />
-      
+
     </Routes>
   </BrowserRouter>
 
@@ -65,11 +65,11 @@ when rejecting journal entries be able to give comment
 email different accounts
 log of events
 attach files to entry
-user page: add email column
-fix journal entry index
-auto sort
-add time to date column
+-user page: add email column
+-fix journal entry index
+-auto sort
+-add time to date column
 journal entries color coded
-
+-add headers to every page
 */
 reportWebVitals();
