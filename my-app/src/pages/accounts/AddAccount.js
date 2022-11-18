@@ -1,9 +1,10 @@
 import { Form, Button } from "react-bootstrap"
 import { useState } from "react";
 import { collection, getDocs, addDoc, deleteDoc, doc, Firestore, setDoc } from "firebase/firestore";
-import { ref, uploadBytesResumable } from "firebase/storage"
+import { ref, uploadBytes } from "firebase/storage"
 import { db, storage } from '../../firebase/config'
 import { newRows } from "./Accounts";
+import { Input } from "@mui/material";
 
 export default function AddAccount() {
     const [accountName, setAccountName] = useState('');
@@ -19,15 +20,15 @@ export default function AddAccount() {
         console.log(category);
         console.log(statement);
         setData();
+        upload();
     }
     const upload = ()=>{
         if(file == null)
           return;
-        var storageRef = ref(storage, `/files/${file.name}`)
-        const uploadTask = uploadBytesResumable(storageRef, file)
-        uploadTask.resume()
-        .on("state_changed" , alert("success") , alert);
-      }
+        const storageRef = ref(storage, `files/${file.name}`)
+        uploadBytes(storageRef, file).then(() => {
+        })
+    }
 
     const setData = async () => {
         console.log(id);
@@ -84,18 +85,15 @@ export default function AddAccount() {
                 <option value="Balance Sheet">Balance Sheet</option>
                 <option value="Income Sheet">Income Sheet</option>
             </Form.Select>
-
-            <Button variant="success" type="submit" block>
-                Add New Account
-            </Button>
             <Form.Control
                 type="file"
                 placeholder="Upload File"
                 required
-                value={file}
-                onChange={(e) => setFile(e.target.value[0])}
+                onChange={(e) => setFile(e.target.files[0])}
             />
-            <Button variant="primary" onClick={upload} block> Upload </Button>
+            <Button variant="success" type="submit" block>
+                Add New Account
+            </Button>
         </Form>
     )
 }
