@@ -33,11 +33,11 @@ export default function Users() {
     const [show, setShow] = useState(false)
     const [showTwo, setShowTwo] = useState(false)
     const handleShow = () => setShow(true)
-    const handleShowTwo = () => setShowTwo(true)
     const handleClose = () => setShow(false)
     const handleCloseTwo = () => setShowTwo(false)
     const [userTable, setUserTable] = useState([])
     const [selectedRows, setSelectedRows] = useState([])
+
     //Fetches all the users from the database
     const fetchUsers = async (e) => {
         const data = await getDocs(collection(db, "users"))
@@ -58,6 +58,17 @@ export default function Users() {
         }
     };
     userId = selectedRows
+
+    const checkUserId = () => {
+        console.log(userId)
+        if(userId[0] == null){
+            alert("Must Select User To Update")
+            setShowTwo(false)
+        } else {
+            setShowTwo(true)
+        }
+    }
+
     // const sendEmail() {
 
     // }
@@ -93,7 +104,7 @@ export default function Users() {
             >
                 <Button onClick={handleShow} variant="outline-primary">Add User</Button>
             </OverlayTrigger>
-            <Button onClick={handleShowTwo} variant="outline-primary">Update User</Button>
+            <Button onClick={checkUserId} variant="outline-primary">Update User</Button>
             {/* <Button onClick={handleShow} variant="outline-primary">Send Email To User</Button> */}
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>

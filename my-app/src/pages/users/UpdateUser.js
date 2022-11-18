@@ -41,26 +41,27 @@ export default function Signup() {
                 <Form.Label className="text-center">
                     First Name
                 </Form.Label>
-                <Form.Control onChange={(e) => setFirstName(e.target.value)} value={firstName} type="firstName" placeholder="Enter First Name" />
+                <Form.Control  onChange={(e) => setFirstName(e.target.value)} type="firstName" placeholder={userId[0].firstName} value={firstName}/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label className="text-center">
                     Last Name
                 </Form.Label>
-                <Form.Control onChange={(e) => setLastName(e.target.value)} value={lastName} type="lastName" placeholder="Enter Last Name" />
+                <Form.Control onChange={(e) => setLastName(e.target.value)} type="lastName" placeholder={userId[0].lastName} value={lastName} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label className="text-center">
                     Date of Birth
                 </Form.Label>
                 <br></br>
-                <DatePicker onChange={setDOB} value={DOB} />
+                <DatePicker onChange={setDOB} value={DOB}/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label className="text-center">
                     Select Role
                 </Form.Label>
                 <Form.Select className="text-center" onChange={(e) => setRole(e.target.value)} value={role}>
+                    <option>Choose Role</option>
                     <option value="Admin">Admin</option>
                     <option value="Manager">Manager</option>
                     <option value="Accountant">Accountant</option>
@@ -71,6 +72,7 @@ export default function Signup() {
                     Activate Or Deactivate
                 </Form.Label>
                 <Form.Select className="text-center" onChange={(e) => setActive(e.target.value)} value={active}>
+                    <option>Select Option</option>
                     <option value={true}>Activate</option>
                     <option value={false}>Deactivate</option>
                 </Form.Select>
@@ -79,7 +81,7 @@ export default function Signup() {
                 <Form.Label className="text-center">
                     Email address
                 </Form.Label>
-                <Form.Control onChange={(e) => setEmail(e.target.value)} value={email} type="email" placeholder="Enter email" />
+                <Form.Control  onChange={(e) => setEmail(e.target.value)} type="email" placeholder={userId[0].email} value={email}/>
             </Form.Group>
             <div className="d-grid">
                 <Button onClick={handleSubmit} variant="primary">
