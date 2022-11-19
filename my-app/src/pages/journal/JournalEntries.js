@@ -145,7 +145,6 @@ export default function JournalEntries() {
             const account1Ref = doc(db, "accounts", selectedRows[0].accountName);
             const account1Snap = (await getDoc(account1Ref)).data();
             const account1Balance = parseInt(account1Snap.balance);
-
             const account2Ref = doc(db, "accounts", selectedRows[1].accountName);
             const account2Snap = (await getDoc(account2Ref)).data();
             const account2Balance = parseInt(account2Snap.balance);

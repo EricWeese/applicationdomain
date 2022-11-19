@@ -48,13 +48,9 @@ export default function AddJournalEntry() {
         return dateTime;
     }
 
-
     const setData = async () => {
 
         var dateTime = getCurrDate();
-
-
-
         const counterRef = doc(db, "helperData", "counters");
         const counterSnap = (await getDoc(counterRef)).data();
         const counterNew = parseInt(counterSnap.pendingJournal) + 1;

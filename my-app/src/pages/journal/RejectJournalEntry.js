@@ -46,7 +46,6 @@ export default function AddJournalEntry() {
         console.log(pendingCredit);
         const pendingRefDebit = doc(db, "pendingJournalEntries", debitId);
         const pendingDebit = (await getDoc(pendingRefDebit)).data();
-
         //Adds to all journal entries
         await setDoc(doc(db, "allJournalEntries", allJournalCounterNew + " - Credit"), {
             id: allJournalCounterNew + " - Credit",

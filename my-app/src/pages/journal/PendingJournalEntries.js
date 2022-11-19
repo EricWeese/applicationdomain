@@ -124,6 +124,7 @@ export default function JournalEntries() {
         alert("Accepted Journal Entries");
         getData();
     }
+
     const rejectEntry = async () => {
         creditId = selectedRows[0].id;
         debitId = selectedRows[1].id;
