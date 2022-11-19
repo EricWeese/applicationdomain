@@ -6,9 +6,9 @@ import Button from 'react-bootstrap/Button';
 import { Modal } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import AddAccount from './AddAccount';
-import NavBar from '../../components/navbar/Navbar';
+import NavBar from '../../components/navbar/ManagerNavbar';
 import { useState, useEffect } from "react";
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { collection, getDocs, addDoc, deleteDoc, doc, Firestore, setDoc } from "firebase/firestore";
 import { db } from '../../firebase/config'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -86,11 +86,15 @@ export default function Accounts() {
     }, [])
 
     const deleteAccount = async () => {
-        try {
-            await deleteDoc(doc(db, "accounts", selectedRows[0].accountName));
-            alert("Account Deleted");
-        } catch (e) {
-            console.log(e);
+        if(selectedRows[0].balance > 0){
+            alert("Cannot Deactivate Account because it has a balance greater than 0")
+        } else {
+            try {
+                await deleteDoc(doc(db, "accounts", selectedRows[0].accountName));
+                alert("Account Deleted");
+            } catch (e) {
+                console.log(e);
+            }
         }
     }
 
@@ -113,7 +117,7 @@ export default function Accounts() {
         </Tooltip>
     );
     const changePage = () => {
-        navigate('/JournalEntriesManager');
+        navigate('/JournalEntriesManagers');
     }
     const [sortModel, setSortModel] = React.useState([
         {
