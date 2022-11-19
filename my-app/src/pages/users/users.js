@@ -40,6 +40,7 @@ export default function Users() {
     const handleCloseThree = () => setShowThree(false)
     const [userTable, setUserTable] = useState([])
     const [selectedRows, setSelectedRows] = useState([])
+    const [download, setDownload] = useState([])
 
     //Fetches all the users from the database
     const fetchUsers = async (e) => {
@@ -49,6 +50,9 @@ export default function Users() {
 
     //Loads the data for the page
     useEffect(() => {
+        if(!!download.length) { 
+            startDownload()
+        }
         fetchUsers()
     }, [])
 
@@ -61,6 +65,13 @@ export default function Users() {
         }
     };
     userId = selectedRows
+
+    const startDownload = async () => {
+        const userCollection = collection(db, 'users')
+        const data = await getDocs(userCollection)
+        setDownload(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
+        console.log(data)
+    }
 
     const checkUserId = () => {
         if(userId[0] == null){
@@ -119,6 +130,7 @@ export default function Users() {
             </OverlayTrigger>
             <Button onClick={checkUserId} variant="outline-primary">Update User</Button>
             <Button onClick={checkEmail} variant="outline-primary">Send Email To User</Button>
+            <Button onClick={startDownload} variant="outline-primary">Generate Report</Button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>

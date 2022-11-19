@@ -1,4 +1,4 @@
-import { Form, Button } from "react-bootstrap"
+import { Form, Button, Alert } from "react-bootstrap"
 import { collection, getDocs, addDoc, deleteDoc, doc, Firestore, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { db } from '../../firebase/config'
@@ -9,13 +9,14 @@ export default function AddJournalEntry() {
     const [creditAccount, setCreditAccount] = useState('');
     const [creditAmount, setCreditAmount] = useState('');
     const [notes, setNotes] = useState('');
+    const [errorMess, setErrorMess] = useState('')
     var numTransactions = 2
     const handleSubmit = (e) => {
         if (debitAmount == creditAmount) {
             setData();
         }
         else {
-            alert("Credits and Debits are not equal")
+            setErrorMess("Credits and Debits are not equal")
         }
         e.preventDefault();
         console.log(debitAccount);
@@ -150,6 +151,9 @@ export default function AddJournalEntry() {
                     value={debitAmount}
                     onChange={(e) => setDebitAmount(e.target.value)}
                 />
+                { debitAccount !== creditAccount && (
+                    <Alert variant="danger"> {errorMess}</Alert>
+                )}
             </Form.Group>
             <br></br><br></br>
             <h3>Credit Account</h3>
@@ -181,6 +185,9 @@ export default function AddJournalEntry() {
                     value={creditAmount}
                     onChange={(e) => setCreditAmount(e.target.value)}
                 />
+                { debitAccount !== creditAccount && (
+                    <Alert variant="danger"> {errorMess}</Alert>
+                )}
             </Form.Group>
             <br></br>
             <Form.Group>
