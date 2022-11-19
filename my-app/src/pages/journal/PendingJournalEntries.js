@@ -13,14 +13,16 @@ import { db } from '../../firebase/config'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import AddJournalEntry from './AddJournalEntry';
+import RejectJournalEntry from './RejectJournalEntry';
 
+export var creditId;
+export var debitId;
 
 export default function JournalEntries() {
     const journalEntriesRef = collection(db, "pendingJournalEntries");
     const [updatedRows, setRows] = useState([]);
     const navigate = useNavigate()
     const [selectedRows, setSelectedRows] = useState([])
-
     const currencyFormatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
@@ -113,6 +115,8 @@ export default function JournalEntries() {
             console.log(e);
         }
     };
+
+
     const acceptEntry = () => {
         copyData();
         updateAccounts();
@@ -120,30 +124,34 @@ export default function JournalEntries() {
         alert("Accepted Journal Entries");
         getData();
     }
-    const rejectEntry = () => {
-        deleteEntry();
-        alert("Entries Rejected");
+
+    const rejectEntry = async () => {
+        creditId = selectedRows[0].id;
+        debitId = selectedRows[1].id;
+        setShowReject(true)
+        getData();
     }
     const getCurrDate = () => {
-        console.log("asdf")
         var today = new Date();
-        var date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
-        if (today.getHours() > 12) {
-            if (today.getMinutes < 10) {
-                var time = "0" + (parseInt(today.getHours()) - 12) + ":" + "0" + today.getMinutes();
-            }
-            else {
-                var time = "0" + (parseInt(today.getHours()) - 12) + ":" + today.getMinutes();
-            }
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
+        if (parseInt(today.getHours()) > 12) {
+
+            var hours = "0" + (parseInt(today.getHours()) - 12);
         } else {
-            if (today.getMinutes < 10) {
-                var time = today.getHours() + ":" + "0" + today.getMinutes();
-            }
-            else {
-                var time = today.getHours() + ":" + today.getMinutes();
-            }
+            var hours = today.getHours();
         }
+        if (parseInt(today.getMinutes()) < 10) {
+            var minutes = "0" + parseInt(today.getMinutes());
+        } else {
+            var minutes = today.getMinutes();
+        }
+        if (parseInt(today.getSeconds()) < 10) {
+            var seconds = "0" + parseInt(today.getSeconds());
+        } else {
+            var seconds = today.getSeconds();
+        }
+        var time = hours + ":" + minutes + ":" + seconds;
         var dateTime = date + ' ' + time;
         return dateTime;
     }
@@ -154,12 +162,16 @@ export default function JournalEntries() {
         const debitRef = doc(db, "pendingJournalEntries", "debit" + selectedRows[1].debit);
         const debitSnap = await getDoc(debitRef);
 
-        const journalCounterRef = doc(db, "counters", "journalEntries");
-        const journalCounterSnap = (await getDoc(journalCounterRef)).data();
-        const journalCounterNew = journalCounterSnap.counter + 1;
-        //Increment counter
-        await updateDoc(journalCounterRef, {
-            counter: journalCounterNew
+        const counterRef = doc(db, "helperData", "counters");
+        const counterSnap = (await getDoc(counterRef)).data();
+        const journalCounterNew = parseInt(counterSnap.journal) + 1;
+        const allJournalCounterNew = parseInt(counterSnap.allJournal) + 1;
+        //Increment counters
+        await updateDoc(counterRef, {
+            journal: journalCounterNew
+        })
+        await updateDoc(counterRef, {
+            allJournal: allJournalCounterNew,
         })
 
         await setDoc(doc(db, "journalEntries", journalCounterNew + " - Credit"), {
@@ -177,6 +189,25 @@ export default function JournalEntries() {
             debit: selectedRows[1].debit,
             credit: 0.0,
             notes: selectedRows[1].notes
+        })
+
+        await setDoc(doc(db, "allJournalEntries", allJournalCounterNew + " - Credit"), {
+            id: allJournalCounterNew + " - Credit",
+            date: dateTime,
+            accountName: selectedRows[0].accountName,
+            debit: 0.0,
+            credit: selectedRows[0].credit,
+            notes: selectedRows[0].notes,
+            type: "Accepted"
+        })
+        await setDoc(doc(db, "allJournalEntries", allJournalCounterNew + " - Debit"), {
+            id: allJournalCounterNew + " - Debit",
+            date: dateTime,
+            accountName: selectedRows[1].accountName,
+            debit: selectedRows[1].debit,
+            credit: 0.0,
+            notes: selectedRows[1].notes,
+            type: "Accepted"
         })
     }
     const updateAccounts = async () => {
@@ -198,19 +229,11 @@ export default function JournalEntries() {
         })
     }
     const deleteEntry = async () => {
-
-        try {
-            await deleteDoc(doc(db, "pendingJournalEntries", selectedRows[1].id));
-        } catch (e) {
-            console.log(e);
-        }
-        try {
-            await deleteDoc(doc(db, "pendingJournalEntries", selectedRows[0].id));
-        } catch (e) {
-            console.log(e);
-        }
+        await deleteDoc(doc(db, "pendingJournalEntries", selectedRows[1].id));
+        await deleteDoc(doc(db, "pendingJournalEntries", selectedRows[0].id));
         getData();
     }
+
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             Click this to add a journal entry
@@ -219,12 +242,17 @@ export default function JournalEntries() {
     const [show, setShow] = useState(false)
     const handleShow = () => setShow(true)
     const handleClose = () => setShow(false)
+
+    const [showReject, setShowReject] = useState(false)
+    const handleShowReject = () => setShowReject(true)
+    const handleCloseReject = () => setShowReject(false)
+
     const viewJournalEntries = () => {
         navigate('/JournalEntries')
     }
     const [sortModel, setSortModel] = React.useState([
         {
-            field: 'id',
+            field: 'date',
             sort: 'desc',
         },
     ]);
@@ -248,7 +276,7 @@ export default function JournalEntries() {
                 />
             </Box>
 
-            <Button onClick={viewJournalEntries} variant="outline-primary">View All Journal Entries</Button>
+            <Button onClick={viewJournalEntries} variant="outline-primary">View Accepted Journal Entries</Button>
             <Button onClick={acceptEntry} variant="outline-primary">Accept Journal Entry</Button>
             <Button onClick={rejectEntry} variant="outline-primary">Reject Journal Entry</Button>
             <Modal show={show} onHide={handleClose}>
@@ -262,6 +290,22 @@ export default function JournalEntries() {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal show={showReject} onHide={handleCloseReject}>
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        Reject Journal Entry
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <RejectJournalEntry />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseReject}>
                         Close
                     </Button>
                 </Modal.Footer>

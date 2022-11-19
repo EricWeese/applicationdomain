@@ -80,8 +80,29 @@ export default function JournalEntries() {
 
 
     ];
-    const submitData = () => {
+    const getCurrDate = () => {
+        var today = new Date();
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
+        if (parseInt(today.getHours()) > 12) {
+
+            var hours = "0" + (parseInt(today.getHours()) - 12);
+        } else {
+            var hours = today.getHours();
+        }
+        if (parseInt(today.getMinutes()) < 10) {
+            var minutes = "0" + parseInt(today.getMinutes());
+        } else {
+            var minutes = today.getMinutes();
+        }
+        if (parseInt(today.getSeconds()) < 10) {
+            var seconds = "0" + parseInt(today.getSeconds());
+        } else {
+            var seconds = today.getSeconds();
+        }
+        var time = hours + ":" + minutes + ":" + seconds;
+        var dateTime = date + ' ' + time;
+        return dateTime;
     }
     const setData = async () => {
         var today = new Date();
@@ -124,7 +145,6 @@ export default function JournalEntries() {
             const account1Ref = doc(db, "accounts", selectedRows[0].accountName);
             const account1Snap = (await getDoc(account1Ref)).data();
             const account1Balance = parseInt(account1Snap.balance);
-
             const account2Ref = doc(db, "accounts", selectedRows[1].accountName);
             const account2Snap = (await getDoc(account2Ref)).data();
             const account2Balance = parseInt(account2Snap.balance);
@@ -138,7 +158,35 @@ export default function JournalEntries() {
             await deleteDoc(doc(db, "journalEntries", selectedRows[0].id));
             await deleteDoc(doc(db, "journalEntries", selectedRows[1].id));
             alert("Entries Deleted");
+            //Adds to all journal entries
+            var dateTime = getCurrDate();
+            const allJournalCounterRef = doc(db, "helperData", "counters");
+            const allJournalCounterSnap = (await getDoc(allJournalCounterRef)).data();
+            const allJournalCounterNew = parseInt(allJournalCounterSnap.allJournal) + 1;
+            await updateDoc(allJournalCounterRef, {
+                counter: allJournalCounterNew
+            })
+
+            await setDoc(doc(db, "allJournalEntries", allJournalCounterNew + " - Credit"), {
+                id: allJournalCounterNew + " - Credit",
+                date: dateTime,
+                accountName: selectedRows[0].accountName,
+                debit: 0.0,
+                credit: selectedRows[0].credit,
+                notes: selectedRows[0].notes,
+                type: "Deleted"
+            })
+            await setDoc(doc(db, "allJournalEntries", allJournalCounterNew + " - Debit"), {
+                id: allJournalCounterNew + " - Debit",
+                date: dateTime,
+                accountName: selectedRows[1].accountName,
+                debit: selectedRows[1].debit,
+                credit: 0.0,
+                notes: selectedRows[1].notes,
+                type: "Deleted"
+            })
             getData();
+
         } catch (e) {
             console.log(e);
         }
@@ -154,6 +202,9 @@ export default function JournalEntries() {
     const viewPending = () => {
         navigate('/PendingJournalEntries')
     }
+    const viewAll = () => {
+        navigate('/AllJournalEntries')
+    }
     const onRowsSelectionHandler = (ids) => {
         try {
             setSelectedRows(ids.map((id) => updatedRows.find((row) => row.id === id)));
@@ -163,7 +214,7 @@ export default function JournalEntries() {
     };
     const [sortModel, setSortModel] = React.useState([
         {
-            field: 'id',
+            field: 'date',
             sort: 'desc',
         },
     ]);
@@ -196,6 +247,7 @@ export default function JournalEntries() {
             </OverlayTrigger>
             <Button onClick={deleteEntries} variant="outline-primary">Delete Journal Entries</Button>
             <Button onClick={viewPending} variant="outline-primary">View Pending Journal Entries</Button>
+            <Button onClick={viewAll} variant="primary">View All Journal Entries</Button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>

@@ -1,6 +1,6 @@
 import { Form, Button, Alert } from "react-bootstrap"
 import { collection, getDocs, addDoc, deleteDoc, doc, Firestore, setDoc, getDoc, updateDoc } from "firebase/firestore";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { db } from '../../firebase/config'
 
 export default function AddJournalEntry() {
@@ -25,25 +25,26 @@ export default function AddJournalEntry() {
         console.log(creditAmount);
     }
     const getCurrDate = () => {
-        console.log("asdf")
         var today = new Date();
-        var date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
-        if (today.getHours() > 12) {
-            if (today.getMinutes < 10) {
-                var time = "0" + (parseInt(today.getHours()) - 12) + ":" + "0" + today.getMinutes();
-            }
-            else {
-                var time = "0" + (parseInt(today.getHours()) - 12) + ":" + today.getMinutes();
-            }
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
+        if (parseInt(today.getHours()) > 12) {
+
+            var hours = "0" + (parseInt(today.getHours()) - 12);
         } else {
-            if (today.getMinutes < 10) {
-                var time = today.getHours() + ":" + "0" + today.getMinutes();
-            }
-            else {
-                var time = today.getHours() + ":" + today.getMinutes();
-            }
+            var hours = today.getHours();
         }
+        if (parseInt(today.getMinutes()) < 10) {
+            var minutes = "0" + parseInt(today.getMinutes());
+        } else {
+            var minutes = today.getMinutes();
+        }
+        if (parseInt(today.getSeconds()) < 10) {
+            var seconds = "0" + parseInt(today.getSeconds());
+        } else {
+            var seconds = today.getSeconds();
+        }
+        var time = hours + ":" + minutes + ":" + seconds;
         var dateTime = date + ' ' + time;
         return dateTime;
     }
@@ -51,12 +52,16 @@ export default function AddJournalEntry() {
     const setData = async () => {
 
         var dateTime = getCurrDate();
-        const counterRef = doc(db, "counters", "pendingJournalEntries");
+        const counterRef = doc(db, "helperData", "counters");
         const counterSnap = (await getDoc(counterRef)).data();
-        const counterNew = counterSnap.counter + 1;
+        const counterNew = parseInt(counterSnap.pendingJournal) + 1;
+        const allJournalCounterNew = parseInt(counterSnap.allJournal) + 1;
         //Increment counter
         await updateDoc(counterRef, {
-            counter: counterNew
+            pendingJournal: counterNew
+        })
+        await updateDoc(counterRef, {
+            allJournal: allJournalCounterNew
         })
         //Debit Entry
         await setDoc(doc(db, "pendingJournalEntries", counterNew + " - Debit"), {
@@ -66,6 +71,7 @@ export default function AddJournalEntry() {
             debit: debitAmount,
             credit: 0.0,
             notes: notes
+
         })
         //Credit Entry
         await setDoc(doc(db, "pendingJournalEntries", counterNew + " - Credit"), {
@@ -75,6 +81,25 @@ export default function AddJournalEntry() {
             debit: 0.0,
             credit: creditAmount,
             notes: notes
+        })
+
+        await setDoc(doc(db, "allJournalEntries", allJournalCounterNew + " - Debit"), {
+            id: allJournalCounterNew + " - Debit",
+            date: dateTime,
+            accountName: debitAccount,
+            debit: debitAmount,
+            credit: 0.0,
+            notes: notes,
+            type: "Pending"
+        })
+        await setDoc(doc(db, "allJournalEntries", allJournalCounterNew + " - Credit"), {
+            id: allJournalCounterNew + " - Credit",
+            date: dateTime,
+            accountName: creditAccount,
+            debit: 0.0,
+            credit: creditAmount,
+            notes: notes,
+            type: "Pending"
         })
         alert("Journal entry under review")
     }

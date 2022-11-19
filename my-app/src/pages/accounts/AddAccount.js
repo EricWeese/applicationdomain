@@ -22,9 +22,9 @@ export default function AddAccount() {
         setData();
         upload();
     }
-    const upload = ()=>{
-        if(file == null)
-          return;
+    const upload = () => {
+        if (file == null)
+            return;
         const storageRef = ref(storage, `files/${file.name}`)
         uploadBytes(storageRef, file).then(() => {
         })
@@ -60,7 +60,7 @@ export default function AddAccount() {
                     onChange={(e) => setAccountName(e.target.value)}
                 />
             </Form.Group>
-
+            <br></br>
             <Form.Group>
                 <Form.Control
                     type="text"
@@ -70,7 +70,7 @@ export default function AddAccount() {
                     onChange={(e) => setId(e.target.value)}
                 />
             </Form.Group>
-
+            <br></br>
             <Form.Select aria-label="category" value={category} onChange={(e) => setCategory(e.target.value)}>
                 <option>Category</option>
                 <option value="Asset">Asset</option>
@@ -79,18 +79,20 @@ export default function AddAccount() {
                 <option value="Revenues">Revenues</option>
                 <option value="Expenses">Expenses</option>
             </Form.Select>
-
+            <br></br>
             <Form.Select aria-label="statement" value={statement} onChange={(e) => setStatementName(e.target.value)}>
                 <option>Statement</option>
                 <option value="Balance Sheet">Balance Sheet</option>
                 <option value="Income Sheet">Income Sheet</option>
             </Form.Select>
+            <br></br>
             <Form.Control
                 type="file"
                 placeholder="Upload File"
                 required
                 onChange={(e) => setFile(e.target.files[0])}
             />
+            <br></br>
             <Button variant="success" type="submit" block>
                 Add New Account
             </Button>
