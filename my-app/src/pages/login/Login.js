@@ -2,7 +2,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db, auth } from '../../firebase/config'
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
+import { Col, Button, Row, Container, Card, Form, Alert } from "react-bootstrap";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Link } from "react-router-dom";
 
@@ -12,6 +12,7 @@ export default function Login() {
     const [email, getEmail] = useState('')
     const [password, getPassword] = useState('')
     const [userData, setUserData] = useState([])
+    const [errorMess, setErrorMess] = useState('')
     const navigate = useNavigate()
     const userRef = collection(db, "users");
 
@@ -22,7 +23,7 @@ export default function Login() {
             const data = await getDocs(userRef);
             setUserData(data.docs.map((doc) => ({ ...doc.data() })))
         } catch (e) {
-            console.log(e);
+            setErrorMess(e);
         }
     }
     useEffect(() => {
@@ -53,11 +54,8 @@ export default function Login() {
 
             })
             .catch(function (error) {
-
                 // Firebase will use this to alert of its errors
-                var error_message = error.message
-
-                alert(error_message)
+                setErrorMess(error.message)
             })
     }
 
@@ -80,6 +78,9 @@ export default function Login() {
                                                     Email address
                                                 </Form.Label>
                                                 <Form.Control onChange={(e) => getEmail(e.target.value)} value={email} type="email" placeholder="Enter email" />
+                                                {errorMess && (
+                                                    <Alert variant="danger"> {errorMess}</Alert>
+                                                )}
                                             </Form.Group>
 
                                             <Form.Group
@@ -87,8 +88,10 @@ export default function Login() {
                                                 controlId="formBasicPassword"
                                             >
                                                 <Form.Label>Password</Form.Label>
-                                                <Form.Control onChange={(e) => getPassword(e.target.value)} value={password}
-                                                    type="password" placeholder="Password" />
+                                                <Form.Control onChange={(e) => getPassword(e.target.value)} value={password} type="password" placeholder="Password" />
+                                                {errorMess && (
+                                                    <Alert variant="danger"> {errorMess}</Alert>
+                                                )}
                                             </Form.Group>
                                             <Form.Group
                                                 className="mb-3"
