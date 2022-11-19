@@ -1,4 +1,4 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, updateDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import { db, auth } from '../../firebase/config'
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Link } from "react-router-dom";
 
-export var userName = []
+export var userName = ""
 
 export default function Login() {
     const [email, getEmail] = useState('')
@@ -35,14 +35,17 @@ export default function Login() {
         signInWithEmailAndPassword(auth, email, password)
             .then(function () {
                 var userRole = "";
+
                 // Done
-                alert('User Logged In!!')
                 for (var i = 0; i < userData.length; i++) {
                     if (userData[i].email === email) {
                         userRole = userData[i].role;
-                        userName = userData[i]
+                        userName = userData[i].userName
                     }
                 }
+                writeUserName(userName);
+                updateActivity(userName);
+
                 if (userRole === "Admin") {
                     navigate('/Accounts');
                 } else if (userRole === "Manager") {
@@ -50,7 +53,7 @@ export default function Login() {
                 } else {
                     navigate('/AccountsAccountant')
                 }
-
+                alert('User Logged In!!')
             })
             .catch(function (error) {
 
@@ -59,6 +62,52 @@ export default function Login() {
 
                 alert(error_message)
             })
+
+    }
+    const writeUserName = async (userName) => {
+        const userRef = doc(db, "helperData", "currentUser");
+        await updateDoc(userRef, {
+            username: userName
+        })
+    }
+    const updateActivity = async (userName) => {
+        var dateTime = getCurrDate();
+        const counterRef = doc(db, "helperData", "counters");
+        const counterSnap = (await getDoc(counterRef)).data();
+        const activityNew = parseInt(counterSnap.activity) + 1;
+        await updateDoc(counterRef, {
+            activity: activityNew
+        })
+        await setDoc(doc(db, "activityLog", activityNew + " - Log"), {
+            id: activityNew,
+            date: dateTime,
+            userName: userName,
+            notes: userName + " has logged in"
+        })
+    }
+    const getCurrDate = () => {
+        var today = new Date();
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+        if (parseInt(today.getHours()) > 12) {
+
+            var hours = "0" + (parseInt(today.getHours()) - 12);
+        } else {
+            var hours = today.getHours();
+        }
+        if (parseInt(today.getMinutes()) < 10) {
+            var minutes = "0" + parseInt(today.getMinutes());
+        } else {
+            var minutes = today.getMinutes();
+        }
+        if (parseInt(today.getSeconds()) < 10) {
+            var seconds = "0" + parseInt(today.getSeconds());
+        } else {
+            var seconds = today.getSeconds();
+        }
+        var time = hours + ":" + minutes + ":" + seconds;
+        var dateTime = date + ' ' + time;
+        return dateTime;
     }
 
     return (

@@ -157,6 +157,22 @@ export default function JournalEntries() {
             })
             await deleteDoc(doc(db, "journalEntries", selectedRows[0].id));
             await deleteDoc(doc(db, "journalEntries", selectedRows[1].id));
+            const userRef = doc(db, "helperData", "currentUser");
+            const userSnap = (await getDoc(userRef)).data();
+            var userName = userSnap.username;
+            var dateTime = getCurrDate();
+            const activityRef = doc(db, "helperData", "counters");
+            const activitySnap = (await getDoc(activityRef)).data();
+            const activityNew = parseInt(activitySnap.activity) + 1;
+            await updateDoc(activityRef, {
+                activity: activityNew
+            })
+            await setDoc(doc(db, "activityLog", activityNew + " - Log"), {
+                id: activityNew,
+                date: dateTime,
+                userName: userName,
+                notes: userName + " has deleted journal entry " + selectedRows[0].id + " and " + selectedRows[1].id,
+            })
             alert("Entries Deleted");
             //Adds to all journal entries
             var dateTime = getCurrDate();

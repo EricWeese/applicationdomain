@@ -21,6 +21,7 @@ import PendingJournalEntries from './pages/journal/PendingJournalEntries'
 import PendingJournalEntriesAccountant from './pages/journal/PendingJournalEntriesAccountant'
 import PendingJournalEntriesManager from './pages/journal/PendingJournalEntriesManager'
 import AllJournalEntries from './pages/journal/AllJournalEntries'
+import ActivityLog from './pages/acitivtylog/ActivityLog'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -55,6 +56,7 @@ root.render(
       <Route path="/PendingJournalEntriesAccountant" element={<PendingJournalEntriesAccountant />} />
       <Route path="/PendingJournalEntriesManager" element={<PendingJournalEntriesManager />} />
       <Route path="/AllJournalEntries" element={<AllJournalEntries />} />
+      <Route path="/ActivityLog" element={<ActivityLog />} />
 
     </Routes>
   </BrowserRouter>
@@ -64,7 +66,7 @@ root.render(
 /*
 To-do:
 -when rejecting journal entries be able to give comment
-email different accounts
+-email different accounts
 log of events
 -attach files to entry
 -user page: add email column

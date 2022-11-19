@@ -23,6 +23,7 @@ export default function JournalEntries() {
     const [updatedRows, setRows] = useState([]);
     const navigate = useNavigate()
     const [selectedRows, setSelectedRows] = useState([])
+    var userName = "";
     const currencyFormatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
@@ -83,9 +84,7 @@ export default function JournalEntries() {
 
 
     ];
-    const submitData = () => {
 
-    }
     /*const setData = async () => {
         await setDoc(doc(db, "", rows[num].accountName), {
             id: rows[num].id,
@@ -101,6 +100,9 @@ export default function JournalEntries() {
         try {
             const data = await getDocs(journalEntriesRef);
             setRows(data.docs.map((doc) => ({ ...doc.data() })))
+            const userRef = doc(db, "helperData", "currentUser");
+            const userSnap = (await getDoc(userRef)).data();
+            userName = userSnap.username;
         } catch (e) {
             console.log(e);
         }
@@ -208,6 +210,19 @@ export default function JournalEntries() {
             credit: 0.0,
             notes: selectedRows[1].notes,
             type: "Accepted"
+        })
+        var dateTime = getCurrDate();
+        const activityRef = doc(db, "helperData", "counters");
+        const activitySnap = (await getDoc(activityRef)).data();
+        const activityNew = parseInt(activitySnap.activity) + 1;
+        await updateDoc(activityRef, {
+            activity: activityNew
+        })
+        await setDoc(doc(db, "activityLog", activityNew + " - Log"), {
+            id: activityNew,
+            date: dateTime,
+            userName: userName,
+            notes: userName + " has accepted journal entry " + journalCounterNew,
         })
     }
     const updateAccounts = async () => {

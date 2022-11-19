@@ -100,6 +100,22 @@ export default function AddJournalEntry() {
             notes: notes,
             type: "Pending"
         })
+        //Activity Log
+        const userRef = doc(db, "helperData", "currentUser");
+        const userSnap = (await getDoc(userRef)).data();
+        var userName = userSnap.username;
+        const activityRef = doc(db, "helperData", "counters");
+        const activitySnap = (await getDoc(activityRef)).data();
+        const activityNew = parseInt(activitySnap.activity) + 1;
+        await updateDoc(activityRef, {
+            activity: activityNew
+        })
+        await setDoc(doc(db, "activityLog", activityNew + " - Log"), {
+            id: activityNew,
+            date: dateTime,
+            userName: userName,
+            notes: userName + " has submitted journal entry " + counterNew + " for review",
+        })
         alert("Journal entry under review")
     }
     return (
