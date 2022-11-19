@@ -11,6 +11,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import UpdateUser from './UpdateUser'
 import CreateUser from './CreateUsers'
+import SendEmail from './SendEmail'
 
 //Array of columns for the table
 const columns = [
@@ -32,9 +33,11 @@ export default function Users() {
     //Variables
     const [show, setShow] = useState(false)
     const [showTwo, setShowTwo] = useState(false)
+    const [showThree, setShowThree] = useState(false)
     const handleShow = () => setShow(true)
     const handleClose = () => setShow(false)
     const handleCloseTwo = () => setShowTwo(false)
+    const handleCloseThree = () => setShowThree(false)
     const [userTable, setUserTable] = useState([])
     const [selectedRows, setSelectedRows] = useState([])
 
@@ -60,12 +63,22 @@ export default function Users() {
     userId = selectedRows
 
     const checkUserId = () => {
-        console.log(userId)
         if(userId[0] == null){
             alert("Must Select User To Update")
             setShowTwo(false)
         } else {
             setShowTwo(true)
+        }
+    }
+
+    const checkEmail = () => {
+        if(userId[0] == null){
+            alert("Must Select User To Send Email Too")
+            setShowThree(false)
+        } else if (userId[0].role === "Accountant") {
+            alert("You can only send email to manager or admin")
+        }else {
+            setShowThree(true)
         }
     }
 
@@ -105,7 +118,7 @@ export default function Users() {
                 <Button onClick={handleShow} variant="outline-primary">Add User</Button>
             </OverlayTrigger>
             <Button onClick={checkUserId} variant="outline-primary">Update User</Button>
-            {/* <Button onClick={handleShow} variant="outline-primary">Send Email To User</Button> */}
+            <Button onClick={checkEmail} variant="outline-primary">Send Email To User</Button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>
@@ -132,6 +145,21 @@ export default function Users() {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseTwo}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={showThree} onHide={handleCloseThree}>
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        Send Email
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <SendEmail />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseThree}>
                         Close
                     </Button>
                 </Modal.Footer>
