@@ -50,7 +50,7 @@ export default function Users() {
 
     //Loads the data for the page
     useEffect(() => {
-        if(!!download.length) { 
+        if (!!download.length) {
             startDownload()
         }
         fetchUsers()
@@ -69,12 +69,12 @@ export default function Users() {
     const startDownload = async () => {
         const userCollection = collection(db, 'users')
         const data = await getDocs(userCollection)
-        setDownload(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
+        setDownload(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
         console.log(data)
     }
 
     const checkUserId = () => {
-        if(userId[0] == null){
+        if (userId[0] == null) {
             alert("Must Select User To Update")
             setShowTwo(false)
         } else {
@@ -83,12 +83,12 @@ export default function Users() {
     }
 
     const checkEmail = () => {
-        if(userId[0] == null){
+        if (userId[0] == null) {
             alert("Must Select User To Send Email Too")
             setShowThree(false)
         } else if (userId[0].role === "Accountant") {
             alert("You can only send email to manager or admin")
-        }else {
+        } else {
             setShowThree(true)
         }
     }

@@ -1,6 +1,6 @@
 import { Form, Button } from "react-bootstrap"
 import { useState } from "react";
-import { collection, getDocs, addDoc, deleteDoc, doc, Firestore, setDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, deleteDoc, doc, Firestore, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage"
 import { db, storage } from '../../firebase/config'
 import { newRows } from "./Accounts";
@@ -45,8 +45,48 @@ export default function AddAccount() {
                 dateCreated: dateCreated.toDateString(),
                 statement: statement,
             })
+            var dateTime = getCurrDate();
+            const userRef = doc(db, "helperData", "currentUser");
+            const userSnap = (await getDoc(userRef)).data();
+            var userNameAdmin = userSnap.username;
+            const activityRef = doc(db, "helperData", "counters");
+            const activitySnap = (await getDoc(activityRef)).data();
+            const activityNew = parseInt(activitySnap.activity) + 1;
+            await updateDoc(activityRef, {
+                activity: activityNew
+            })
+            await setDoc(doc(db, "activityLog", activityNew + " - Log"), {
+                id: activityNew,
+                date: dateTime,
+                userName: userNameAdmin,
+                notes: userNameAdmin + " has created a new account: " + accountName,
+            })
             alert("Account created")
         }
+    }
+    const getCurrDate = () => {
+        var today = new Date();
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+        if (parseInt(today.getHours()) > 12) {
+
+            var hours = "0" + (parseInt(today.getHours()) - 12);
+        } else {
+            var hours = today.getHours();
+        }
+        if (parseInt(today.getMinutes()) < 10) {
+            var minutes = "0" + parseInt(today.getMinutes());
+        } else {
+            var minutes = today.getMinutes();
+        }
+        if (parseInt(today.getSeconds()) < 10) {
+            var seconds = "0" + parseInt(today.getSeconds());
+        } else {
+            var seconds = today.getSeconds();
+        }
+        var time = hours + ":" + minutes + ":" + seconds;
+        var dateTime = date + ' ' + time;
+        return dateTime;
     }
 
     return (

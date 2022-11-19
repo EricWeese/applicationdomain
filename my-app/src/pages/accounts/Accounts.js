@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import AddAccount from './AddAccount';
 import NavBar from '../../components/navbar/Navbar';
 import { useState, useEffect } from "react";
-import { collection, getDocs, addDoc, deleteDoc, doc, Firestore, setDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, deleteDoc, doc, Firestore, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from '../../firebase/config'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -120,11 +120,27 @@ export default function Accounts() {
     }, [])
 
     const deleteAccount = async () => {
-        if(selectedRows[0].balance > 0){
+        if (selectedRows[0].balance > 0) {
             alert("Cannot Deactivate Account because it has a balance greater than 0")
         } else {
             try {
                 await deleteDoc(doc(db, "accounts", selectedRows[0].accountName));
+                var dateTime = getCurrDate();
+                const userRef = doc(db, "helperData", "currentUser");
+                const userSnap = (await getDoc(userRef)).data();
+                var userNameAdmin = userSnap.username;
+                const activityRef = doc(db, "helperData", "counters");
+                const activitySnap = (await getDoc(activityRef)).data();
+                const activityNew = parseInt(activitySnap.activity) + 1;
+                await updateDoc(activityRef, {
+                    activity: activityNew
+                })
+                await setDoc(doc(db, "activityLog", activityNew + " - Log"), {
+                    id: activityNew,
+                    date: dateTime,
+                    userName: userNameAdmin,
+                    notes: userNameAdmin + " has deleted account: " + selectedRows[0].accountName,
+                })
                 alert("Account Deleted");
             } catch (e) {
                 console.log(e);
@@ -159,6 +175,30 @@ export default function Accounts() {
             sort: 'asc',
         },
     ]);
+    const getCurrDate = () => {
+        var today = new Date();
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+        if (parseInt(today.getHours()) > 12) {
+
+            var hours = "0" + (parseInt(today.getHours()) - 12);
+        } else {
+            var hours = today.getHours();
+        }
+        if (parseInt(today.getMinutes()) < 10) {
+            var minutes = "0" + parseInt(today.getMinutes());
+        } else {
+            var minutes = today.getMinutes();
+        }
+        if (parseInt(today.getSeconds()) < 10) {
+            var seconds = "0" + parseInt(today.getSeconds());
+        } else {
+            var seconds = today.getSeconds();
+        }
+        var time = hours + ":" + minutes + ":" + seconds;
+        var dateTime = date + ' ' + time;
+        return dateTime;
+    }
     return (
         <div>
             <NavBar />
