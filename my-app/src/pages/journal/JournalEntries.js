@@ -6,8 +6,8 @@ import Button from 'react-bootstrap/Button';
 import { Modal } from 'react-bootstrap';
 import NavBar from '../../components/navbar/Navbar';
 import { useState, useEffect } from "react";
-import { addDoc, collection, getDocs, getFirestore, getDoc, updateDoc } from "firebase/firestore";
-import { deleteDoc, doc, Firestore, setDoc } from "firebase/firestore";
+import { collection, getDocs, getDoc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, setDoc } from "firebase/firestore";
 import { db } from '../../firebase/config'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -83,22 +83,24 @@ export default function JournalEntries() {
     const getCurrDate = () => {
         var today = new Date();
         var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-
+        var hours;
+        var seconds;
+        var minutes
         if (parseInt(today.getHours()) > 12) {
 
-            var hours = "0" + (parseInt(today.getHours()) - 12);
+            hours = "0" + (parseInt(today.getHours()) - 12);
         } else {
-            var hours = today.getHours();
+            hours = today.getHours();
         }
         if (parseInt(today.getMinutes()) < 10) {
-            var minutes = "0" + parseInt(today.getMinutes());
+            minutes = "0" + parseInt(today.getMinutes());
         } else {
-            var minutes = today.getMinutes();
+            minutes = today.getMinutes();
         }
         if (parseInt(today.getSeconds()) < 10) {
-            var seconds = "0" + parseInt(today.getSeconds());
+            seconds = "0" + parseInt(today.getSeconds());
         } else {
-            var seconds = today.getSeconds();
+            seconds = today.getSeconds();
         }
         var time = hours + ":" + minutes + ":" + seconds;
         var dateTime = date + ' ' + time;
@@ -175,7 +177,7 @@ export default function JournalEntries() {
             })
             alert("Entries Deleted");
             //Adds to all journal entries
-            var dateTime = getCurrDate();
+            dateTime = getCurrDate();
             const allJournalCounterRef = doc(db, "helperData", "counters");
             const allJournalCounterSnap = (await getDoc(allJournalCounterRef)).data();
             const allJournalCounterNew = parseInt(allJournalCounterSnap.allJournal) + 1;
@@ -282,4 +284,3 @@ export default function JournalEntries() {
         </div>
     )
 }
-

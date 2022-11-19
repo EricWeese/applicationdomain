@@ -129,7 +129,6 @@ export default function AddAccount() {
             <Form.Control
                 type="file"
                 placeholder="Upload File"
-                required
                 onChange={(e) => setFile(e.target.files[0])}
             />
             <br></br>

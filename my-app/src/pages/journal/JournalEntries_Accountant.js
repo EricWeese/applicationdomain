@@ -4,10 +4,10 @@ import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import Button from 'react-bootstrap/Button';
 import { Modal } from 'react-bootstrap';
-import NavBar from '../../components/navbar/Navbar';
+import NavBar from '../../components/navbar/AccountantNavbar';
 import { useState, useEffect } from "react";
-import { collection, getDocs, getDoc, updateDoc } from "firebase/firestore";
-import { deleteDoc, doc, setDoc } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { db } from '../../firebase/config'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -37,7 +37,7 @@ export default function JournalEntries() {
             width: 120
         },
         {
-            field: 'dateCreated',
+            field: 'date',
             headerName: 'Date',
             width: 250
         },
@@ -80,15 +80,41 @@ export default function JournalEntries() {
 
 
     ];
-    const submitData = () => {
+    const getCurrDate = () => {
+        var today = new Date();
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        var hours;
+        var seconds;
+        var minutes
+        if (parseInt(today.getHours()) > 12) {
 
+            hours = "0" + (parseInt(today.getHours()) - 12);
+        } else {
+            hours = today.getHours();
+        }
+        if (parseInt(today.getMinutes()) < 10) {
+            minutes = "0" + parseInt(today.getMinutes());
+        } else {
+            minutes = today.getMinutes();
+        }
+        if (parseInt(today.getSeconds()) < 10) {
+            seconds = "0" + parseInt(today.getSeconds());
+        } else {
+            seconds = today.getSeconds();
+        }
+        var time = hours + ":" + minutes + ":" + seconds;
+        var dateTime = date + ' ' + time;
+        return dateTime;
     }
     const setData = async () => {
-        const dateCreated = new Date();
+        var today = new Date();
+        var date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
+        var time = today.getHours() + ":" + today.getMinutes();
+        var dateTime = date + ' ' + time;
         //Debit Entry
         await setDoc(doc(db, "journalEntries", "debit" + rows[1].debit), {
             id: rows[1].numTransactions + ".Debit",
-            dateCreated: dateCreated.toDateString(),
+            date: dateTime,
             accountName: rows[1].accountName,
             debit: rows[1].debit,
             credit: 0.0,
@@ -97,7 +123,7 @@ export default function JournalEntries() {
         //Credit Entry
         await setDoc(doc(db, "journalEntries", "credit" + rows[0].credit), {
             id: rows[0].numTransactions + ".Credit",
-            dateCreated: dateCreated.toDateString(),
+            date: dateTime,
             accountName: rows[0].accountName,
             debit: 0.0,
             credit: rows[0].credit,
@@ -116,30 +142,7 @@ export default function JournalEntries() {
     useEffect(() => {
         getData();
     }, [])
-    const deleteEntries = async () => {
-        try {
-            const account1Ref = doc(db, "accounts", selectedRows[0].accountName);
-            const account1Snap = (await getDoc(account1Ref)).data();
-            const account1Balance = parseInt(account1Snap.balance);
 
-            const account2Ref = doc(db, "accounts", selectedRows[1].accountName);
-            const account2Snap = (await getDoc(account2Ref)).data();
-            const account2Balance = parseInt(account2Snap.balance);
-
-
-            await updateDoc(doc(db, 'accounts', selectedRows[0].accountName), {
-                balance: account1Balance - parseInt(selectedRows[0].credit) - parseInt(selectedRows[0].debit)
-            })
-            await updateDoc(doc(db, 'accounts', selectedRows[1].accountName), {
-                balance: account2Balance - parseInt(selectedRows[1].credit) - parseInt(selectedRows[1].debit)
-            })
-            await deleteDoc(doc(db, "journalEntries", "credit" + selectedRows[0].credit));
-            await deleteDoc(doc(db, "journalEntries", "debit" + selectedRows[1].debit));
-            alert("Entries Deleted");
-        } catch (e) {
-            console.log(e);
-        }
-    }
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             Click this to add a journal entry
@@ -149,7 +152,10 @@ export default function JournalEntries() {
     const handleShow = () => setShow(true)
     const handleClose = () => setShow(false)
     const viewPending = () => {
-        navigate('/PendingJournalEntries')
+        navigate('/PendingJournalEntriesAccountants')
+    }
+    const viewAll = () => {
+        navigate('/AllJournalEntries')
     }
     const onRowsSelectionHandler = (ids) => {
         try {
@@ -160,13 +166,14 @@ export default function JournalEntries() {
     };
     const [sortModel, setSortModel] = React.useState([
         {
-            field: 'id',
-            sort: 'asc',
+            field: 'date',
+            sort: 'desc',
         },
     ]);
     return (
         <div>
             <NavBar />
+            <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Journal Entries</h1>
             <Button onClick={getData}>Refresh</Button>
             <Box sx={{ height: 600, width: '100%' }}>
                 <DataGrid
@@ -190,8 +197,8 @@ export default function JournalEntries() {
             >
                 <Button onClick={handleShow} variant="outline-primary">Add New Journal Entry</Button>
             </OverlayTrigger>
-            <Button onClick={deleteEntries} variant="outline-primary">Delete Journal Entries</Button>
             <Button onClick={viewPending} variant="outline-primary">View Pending Journal Entries</Button>
+            <Button onClick={viewAll} variant="primary">View All Journal Entries</Button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>
