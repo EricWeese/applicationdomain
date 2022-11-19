@@ -120,11 +120,15 @@ export default function Accounts() {
     }, [])
 
     const deleteAccount = async () => {
-        try {
-            await deleteDoc(doc(db, "accounts", selectedRows[0].accountName));
-            alert("Account Deleted");
-        } catch (e) {
-            console.log(e);
+        if(selectedRows[0].balance > 0){
+            alert("Cannot Deactivate Account because it has a balance greater than 0")
+        } else {
+            try {
+                await deleteDoc(doc(db, "accounts", selectedRows[0].accountName));
+                alert("Account Deleted");
+            } catch (e) {
+                console.log(e);
+            }
         }
     }
 
@@ -209,5 +213,3 @@ export default function Accounts() {
         </div >
     );
 }
-
-

@@ -1,10 +1,12 @@
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db, auth } from '../../firebase/config'
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Link } from "react-router-dom";
+
+export var userName = []
 
 export default function Login() {
     const [email, getEmail] = useState('')
@@ -23,7 +25,6 @@ export default function Login() {
             console.log(e);
         }
     }
-
     useEffect(() => {
         fetchUsers()
     }, [])
@@ -37,8 +38,9 @@ export default function Login() {
                 // Done
                 alert('User Logged In!!')
                 for (var i = 0; i < userData.length; i++) {
-                    if (userData[i].email == email) {
+                    if (userData[i].email === email) {
                         userRole = userData[i].role;
+                        userName = userData[i]
                     }
                 }
                 if (userRole === "Admin") {
