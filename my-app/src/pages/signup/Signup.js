@@ -3,7 +3,7 @@ import { db, auth } from '../../firebase/config'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
+import { Col, Button, Row, Container, Card, Form, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import DatePicker from "react-date-picker";
 import { validate_email, validate_password, password_match } from "../../functions"
@@ -16,6 +16,7 @@ export default function Signup() {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [DOB, setDOB] = useState(new Date())
+    const [errorMess, setErrorMess] = useState('')
     const navigate = useNavigate()
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -40,7 +41,7 @@ export default function Signup() {
                         // Firebase will use this to alert of its errors
                         var error_message = error.message
 
-                        alert(error_message)
+                        setErrorMess(error_message)
                     })
             }
             catch (error) {
@@ -120,6 +121,9 @@ export default function Signup() {
                                                 <Form.Control onChange={(e) => setConPassword(e.target.value)} value={conPassword}
                                                     type="password" placeholder="Confirm Password" />
                                             </Form.Group>
+                                            {errorMess && (
+                                                <Alert variant="danger"> {errorMess}</Alert>
+                                            )}
                                             <div className="d-grid">
                                                 <Button onClick={handleSubmit} variant="primary">
                                                     Sign Up

@@ -1,4 +1,4 @@
-import { Form, Button } from "react-bootstrap"
+import { Form, Button, Alert } from "react-bootstrap"
 import { collection, getDocs, addDoc, deleteDoc, doc, Firestore, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { db } from '../../firebase/config'
@@ -7,11 +7,12 @@ import { creditId, debitId } from './PendingJournalEntries';
 export default function AddJournalEntry() {
     var data;
     const [notes, setNotes] = useState('');
+    const [errorMess, setErrorMess] = useState('')
     const handleSubmit = (e) => {
         e.preventDefault();
         setData();
         deleteEntry();
-        alert("Entries Rejected");
+        setErrorMess("Entries Rejected");
     }
 
 
@@ -22,7 +23,6 @@ export default function AddJournalEntry() {
         const creditData = (await getDoc(creditRef)).data();
         console.log(creditData);
         const debitRef = doc(db, "pendingJournalEntries", debitId);
-
 
         await updateDoc(creditRef, {
             reason: notes
@@ -126,6 +126,9 @@ export default function AddJournalEntry() {
                 />
             </Form.Group>
             <br></br>
+            {errorMess && (
+                <Alert variant="danger"> {errorMess}</Alert>
+            )}
             <Button variant="success" type="submit" block>
                 Reject Entry
             </Button>

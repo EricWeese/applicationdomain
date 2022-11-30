@@ -1,4 +1,4 @@
-import { Form, Button } from "react-bootstrap"
+import { Form, Button, Alert } from "react-bootstrap"
 import { useState } from "react";
 import { collection, getDocs, addDoc, deleteDoc, doc, Firestore, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage"
@@ -12,6 +12,7 @@ export default function AddAccount() {
     const [statement, setStatementName] = useState('');
     const [id, setId] = useState('');
     const [file, setFile] = useState('');
+    const [errorMess, setErrorMess] = useState('')
     const ids = Array(1000, 1010, 1020, 1030, 1040, 1050, 2000, 2010, 3000, 3010, 4000, 5000, 5010, 5020, 5030, 5040);
     const handleSubmit = (e) => {
         console.log(newRows);
@@ -33,7 +34,7 @@ export default function AddAccount() {
     const setData = async () => {
         console.log(id);
         if (ids.includes(id)) {
-            alert("ID is already taken");
+            setErrorMess("ID is already taken");
         }
         else {
             const dateCreated = new Date();
@@ -131,6 +132,9 @@ export default function AddAccount() {
                 onChange={(e) => setFile(e.target.files[0])}
             />
             <br></br>
+            {errorMess && (
+                <Alert variant="danger"> {errorMess}</Alert>
+            )}
             <Button variant="success" type="submit" block>
                 Add New Account
             </Button>

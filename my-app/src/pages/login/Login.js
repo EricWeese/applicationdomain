@@ -126,9 +126,6 @@ export default function Login() {
                                                     Email address
                                                 </Form.Label>
                                                 <Form.Control onChange={(e) => getEmail(e.target.value)} value={email} type="email" placeholder="Enter email" />
-                                                {errorMess && (
-                                                    <Alert variant="danger"> {errorMess}</Alert>
-                                                )}
                                             </Form.Group>
 
                                             <Form.Group
@@ -137,9 +134,6 @@ export default function Login() {
                                             >
                                                 <Form.Label>Password</Form.Label>
                                                 <Form.Control onChange={(e) => getPassword(e.target.value)} value={password} type="password" placeholder="Password" />
-                                                {errorMess && (
-                                                    <Alert variant="danger"> {errorMess}</Alert>
-                                                )}
                                             </Form.Group>
                                             <Form.Group
                                                 className="mb-3"
@@ -151,6 +145,9 @@ export default function Login() {
                                                     </Link>
                                                 </p>
                                             </Form.Group>
+                                            {errorMess && (
+                                                <Alert variant="danger"> {errorMess}</Alert>
+                                            )}
                                             <div className="d-grid">
                                                 <Button onClick={handleSubmit} variant="primary">
                                                     Login

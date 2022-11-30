@@ -150,9 +150,6 @@ export default function AddJournalEntry() {
                     value={debitAmount}
                     onChange={(e) => setDebitAmount(e.target.value)}
                 />
-                {debitAccount !== creditAccount && (
-                    <Alert variant="danger"> {errorMess}</Alert>
-                )}
             </Form.Group>
             <br></br><br></br>
             <h3>Credit Account</h3>
@@ -184,9 +181,6 @@ export default function AddJournalEntry() {
                     value={creditAmount}
                     onChange={(e) => setCreditAmount(e.target.value)}
                 />
-                {debitAccount !== creditAccount && (
-                    <Alert variant="danger"> {errorMess}</Alert>
-                )}
             </Form.Group>
             <br></br>
             <Form.Group>
@@ -199,6 +193,9 @@ export default function AddJournalEntry() {
                 />
             </Form.Group>
             <br></br>
+            {debitAccount !== creditAccount && (
+                <Alert variant="danger"> {errorMess}</Alert>
+            )}
             <Button variant="success" type="submit" block>
                 Add New Journal Entry
             </Button>
