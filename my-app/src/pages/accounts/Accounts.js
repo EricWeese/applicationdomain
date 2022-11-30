@@ -12,6 +12,7 @@ import { collection, getDocs, addDoc, deleteDoc, doc, Firestore, setDoc, getDoc,
 import { db } from '../../firebase/config'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import { CSVLink } from 'react-csv'
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -195,7 +196,7 @@ export default function Accounts() {
             </OverlayTrigger>
             <Button onClick={deleteAccount} variant="outline-primary">Delete Account</Button>
             <Button onClick={changePage} variant="outline-primary">View Journal Entries</Button>
-
+            <CSVLink data={updatedRows} filename="Accounts" variant="outline-primary">Export Data</CSVLink>
             <Modal show={show} onHide={handleClose}>
 
                 <Modal.Header closeButton>

@@ -12,6 +12,7 @@ import Box from '@mui/material/Box';
 import UpdateUser from './UpdateUser'
 import CreateUser from './CreateUsers'
 import SendEmail from './SendEmail'
+import { CSVLink } from 'react-csv'
 
 //Array of columns for the table
 const columns = [
@@ -130,7 +131,7 @@ export default function Users() {
             </OverlayTrigger>
             <Button onClick={checkUserId} variant="outline-primary">Update User</Button>
             <Button onClick={checkEmail} variant="outline-primary">Send Email To User</Button>
-            <Button onClick={startDownload} variant="outline-primary">Generate Report</Button>
+            <CSVLink data={userTable} filename="Accounts" variant="outline-primary">Export Data</CSVLink>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>
