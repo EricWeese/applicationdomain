@@ -88,7 +88,7 @@ export default function JournalEntries() {
         var minutes
         if (parseInt(today.getHours()) > 12) {
 
-            hours = "0" + (parseInt(today.getHours()) - 12);
+            hours = (parseInt(today.getHours()));
         } else {
             hours = today.getHours();
         }

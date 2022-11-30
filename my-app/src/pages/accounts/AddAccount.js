@@ -70,7 +70,7 @@ export default function AddAccount() {
 
         if (parseInt(today.getHours()) > 12) {
 
-            var hours = "0" + (parseInt(today.getHours()) - 12);
+            var hours = (parseInt(today.getHours()));
         } else {
             var hours = today.getHours();
         }

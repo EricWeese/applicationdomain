@@ -30,7 +30,7 @@ export default function AddJournalEntry() {
 
         if (parseInt(today.getHours()) > 12) {
 
-            var hours = "0" + (parseInt(today.getHours()) - 12);
+            var hours = (parseInt(today.getHours()));
         } else {
             var hours = today.getHours();
         }
@@ -151,7 +151,7 @@ export default function AddJournalEntry() {
                     value={debitAmount}
                     onChange={(e) => setDebitAmount(e.target.value)}
                 />
-                { debitAccount !== creditAccount && (
+                {debitAccount !== creditAccount && (
                     <Alert variant="danger"> {errorMess}</Alert>
                 )}
             </Form.Group>
@@ -185,7 +185,7 @@ export default function AddJournalEntry() {
                     value={creditAmount}
                     onChange={(e) => setCreditAmount(e.target.value)}
                 />
-                { debitAccount !== creditAccount && (
+                {debitAccount !== creditAccount && (
                     <Alert variant="danger"> {errorMess}</Alert>
                 )}
             </Form.Group>
