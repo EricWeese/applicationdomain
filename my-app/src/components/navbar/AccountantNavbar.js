@@ -35,13 +35,13 @@ export default function NavBar() {
 
   return (
     <div>
-      <Navbar bg="secondary" variant="dark" >
+      <Navbar bg="primary" variant="dark" >
         <Container>
           <Navbar.Brand href="/"> <img src="../../assets/favicon.ico" alt="" width="30" height="24" /></Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/AccountsAccountants">Accounts</Nav.Link>
             <Nav.Link href="/JournalEntriesAccountants">Journal Entries</Nav.Link>
-            <Nav.Link href="/ActivityLog">Activity Log</Nav.Link>
+            <Nav.Link href="/ActivityLogAccountants">Activity Log</Nav.Link>
           </Nav>
         </Container>
         <Navbar.Text>
