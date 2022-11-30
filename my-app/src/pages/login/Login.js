@@ -50,9 +50,9 @@ export default function Login() {
                 if (userRole === "Admin") {
                     navigate('/Accounts');
                 } else if (userRole === "Manager") {
-                    navigate('/AccountsManager')
+                    navigate('/AccountsManagers')
                 } else {
-                    navigate('/AccountsAccountant')
+                    navigate('/AccountsAccountants')
                 }
                 alert('User Logged In!!')
             })
@@ -89,7 +89,7 @@ export default function Login() {
 
         if (parseInt(today.getHours()) > 12) {
 
-            var hours = "0" + (parseInt(today.getHours()) - 12);
+            var hours = (parseInt(today.getHours()));
         } else {
             var hours = today.getHours();
         }
