@@ -21,6 +21,7 @@ import PendingJournalEntries from './pages/journal/PendingJournalEntries'
 import PendingJournalEntriesAccountant from './pages/journal/PendingJournalEntriesAccountant'
 import PendingJournalEntriesManager from './pages/journal/PendingJournalEntriesManager'
 import AllJournalEntries from './pages/journal/AllJournalEntries'
+import ActivityLogAccountants from './pages/acitivtylog/ActivityLog_Accountant'
 import ActivityLog from './pages/acitivtylog/ActivityLog'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
@@ -39,8 +40,8 @@ root.render(
       <Route path="/Login" element={<Login />} />
       <Route path="/ForgotPassword" element={<ForgotPassword />} />
       <Route path="/Accounts" element={<Accounts />} />
-      <Route path="/AccountsAccountant" element={<AccountsAccountant />} />
-      <Route path="/AccountsManager" element={<AccountsManager />} />
+      <Route path="/AccountsAccountants" element={<AccountsAccountant />} />
+      <Route path="/AccountsManagers" element={<AccountsManager />} />
       <Route path="/Users" element={<Users />} />
       <Route path="/Cash" element={<Cash />} />
       <Route path="/Accounts Receivable" element={<AccountsReceivable />} />
@@ -50,13 +51,14 @@ root.render(
       <Route path="/Lab Equipment" element={<LabEquipment />} />
       <Route path="/Real Estate" element={<RealEstate />} />
       <Route path="/JournalEntries" element={<JournalEntries />} />
-      <Route path="/JournalEntriesAccountant" element={<JournalEntriesAccountants />} />
-      <Route path="/JournalEntriesManager" element={<JournalEntriesManagers />} />
+      <Route path="/JournalEntriesAccountants" element={<JournalEntriesAccountants />} />
+      <Route path="/JournalEntriesManagers" element={<JournalEntriesManagers />} />
       <Route path="/PendingJournalEntries" element={<PendingJournalEntries />} />
-      <Route path="/PendingJournalEntriesAccountant" element={<PendingJournalEntriesAccountant />} />
-      <Route path="/PendingJournalEntriesManager" element={<PendingJournalEntriesManager />} />
+      <Route path="/PendingJournalEntriesAccountants" element={<PendingJournalEntriesAccountant />} />
+      <Route path="/PendingJournalEntriesManagers" element={<PendingJournalEntriesManager />} />
       <Route path="/AllJournalEntries" element={<AllJournalEntries />} />
       <Route path="/ActivityLog" element={<ActivityLog />} />
+      <Route path="/ActivityLogAccountants" element={<ActivityLogAccountants />} />
 
     </Routes>
   </BrowserRouter>
