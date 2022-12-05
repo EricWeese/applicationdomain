@@ -37,7 +37,7 @@ export default function NavBar() {
     <div>
       <Navbar bg="primary" variant="dark" >
         <Container>
-        <Navbar.Brand href="/Accounts"> Ez Books</Navbar.Brand>
+          <Navbar.Brand href="/LandingPage"> Ez Books</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/Accounts">Accounts</Nav.Link>
             <Nav.Link href="/Users">Users</Nav.Link>

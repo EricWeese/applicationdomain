@@ -48,11 +48,11 @@ export default function Login() {
                 updateActivity(userName);
 
                 if (userRole === "Admin") {
-                    navigate('/Accounts');
+                    navigate('/LandingPage');
                 } else if (userRole === "Manager") {
-                    navigate('/AccountsManagers')
+                    navigate('/LandingPageManager')
                 } else {
-                    navigate('/AccountsAccountants')
+                    navigate('/LandingPageAccountant')
                 }
                 alert('User Logged In!!')
             })

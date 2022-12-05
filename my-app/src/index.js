@@ -24,6 +24,8 @@ import AllJournalEntries from './pages/journal/AllJournalEntries'
 import ActivityLogAccountants from './pages/acitivtylog/ActivityLog_Accountant'
 import ActivityLog from './pages/acitivtylog/ActivityLog'
 import LandingPage from './pages/landingpage/LandingPage'
+import LandingPageAccountant from './pages/landingpage/LandingPage_Accountant'
+import LandingPageManager from './pages/landingpage/LandingPage_Manager'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -61,6 +63,8 @@ root.render(
       <Route path="/ActivityLog" element={<ActivityLog />} />
       <Route path="/ActivityLogAccountants" element={<ActivityLogAccountants />} />
       <Route path="/LandingPage" element={<LandingPage />} />
+      <Route path="/LandingPageAccountant" element={<LandingPageAccountant />} />
+      <Route path="/LandingPageManager" element={<LandingPageManager />} />
 
     </Routes>
   </BrowserRouter>

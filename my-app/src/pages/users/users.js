@@ -131,7 +131,7 @@ export default function Users() {
             </OverlayTrigger>
             <Button onClick={checkUserId} variant="outline-primary">Update User</Button>
             <Button onClick={checkEmail} variant="outline-primary">Send Email To User</Button>
-            <CSVLink data={userTable} filename="Accounts" variant="outline-primary">Export Data</CSVLink>
+            <CSVLink data={userTable} filename="Users" variant="outline-primary">Export Data</CSVLink>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>
